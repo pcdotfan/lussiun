@@ -28,4 +28,5 @@ Route.group(() => {
   Route.get('logout', 'AuthController.logout')
   Route.resource('user', 'UserController')
   Route.on('backend').render('backend.home')
+  Route.on('backend/blog').render('backend.blog')
 }).middleware(['auth'])

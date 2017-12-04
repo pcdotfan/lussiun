@@ -62,7 +62,7 @@ class AuthController {
 
     try {
       await auth.attempt(email, password)
-      return response.redirect('/')
+      return response.redirect('/backend')
     } catch (e) {
       session.flash({ error: 'We cannot find any account with these credentials.' })
       return response.redirect('back')

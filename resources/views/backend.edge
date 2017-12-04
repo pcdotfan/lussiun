@@ -12,28 +12,53 @@
   <div id="app">
     <header id="header" class="uk-margin">
       <div class="backend-header uk-card uk-card-primary">
-        <div class="header-bar">
-          控制面板
-        </div>
-        <nav class="navbar uk-navbar-container uk-navbar-transparent uk-position-bottom" uk-navbar="mode: click">
-          <div class="uk-navbar-left">
-            <ul class="uk-navbar-nav">
-              <li class="uk-active"><a href="#">Active</a></li>
-              <li>
-                <a href="#">Parent</a>
-                <div class="uk-navbar-dropdown">
-                  <ul class="uk-nav uk-navbar-dropdown-nav">
-                    <li class="uk-active"><a href="#">Active</a></li>
-                    <li><a href="#">Item</a></li>
-                    <li><a href="#">Item</a></li>
-                  </ul>
+        <div class="uk-container">
+          <div class="headerbar-primary uk-flex uk-flex-between uk-flex-middle">
+            <div class="left uk-flex">
+              <a class="drop uk-flex uk-flex-middle">
+                <i class="pointer" uk-icon="icon: table"></i>
+                <h2 class="heading uk-display-inline">控制面板</h2>
+              </a>
+              <div class="uk-width-large" uk-drop="mode: click">
+                <div class="uk-card uk-card-body uk-card-default">
+                    <div class="uk-drop-grid uk-child-width-1-2@m" uk-grid>
+                        <div>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+                        </div>
+                        <div>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+                        </div>
+                    </div>
                 </div>
-              </li>
-              <li><a href="#">Item</a></li>
-            </ul>
+            </div>
+            </div>
+            <div class="right">
+              <ul class="uk-grid uk-grid-small uk-flex-middle">
+                <li><a uk-icon="icon: home" target="_blank" href="/index.php/" title="访问站点"></a></li>
+                <li><a uk-icon="icon: sign-out" href="/index.php/user/logout?redirect=admin/login" title="登出"></a></li>
+                <li class="uk-margin-small-left"><a href="/index.php/admin/user/edit?id=1" title="Profile"><img class="uk-border-circle uk-margin-small-right" height="32" width="32" title="wwy701" src="https://avatars1.githubusercontent.com/u/3370745?s=460&v=4"> <span>wwy701</span></a></li>
+              </ul>
+            </div>
           </div>
-        </nav>
-      </div>
+          <nav class="navbar uk-navbar-container uk-navbar-transparent" uk-navbar="mode: click">
+            <div class="uk-navbar-left">
+              <ul class="uk-navbar-nav">
+                <li class="uk-active"><a href="#">Active</a></li>
+                <li>
+                  <a href="#">Parent</a>
+                  <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                      <li class="uk-active"><a href="#">Active</a></li>
+                      <li><a href="#">Item</a></li>
+                      <li><a href="#">Item</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li><a href="#">Item</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
     </header>
     <main class="tm-main uk-container uk-container-center">
       @!section('content')
@@ -90,8 +115,8 @@
         </ul>
       </div>
     </div>
-  </div>
-  {{ script('js/app') }}
+    </div>
+    {{ script('js/app') }}
 </body>
 
 </html>

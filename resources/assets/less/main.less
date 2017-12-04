@@ -15,8 +15,39 @@
 
 .backend-header {
   min-height: 140px;
+  .left {
+    position: relative;
+    min-height: 120px;
+    .drop {
+      position: relative;
+      min-width: 200px;
+      left: -28px;
+      &:hover {
+        .pointer {
+          opacity: 1;
+        }
+      }
+      .pointer {
+        opacity: .6;
+        -webkit-transition: opacity .1s linear;
+        transition: opacity .1s linear;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+    .uk-open > .pointer {
+      opacity: 1;
+    }
+  }
+
+  .heading {
+    margin: 0;
+    padding-left: 20px;
+  }
 
   .navbar {
+    margin-top: -20px;
     li {
       position: relative;
     }
@@ -34,5 +65,18 @@
         bottom: 0;
         border-bottom: 2px solid #f0f657;
     }
+  }
+}
+
+.auth-background {
+    background: #74b3e7 url(/images/background.jpg) 50% 50% no-repeat;
+    background-size: cover;
+}
+
+.auth-card {
+  min-width: 350px;
+
+  .uk-card-body {
+    padding: 50px;
   }
 }

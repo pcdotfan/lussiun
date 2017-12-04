@@ -1,36 +1,35 @@
-@layout('master')
+@layout('auth')
 @section('content')
-<div class="uk-flex uk-margin">
-  @if(old('errors'))
-  <div uk-alert>
-      <a class="uk-alert-close" uk-close></a>
-      <h3>错误</h3>
-      <ul class="uk-list">
-        @each(error in old('errors'))
-          <li>{{ error }}</li>
-      @endeach
-      </ul>
-  </div>
-  @endif
-  <div class="uk-margin-auto uk-margin-auto-vertical uk-width-1-2@s uk-card uk-card-default">
-    <div class="uk-card-header">
-      <h3>登录</h3>
+<div class="uk-height-viewport uk-flex uk-flex-center uk-flex-middle uk-text-center">
+  <div class="tm-container tm-container-small">
+    <div class="uk-flex uk-margin">
+      @if(old('errors'))
+        <div uk-alert>
+          <a class="uk-alert-close" uk-close></a>
+          <h3>错误</h3>
+          <ul class="uk-list">
+            @each(error in old('errors'))
+            <li>{{ error }}</li>
+            @endeach
+          </ul>
+        </div>
+      @endif
     </div>
-    <div class="uk-card-body">
-      <div class="login-form block-form form-show">
-        <form method="POST" action="/login" accept-charset="UTF-8" role="form">
+    <div class="auth-card uk-card uk-card-default">
+      <form method="POST" action="/login" accept-charset="UTF-8" role="form">
           {{ csrfField() }}
-          <p class="uk-form-controls">
-            <input id="email" placeholder="请输入常用邮箱" required="required" name="email" type="email" class="uk-input" value="{{ old('email', '') }}">
-          </p>
-          <p class="uk-form-controls">
-            <input id="password" placeholder="请输入密码" required="required" name="password" type="password" value="" class="uk-input">
-          </p>
+          <div class="uk-card-body">
+            <p class="uk-form-controls">
+              <input id="email" placeholder="请输入邮箱" required="required" name="email" type="email" class="uk-input uk-form-large" value="{{ old('email', '') }}">
+            </p>
+            <p class="uk-form-controls">
+              <input id="password" placeholder="请输入密码" required="required" name="password" type="password" value="" class="uk-input uk-form-large">
+            </p>
+          </div>
           <p class="uk-form-controls">
             <input type="submit" value="登录" class="uk-button uk-button-primary uk-button-large uk-width-1-1">
           </p>
-        </form>
-      </div>
+      </form>
     </div>
   </div>
 </div>

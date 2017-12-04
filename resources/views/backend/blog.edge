@@ -1,0 +1,89 @@
+@layout('backend')
+@section('content')
+<div id="blog">
+  <main class="tm-main uk-container uk-container-center">
+    <div id="post" class="uk-form">
+      <div class="uk-margin uk-flex uk-flex-between uk-flex-wrap">
+        <div class="uk-flex uk-flex-middle uk-flex-wrap">
+          <h2 class="uk-margin-remove">1 篇文章</h2>
+          <div class="pk-search">
+            <div class="uk-search">
+              <input class="uk-search-field" type="text">
+            </div>
+          </div>
+        </div>
+        <div>
+          <a class="uk-button uk-button-primary" href="/index.php/admin/blog/post/edit">添加文章</a>
+        </div>
+      </div>
+      <div class="uk-overflow-container">
+        <table class="uk-table uk-table-hover uk-table-middle">
+          <thead>
+            <tr>
+              <th class="pk-table-width-minimum">
+                <input type="checkbox" number="">
+              </th>
+              <th class="pk-table-min-width-200 pk-table-order uk-visible-hover-inline">标题<i class="uk-icon-justify uk-margin-small-left pk-icon-arrow-down uk-invisible"></i></th>
+              <th class="pk-table-width-100 uk-text-center">
+                <div class="uk-form-select pk-filter"> <span>状态</span>
+                  <select>
+                    <option value="">状态</option>
+                    <optgroup label="过滤自">
+                      <option value="0">草稿</option>
+                      <option value="1">等待审核</option>
+                      <option value="2">已发布</option>
+                      <option value="3">已取消发布</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </th>
+              <th class="pk-table-width-100">
+                <div class="uk-form-select pk-filter"> <span>作者</span>
+                  <select>
+                    <option value="">作者</option>
+                    <optgroup label="过滤自">
+                      <option value="1">wwy701</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </th>
+              <th class="pk-table-width-100 uk-text-center pk-table-order uk-visible-hover-inline">评论<i class="uk-icon-justify uk-margin-small-left pk-icon-arrow-down uk-invisible"></i></th>
+              <th class="pk-table-width-100 pk-table-order uk-visible-hover-inline uk-active">日期<i class="uk-icon-justify uk-margin-small-left pk-icon-arrow-up"></i></th>
+              <th class="pk-table-width-200 pk-table-min-width-200">URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="check-item">
+              <td>
+                <input type="checkbox" name="id" value="1">
+              </td>
+              <td>
+                <a href="/index.php/admin/blog/post/edit?id=1">Hello Pagekit</a>
+              </td>
+              <td class="uk-text-center">
+                <a class="pk-icon-circle-success" title="已发布"></a>
+              </td>
+              <td>
+                <a href="/index.php/admin/user/edit?id=1">wwy701</a>
+              </td>
+              <td class="uk-text-center">
+                <a class="uk-text-nowrap pk-link-icon" data-uk-tooltip="" href="/index.php/admin/blog/comment?post=1" title="No pending"><i class="pk-icon-comment uk-margin-small-right"></i> 0</a>
+              </td>
+              <td>
+                2017年12月4日
+              </td>
+              <td class="pk-table-text-break">
+                <a target="_blank" href="/index.php/blog/1">/blog/1</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="uk-h1 uk-text-muted uk-text-center" style="display: none;">没有找到文章。</h3>
+      <ul class="uk-pagination" style="display: none;">
+        <li class="uk-active"><span>1</span></li>
+      </ul>
+    </div>
+  </main>
+</div>
+@endsection
