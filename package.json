@@ -35,7 +35,8 @@
     "lucid-mongo": "^2.0.15",
     "mysql": "^2.15.0",
     "uikit": "^3.0.0-beta.35",
-    "vue": "^2.5.8"
+    "vue": "^2.5.9",
+    "vue-simplemde": "^0.4.6"
   },
   "devDependencies": {
     "browser-sync": "^2.18.13",

@@ -29,4 +29,5 @@ Route.group(() => {
   Route.resource('user', 'UserController')
   Route.on('backend').render('backend.home')
   Route.on('backend/blog').render('backend.blog')
+  Route.on('backend/blog/edit').render('backend.postedit')
 }).middleware(['auth'])
