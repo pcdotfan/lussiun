@@ -13,3 +13,26 @@
 
 // Main
 
+.backend-header {
+  min-height: 140px;
+
+  .navbar {
+    li {
+      position: relative;
+    }
+    li a {
+      border-left: 0;
+      height: 48px;
+      margin: 0;
+      padding: 0 24px;
+    }
+    .uk-active:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-bottom: 2px solid #f0f657;
+    }
+  }
+}

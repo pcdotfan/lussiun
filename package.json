@@ -38,6 +38,8 @@
     "vue": "^2.5.8"
   },
   "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "browser-sync-webpack-plugin": "^1.2.0",
     "less": "^2.7.3",
     "less-loader": "^4.0.5"
   },

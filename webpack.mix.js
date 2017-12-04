@@ -1,5 +1,9 @@
 let mix = require('laravel-mix');
 
+mix.browserSync({
+    proxy: '127.0.0.1:3333'
+})
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
