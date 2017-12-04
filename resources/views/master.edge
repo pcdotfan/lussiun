@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> {{ css('css/main') }}
+  <title>Lussiun</title>
+</head>
+
+<body>
+  <div id="app">
+    <header class="uk-card-default">
+      <nav class="uk-navbar-container uk-navbar-transparent uk-margin" uk-navbar>
+        <div class="uk-navbar-left">
+          <a class="uk-navbar-item uk-logo" href="#">Logo</a>
+          <ul class="uk-navbar-nav">
+            <li>
+              <a href="#">
+                            <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
+                            Features
+                        </a>
+            </li>
+          </ul>
+          <div class="uk-navbar-item">
+            <div>Some <a href="#">Link</a></div>
+          </div>
+          <div class="uk-navbar-item">
+            <form action="javascript:void(0)">
+              <input class="uk-input uk-form-width-small" type="text" placeholder="Input">
+              <button class="uk-button uk-button-default">Button</button>
+            </form>
+          </div>
+        </div>
+        <div class="uk-navbar-right">
+          <ul class="uk-navbar-nav">
+            <!-- Authentication Links -->
+            @if(!authUser)
+              <li><a href="/login">登录</a></li>
+              <li><a href="/register">注册</a></li>
+            @else
+              <li>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                <span class="navbar-user">Hi, </span>
+              </a>
+                <div class="pk-width-dropdown" uk-dropdown>
+                  <ul class="user-dropdown uk-nav uk-navbar-dropdown-nav">
+                    <li>
+                      <a href="https://www.codecasts.com/user/profile"><i class="material-icons">perm_identity</i> 个人资料</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            @endif
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="uk-container">
+        @!section('content')
+      </div>
+    </main>
+  </div>
+  {{ script('js/app') }}
+</body>
+
+</html>

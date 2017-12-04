@@ -1,0 +1,91 @@
+@layout('backend')
+@section('content')
+<div id="dashboard">
+  <ul class="uk-grid-medium" uk-grid uk-sortable="handle: .uk-sortable-handle">
+    <li class="uk-width-1-3">
+      <div class="uk-card uk-card-default uk-card-body uk-visible-hover-inline">
+        <div class="uk-card-badge">
+          <ul class="uk-subnav">
+            <li>
+              <a class="pk-icon-edit pk-icon-hover uk-hidden" data-uk-tooltip="{delay: 500}" title="Edit"></a>
+            </li>
+            <li>
+              <a class="pk-icon-handle pk-icon-hover uk-hidden uk-sortable-handle" data-uk-tooltip="{delay: 500}" title="Drag"><i  uk-icon="icon: table" ></i></a>
+            </li>
+            <li style="display: none;"> <a class="pk-icon-delete pk-icon-hover" uk-tooltip="delay: 500" title="Delete"></a> </li>
+            <li style="display: none;"> <a class="pk-icon-check pk-icon-hover"  uk-tooltip="delay: 500" title="关闭"></a> </li>
+          </ul>
+        </div>
+          <div class="uk-text-large">1</div>
+          <h3 class="uk-card-title">注册用户</h3>
+      </div>
+    </li>
+    <li class="uk-width-1-3">
+      <div class="uk-card uk-card-default uk-card-body uk-visible-hover-inline">
+          <div class="uk-card-badge">
+            <ul class="uk-subnav pk-subnav-icon">
+              <li> <a class="pk-icon-contrast pk-icon-edit pk-icon-hover uk-hidden" data-uk-tooltip="{delay: 500}" title="Edit"></a> </li>
+              <li> <a class="pk-icon-contrast pk-icon-handle pk-icon-hover uk-hidden uk-sortable-handle" data-uk-tooltip="{delay: 500}" title="Drag"></a> </li>
+              <li style="display: none;"> <a class="pk-icon-delete pk-icon-hover" data-uk-tooltip="{delay: 500}" title="Delete"></a> </li>
+              <li style="display: none;"> <a class="pk-icon-check pk-icon-hover" data-uk-tooltip="{delay: 500}" title="关闭"></a> </li>
+            </ul>
+          </div>
+          <form class="pk-panel-teaser uk-form uk-form-stacked" style="display: none;">
+            <div class="uk-form-row">
+              <label for="form-city" class="uk-form-label">位置</label>
+              <div class="uk-form-controls">
+                <div class="uk-autocomplete uk-width-1-1">
+                  <input id="form-city" class="uk-width-1-1" type="text" autocomplete="off" placeholder="Hamburg, DE">
+                  <div class="uk-dropdown" aria-expanded="false"></div>
+                </div>
+              </div>
+            </div>
+            <div class="uk-form-row"> <span class="uk-form-label">模块</span>
+              <div class="uk-form-controls uk-form-controls-text">
+                <p class="uk-form-controls-condensed">
+                  <label>
+                    <input type="radio" value="metric"> 公制</label>
+                </p>
+                <p class="uk-form-controls-condensed">
+                  <label>
+                    <input type="radio" value="imperial"> 英制</label>
+                </p>
+              </div>
+            </div>
+          </form>
+          <div class="pk-panel-background uk-contrast">
+            <h1 class="uk-margin-large-top uk-margin-small-bottom uk-text-center pk-text-xlarge">上午3:42</h1>
+            <h2 class="uk-text-center uk-h4 uk-margin-remove">2017年12月4日</h2>
+            <div class="uk-margin-large-top uk-flex uk-flex-middle uk-flex-space-between uk-flex-wrap" data-uk-margin="">
+              <h3 class="uk-margin-remove">Hamburg</h3>
+              <h3 class="uk-flex uk-flex-middle uk-margin-remove">5 °C <img class="uk-margin-small-left" width="25" height="25" alt="Weather" src="/app/system/modules/dashboard/assets/images/weather-drizzle-moon.svg"></h3> </div>
+          </div>
+      </div>
+    </li>
+    <li class="uk-width-1-3">
+      <div class="uk-card uk-card-default uk-card-body uk-visible-hover-inline">
+        <div class="uk-card-badge">
+          <ul class="uk-subnav pk-subnav-icon">
+            <li> <a class="pk-icon-edit pk-icon-hover uk-hidden" data-uk-tooltip="{delay: 500}" title="Edit"></a> </li>
+            <li> <a class="pk-icon-handle pk-icon-hover uk-hidden uk-sortable-handle" data-uk-tooltip="{delay: 500}" title="Drag"></a> </li>
+            <li style="display: none;"> <a class="pk-icon-delete pk-icon-hover" data-uk-tooltip="{delay: 500}" title="Delete"></a> </li>
+            <li style="display: none;"> <a class="pk-icon-check pk-icon-hover" data-uk-tooltip="{delay: 500}" title="关闭"></a> </li>
+          </ul>
+        </div>
+          <div style="">
+            <h3 class="uk-card-title">Pagekit News</h3>
+            <ul class="uk-list uk-list-line uk-margin-remove"> </ul>
+            <div>无法获取 Feed 数据</div>
+          </div>
+          <div class="uk-text-center" style="display: none;">
+            <svg class="pk-loader" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+              <g>
+                <circle cx="0" cy="0" r="13" fill="none" stroke-width="1"></circle>
+              </g>
+            </svg>
+          </div>
+      </div>
+    </li>
+  </ul>
+</div>
+@endsection

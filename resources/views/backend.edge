@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> {{ css('css/main') }}
+  <title>Lussiun</title>
+</head>
+
+<body>
+  <div id="app">
+    <header id="header" class="tm-header">
+            <div class="uk-container uk-container-center">
+
+                <div class="tm-headerbar uk-flex uk-flex-space-between uk-flex-middle uk-hidden-small">
+                    <div class="tm-headerbar-primary" data-uk-dropdown="{mode:'click', preventflip: 'y'}">
+
+                        <div class="tm-cursor-pointer uk-flex uk-flex-middle">
+                            <i class="tm-icon-menu"></i>
+                            <h1 class="tm-heading">控制面板</h1>
+                        </div>
+
+                        <div class="uk-dropdown uk-dropdown-navbar tm-dropdown">
+                            <ul id="js-appnav" class="uk-sortable uk-grid uk-grid-small uk-grid-width-1-3" data-url="/index.php/admin/adminmenu" data-uk-sortable="{ dragCustomClass: 'tm-sortable-dragged', handleClass: 'uk-panel' }">
+                                <li data-id="dashboard">
+                                    <a class="uk-panel tm-panel-icon" href="/index.php/admin/dashboard">
+                                        <img width="50" height="50" alt="控制面板" src="/app/system/modules/dashboard/assets/images/icon-dashboard.svg">
+                                        <p>控制面板</p>
+                                    </a>
+                                </li><li data-id="site">
+                                    <a class="uk-panel tm-panel-icon" href="/index.php/admin/site/page">
+                                        <img width="50" height="50" alt="Site" src="/app/system/modules/site/assets/images/icon-site.svg">
+                                        <p>Site</p>
+                                    </a>
+                                </li><li data-id="blog">
+                                    <a class="uk-panel tm-panel-icon" href="/index.php/admin/blog/post">
+                                        <img width="50" height="50" alt="博客" src="/packages/pagekit/blog/icon.svg">
+                                        <p>博客</p>
+                                    </a>
+                                </li><li data-id="user">
+                                    <a class="uk-panel tm-panel-icon" href="/index.php/admin/user">
+                                        <img width="50" height="50" alt="用户" src="/app/system/modules/user/assets/images/icon-users.svg">
+                                        <p>用户</p>
+                                    </a>
+                                </li><li data-id="system: system">
+                                    <a class="uk-panel tm-panel-icon" href="/index.php/admin/system/settings">
+                                        <img width="50" height="50" alt="系统" src="/app/system/modules/settings/assets/images/icon-settings.svg">
+                                        <p>系统</p>
+                                    </a>
+                                </li><li data-id="system: marketplace">
+                                    <a class="uk-panel tm-panel-icon" href="/index.php/admin/system/marketplace/extensions">
+                                        <img width="50" height="50" alt="应用市场" src="/app/installer/assets/images/icon-marketplace.svg">
+                                        <p>应用市场</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="tm-contrast">
+
+                        <ul class="uk-grid uk-grid-small uk-flex-middle">
+                            <li><a class="tm-icon-help" href="https://gitter.im/pagekit/pagekit" target="_blank" title="Get Help"></a></li>
+                            <li><a class="tm-icon-visit" target="_blank" href="/index.php/" title="访问站点"></a></li>
+                            <li><a class="tm-icon-logout" href="/index.php/user/logout?redirect=admin/login" title="登出"></a></li>
+                            <li class="uk-margin-small-left"><a href="/index.php/admin/user/edit?id=1" title="Profile"><img class="uk-border-circle uk-margin-small-right" height="32" width="32" title="wwy701" src="data:image/png;base64,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"> <span>wwy701</span></a></li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <nav class="uk-navbar tm-navbar uk-hidden-small" style="display: none;">
+                    <ul class="uk-navbar-nav">
+
+                    </ul>
+                </nav>
+
+                <div class="tm-headerbar uk-flex uk-flex-space-between uk-flex-middle uk-visible-small">
+                    <a class="tm-icon-menu" href="#offcanvas" data-uk-offcanvas=""></a>
+
+                    <h1 class="tm-heading uk-h3">控制面板</h1>
+
+                    <a href="#offcanvas-flip" data-uk-offcanvas="">
+                        <img class="uk-border-circle" height="32" width="32" alt="wwy701" src="data:image/png;base64,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">
+                    </a>
+                </div>
+
+            </div>
+    </header>
+    <main class="tm-main uk-container uk-container-center">
+       @!section('content')
+    </main>
+    <div class="uk-hidden"><div class="pk-system-messages"></div></div>
+    <div id="offcanvas" class="uk-offcanvas">
+            <div class="uk-offcanvas-bar">
+
+                <ul class="uk-nav uk-nav-offcanvas">
+                    <li class="uk-nav-header" style="display: none;">控制面板</li>
+
+                    <li class="uk-nav-divider" style="display: none;"></li>
+                    <li class="uk-nav-header">拓展</li>
+                    <li class="uk-active">
+                        <a href="/index.php/admin/dashboard">
+                            <img class="uk-margin-small-right" width="34" height="34" alt="控制面板" src="/app/system/modules/dashboard/assets/images/icon-dashboard.svg"> 控制面板
+                        </a>
+                    </li><li>
+                        <a href="/index.php/admin/site/page">
+                            <img class="uk-margin-small-right" width="34" height="34" alt="Site" src="/app/system/modules/site/assets/images/icon-site.svg"> Site
+                        </a>
+                    </li><li>
+                        <a href="/index.php/admin/blog/post">
+                            <img class="uk-margin-small-right" width="34" height="34" alt="博客" src="/packages/pagekit/blog/icon.svg"> 博客
+                        </a>
+                    </li><li>
+                        <a href="/index.php/admin/user">
+                            <img class="uk-margin-small-right" width="34" height="34" alt="用户" src="/app/system/modules/user/assets/images/icon-users.svg"> 用户
+                        </a>
+                    </li><li>
+                        <a href="/index.php/admin/system/settings">
+                            <img class="uk-margin-small-right" width="34" height="34" alt="系统" src="/app/system/modules/settings/assets/images/icon-settings.svg"> 系统
+                        </a>
+                    </li><li>
+                        <a href="/index.php/admin/system/marketplace/extensions">
+                            <img class="uk-margin-small-right" width="34" height="34" alt="应用市场" src="/app/installer/assets/images/icon-marketplace.svg"> 应用市场
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div id="offcanvas-flip" class="uk-offcanvas">
+            <div class="uk-offcanvas-bar uk-offcanvas-bar-flip">
+
+                <ul class="uk-nav uk-nav-offcanvas">
+                    <li class="uk-nav-header">wwy701</li>
+                    <li><a target="_blank" href="/index.php/">访问站点</a></li>
+                    <li><a href="/index.php/admin/user/edit?id=1">设置</a></li>
+                    <li><a href="/index.php/user/logout?redirect=admin/login">登出</a></li>
+                </ul>
+
+            </div>
+        </div>
+  </div>
+  {{ script('js/app') }}
+</body>
+</html>
