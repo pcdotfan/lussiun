@@ -3,6 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Vuikit from 'vuikit'
+import VuikitIcons from '@vuikit/icons'
+
+Vue.use(Vuikit)
+Vue.use(VuikitIcons)
 
 Vue.config.productionTip = false
 
