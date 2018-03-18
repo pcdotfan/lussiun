@@ -1,7 +1,7 @@
 <template>
   <div class="backend">
     <b-header></b-header>
-    <main class="cd-main-content">
+    <main class="main-content">
       <b-nav></b-nav>
       <div class="content-wrapper">
         <div id="page-content-wrapper uk-margin-top">
@@ -29,6 +29,5 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 
 </style>
