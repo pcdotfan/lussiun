@@ -19,6 +19,7 @@
             <OverviewSidebar></OverviewSidebar>
           </div>
           <div class="uk-width-3-4@m uk-width-1-1">
+            <ArticlesList></ArticlesList>
           </div>
       </div>
     </main>
@@ -28,12 +29,14 @@
 import Header from '@/components/backend/Header'
 import Hero from '@/components/backend/Hero'
 import OverviewSidebar from '@/components/backend/article/OverviewSidebar'
+import ArticlesList from '@/components/backend/article/ArticlesList'
 export default {
   name: 'Article',
   components: {
     'DHeader': Header,
     'DHero': Hero,
-    'OverviewSidebar': OverviewSidebar
+    'OverviewSidebar': OverviewSidebar,
+    'ArticlesList': ArticlesList
   },
   data() {
     return {}

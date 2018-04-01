@@ -1,8 +1,8 @@
 <template>
   <header id="header" class="uk-background-primary uk-light">
-    <nav class="uk-navbar-transparent" uk-navbar>
+    <nav class="uk-navbar-primary"  uk-navbar uk-sticky="bottom: .hero">
       <div class="uk-navbar-left">
-        <a href="#" class="uk-navbar-item uk-logo"><img uk-svg src="../../assets/images/uikit-logo.svg" class="uk-margin-small-right">UIkit</a>
+        <a href="#" class="uk-navbar-item uk-logo"><img uk-svg src="../../assets/images/uikit-logo.svg" class="uk-margin-small-right">Lussiun</a>
         <ul class="uk-navbar-nav">
           <router-link tag="li" to="/backend/dashboard">
             <a>

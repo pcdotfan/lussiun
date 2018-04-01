@@ -1,6 +1,6 @@
-# lussiun
+# Lussiun
 
-> A Vue.js project
+> A forever-working-in-progress blog project based on Vue.js.
 
 ## Build Setup
 
