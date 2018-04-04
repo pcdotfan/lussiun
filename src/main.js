@@ -5,14 +5,20 @@ import Vuex from 'vuex'
 import App from './App'
 import router from './router'
 import { sync } from 'vuex-router-sync'
+
 import UIkit from 'uikit'
 import Icons from 'uikit/dist/js/uikit-icons'
 
+import { DatePicker, TimeSelect, TimePicker, Select, Button } from 'element-ui';
+require('element-theme-chalk/lib/icon.css')
+require('simplemde-theme-base/dist/simplemde-theme-base.min.css')
 
 Vue.use(Vuex)
-
-// loads the Icon plugin
-UIkit.use(Icons);
+UIkit.use(Icons)
+Vue.use(DatePicker)
+Vue.use(TimeSelect)
+Vue.use(TimePicker)
+Vue.use(Select)
 
 Vue.config.productionTip = false
 
