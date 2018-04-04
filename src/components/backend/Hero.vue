@@ -21,12 +21,6 @@
 <script>
 export default {
   name: 'DHero',
-  props: {
-    heroNavbarItems: {
-      type: Array,
-      default: []
-    }
-  },
   data() {
     return {
     }
@@ -37,6 +31,9 @@ export default {
     },
     heroDescription() {
       return this.$store.state.heroDescription
+    },
+    heroNavbarItems() {
+      return this.$store.state.heroNavbarItems
     }
   }
 }

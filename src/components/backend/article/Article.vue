@@ -2,28 +2,17 @@
   <div id="backend">
     <Backend>
       <main class="uk-container uk-margin">
-        <div class="uk-grid-medium" uk-grid>
-            <div class="uk-width-1-4@m uk-width-1-1">
-              <OverviewSidebar></OverviewSidebar>
-            </div>
-            <div class="uk-width-3-4@m uk-width-1-1">
-              <ArticlesList></ArticlesList>
-            </div>
-        </div>
+        <slot></slot>
       </main>
     </Backend>
   </div>
 </template>
 <script>
 import Backend from '@/components/backend/Backend'
-import OverviewSidebar from '@/components/backend/article/OverviewSidebar'
-import ArticlesList from '@/components/backend/article/ArticlesList'
 export default {
   name: 'Article',
   components: {
-    'Backend': Backend,
-    'OverviewSidebar': OverviewSidebar,
-    'ArticlesList': ArticlesList
+    'Backend': Backend
   },
   data() {
     return {

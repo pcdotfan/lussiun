@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Dashboard from '@/components/backend/dashboard/Dashboard'
-import Article from '@/components/backend/article/Article'
+import Article from '@/components/backend/article/Overview'
 import ArticleNew from '@/components/backend/article/ArticleNew'
 import Login from '@/components/Login'
 

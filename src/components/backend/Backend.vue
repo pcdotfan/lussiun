@@ -1,7 +1,7 @@
 <template>
   <div id="backend">
     <DHeader></DHeader>
-    <DHero :hero-navbar-items="heroNavbarItems"></DHero>
+    <DHero></DHero>
     <slot></slot>
   </div>
 </template>
