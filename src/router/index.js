@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import Dashboard from '@/components/backend/Dashboard'
-import Article from '@/components/backend/Article'
+import Dashboard from '@/components/backend/dashboard/Dashboard'
+import Article from '@/components/backend/article/Article'
+import ArticleNew from '@/components/backend/article/ArticleNew'
 import Login from '@/components/Login'
 
 Vue.use(Router)
@@ -27,8 +28,15 @@ export default new Router({
     {
       path: '/backend/articles',
       name: 'Article',
-      component: Article
+      component: Article,
+      children: [
+        {
+          path: 'new',
+          component: ArticleNew
+        }
+      ]
     }
   ],
-  linkActiveClass: "uk-active"
+  linkActiveClass: "uk-active",
+  exactLinkActiveClass: "uk-active"
 })
