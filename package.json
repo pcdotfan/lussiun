@@ -5,15 +5,17 @@
   "author": "PCDotFan",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
-    "build": "nuxt build",
-    "start": "cross-env NODE_ENV=production node server/index.js",
-    "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "dev": "nodemon -w ./server -w ./start.js --exec node ./start.js",
+    "build": "nuxt build && backpack build",
+    "start": "cross-env NODE_ENV=production node build/main.js",
+    "precommit": "npm run lint",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@koa/cors": "^2.2.1",
     "@nuxtjs/axios": "^5.0.0",
+    "@nuxtjs/pwa": "^2.0.8",
+    "config": "^1.30.0",
     "element-ui": "^1.4.9",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-html": "^4.0.2",
@@ -21,9 +23,16 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1",
+    "formidable": "^1.2.1",
+    "jsonwebtoken": "^8.2.1",
     "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^4.0.2",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
+    "md5": "^2.2.1",
+    "mongoose": "^5.0.13",
     "node-sass": "^4.8.3",
     "nuxt": "^1.0.0",
     "sass-loader": "^6.0.7",
@@ -31,11 +40,15 @@
     "vue-simplemde": "^0.4.8"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.1",
+    "babel-eslint": "^7.1.1",
+    "babel-preset-latest-node": "^0.4.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "backpack-core": "^0.3.0",
     "cross-env": "^5.0.1",
     "eslint": "^4.15.0",
     "eslint-loader": "^1.7.1",
     "eslint-plugin-vue": "^4.0.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "scmp": "^2.0.0"
   }
 }
