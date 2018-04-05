@@ -27,10 +27,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~assets/css/simplemde-theme-minimum.min.css',
-    { src: '~assets/less/uikit.theme.less', lang: 'less' },
-    { src: '~assets/sass/element-ui/index.scss', lang: 'scss' },
-    'element-theme-chalk/lib/icon.css'
+    '~assets/css/simplemde-theme-minimum.min.css'
   ],
 
   /*

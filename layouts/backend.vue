@@ -90,6 +90,14 @@
   </div>
 </template>
 
+<style lang="less">
+@import "../assets/less/uikit.theme.less";
+</style>
+
+<style lang="scss">
+@import "../assets/sass/element-ui/index.scss";
+</style>
+
 <script>
 export default {
   name: 'Backend',

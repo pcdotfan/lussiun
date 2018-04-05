@@ -7,8 +7,6 @@ import '../assets/less/uikit.theme.less'
 
 import '../assets/sass/element-ui/index.scss'
 
-import '../node_modules/element-theme-chalk/lib/icon.css'
-
 
 let layouts = {
 
