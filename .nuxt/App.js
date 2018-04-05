@@ -12,8 +12,6 @@ import '../node_modules/element-theme-chalk/lib/icon.css'
 
 let layouts = {
 
-  "_articles": () => import('../layouts/articles.vue'  /* webpackChunkName: "layouts/articles" */).then(m => m.default || m),
-
   "_backend": () => import('../layouts/backend.vue'  /* webpackChunkName: "layouts/backend" */).then(m => m.default || m),
 
   "_default": () => import('../layouts/default.vue'  /* webpackChunkName: "layouts/default" */).then(m => m.default || m)
