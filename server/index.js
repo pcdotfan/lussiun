@@ -1,8 +1,16 @@
+import path from 'path'
+import koaStatic from 'koa-static'
+import bodyParser from 'koa-bodyparser'
+import Router from 'koa-router'
+import cors from '@koa/cors'
+import route from 'routes'
 
 const Koa = require('koa')
 const { Nuxt, Builder } = require('nuxt')
 
 const app = new Koa()
+const router = new Router()
+
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
@@ -10,9 +18,18 @@ const port = process.env.PORT || 3000
 let config = require('../nuxt.config.js')
 config.dev = !(app.env === 'production')
 
-async function start() {
+async function start () {
   // Instantiate nuxt.js
   const nuxt = new Nuxt(config)
+
+  router.use('', route.routes())
+
+  app
+    .use(cors())
+    .use(bodyParser())
+    .use(koaStatic('.'))
+    .use(router.routes())
+    .use(router.allowedMethods())
 
   // Build in development
   if (config.dev) {

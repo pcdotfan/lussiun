@@ -1,5 +1,5 @@
 <template>
-    <main class="uk-container uk-margin">   
+    <main class="uk-container uk-margin-top">   
         <div class="uk-grid-medium" uk-grid>
             <div class="uk-width-1-4@m uk-width-1-1">
                 <control-sidebar></control-sidebar>

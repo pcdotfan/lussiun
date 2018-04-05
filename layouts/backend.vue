@@ -21,7 +21,7 @@
                 </div>
                 </a>
             </router-link>
-            <router-link tag="li" to="/backend/category">
+            <router-link tag="li" to="/backend/topics">
                 <a>
                 <div class="">
                     话题

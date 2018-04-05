@@ -25,7 +25,7 @@
 @card-default-box-shadow:                      @global-medium-box-shadow;
 @card-default-hover-box-shadow:                @global-large-box-shadow;
 
-@card-default-header-border-width:             @global-border-width;
+@card-default-header-border-width:             1px;
 @card-default-header-border:                   @global-border;
 
 @card-default-footer-border-width:             @global-border-width;
@@ -41,17 +41,30 @@
 // Component
 // ========================================================================
 
-.hook-card() { transition: box-shadow 0.1s ease-in-out; }
+.hook-card() {
+  transition: box-shadow 0.1s ease-in-out;
+  &:hover {
+    .uk-card-header:after {
+      width: 80px;
+    }
+  }
+}
 
 
 // Sections
 // ========================================================================
 
-.hook-card-body() {}
+.hook-card-body() {
+  font-size: 1rem;
+}
 
-.hook-card-header() {}
+.hook-card-header() {
 
-.hook-card-footer() {}
+}
+
+.hook-card-footer() {
+  background: @global-muted-background;
+}
 
 
 // Media
