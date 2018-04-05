@@ -3,6 +3,11 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+const _0da00e7b = () => import('../pages/login.vue' /* webpackChunkName: "pages/login" */).then(m => m.default || m)
+const _65d9d3c3 = () => import('../pages/backend/profile/index.vue' /* webpackChunkName: "pages/backend/profile/index" */).then(m => m.default || m)
+const _073e76b9 = () => import('../pages/backend/articles/index.vue' /* webpackChunkName: "pages/backend/articles/index" */).then(m => m.default || m)
+const _332291a4 = () => import('../pages/backend/dashboard/index.vue' /* webpackChunkName: "pages/backend/dashboard/index" */).then(m => m.default || m)
+const _721aaf72 = () => import('../pages/backend/articles/new.vue' /* webpackChunkName: "pages/backend/articles/new" */).then(m => m.default || m)
 const _43f86b64 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
@@ -59,10 +64,35 @@ export function createRouter () {
   return new Router({
     mode: 'history',
     base: '/',
-    linkActiveClass: 'nuxt-link-active',
-    linkExactActiveClass: 'nuxt-link-exact-active',
+    linkActiveClass: '',
+    linkExactActiveClass: 'uk-active',
     scrollBehavior,
     routes: [
+		{
+			path: "/login",
+			component: _0da00e7b,
+			name: "login"
+		},
+		{
+			path: "/backend/profile",
+			component: _65d9d3c3,
+			name: "backend-profile"
+		},
+		{
+			path: "/backend/articles",
+			component: _073e76b9,
+			name: "backend-articles"
+		},
+		{
+			path: "/backend/dashboard",
+			component: _332291a4,
+			name: "backend-dashboard"
+		},
+		{
+			path: "/backend/articles/new",
+			component: _721aaf72,
+			name: "backend-articles-new"
+		},
 		{
 			path: "/",
 			component: _43f86b64,

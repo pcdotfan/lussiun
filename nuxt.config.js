@@ -21,20 +21,24 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#3B8070' },
+  loading: { color: '#2889ed' },
 
   /*
   ** Global CSS
   */
   css: [
-    'element-ui/lib/theme-default/index.css'
+    '~assets/css/simplemde-theme-minimum.min.css',
+    { src: '~assets/less/uikit.theme.less', lang: 'less' },
+    { src: '~assets/sass/element-ui/index.scss', lang: 'scss' },
+    'element-theme-chalk/lib/icon.css'
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    '@/plugins/uikit'
   ],
 
   /*
@@ -53,13 +57,21 @@ module.exports = {
   },
 
   /*
+  ** VueRouter configuration
+  */
+  router: {
+    linkActiveClass: '',
+    linkExactActiveClass: 'uk-active'
+  },
+
+  /*
   ** Build configuration
   */
   build: {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) {
+    extend (config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({

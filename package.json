@@ -15,8 +15,10 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
     "babel-plugin-component": "^1.1.0",
+    "element-theme-chalk": "^2.3.3",
     "element-ui": "^1.4.9",
     "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-html": "^4.0.2",
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
