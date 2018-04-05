@@ -1,21 +1,22 @@
-# Lussiun
+# Lussiun-koa
 
-> A forever-working-in-progress blog project based on Vue.js.
+> My superb Nuxt.js project
 
 ## Build Setup
 
 ``` bash
 # install dependencies
-npm install
+$ yarn install
 
-# serve with hot reload at localhost:8080
-npm run dev
+# serve with hot reload at localhost:3000
+$ yarn run dev
 
-# build for production with minification
-npm run build
+# build for production and launch server
+$ yarn run build
+$ yarn start
 
-# build for production and view the bundle analyzer report
-npm run build --report
+# generate static project
+$ yarn run generate
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
