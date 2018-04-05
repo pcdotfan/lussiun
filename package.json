@@ -1,7 +1,7 @@
 {
-  "name": "Lussiun-koa",
+  "name": "lussiun",
   "version": "1.0.0",
-  "description": "My superb Nuxt.js project",
+  "description": "My groundbreaking Nuxt.js project",
   "author": "PCDotFan",
   "private": true,
   "scripts": {
@@ -14,9 +14,6 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
-    "@types/node": "^9.6.2",
-    "babel-plugin-component": "^1.1.0",
-    "element-theme-chalk": "^2.3.3",
     "element-ui": "^1.4.9",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-html": "^4.0.2",
@@ -24,22 +21,13 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1",
-    "formidable": "^1.2.1",
-    "jsonwebtoken": "^8.2.1",
     "koa": "^2.3.0",
-    "koa-bodyparser": "^4.2.0",
-    "koa-router": "^7.4.0",
-    "koa-static": "^4.0.2",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
-    "mysql": "^2.15.0",
     "node-sass": "^4.8.3",
     "nuxt": "^1.0.0",
-    "path": "^0.12.7",
-    "reflect-metadata": "^0.1.12",
     "sass-loader": "^6.0.7",
-    "typeorm": "^0.1.20",
-    "uikit": "^3.0.0-beta.41",
+    "uikit": "^3.0.0-beta.42",
     "vue-simplemde": "^0.4.8"
   },
   "devDependencies": {

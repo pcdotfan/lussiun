@@ -1,6 +1,6 @@
-# Lussiun-koa
+# lussiun
 
-> My superb Nuxt.js project
+> My groundbreaking Nuxt.js project
 
 ## Build Setup
 
