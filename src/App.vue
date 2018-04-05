@@ -10,6 +10,10 @@ export default {
 }
 </script>
 
+<style>
+@import 'assets/css/simplemde-theme-minimum.min.css';
+</style>
+
 <style lang="less">
 @import 'assets/less/uikit.theme.less';
 </style>

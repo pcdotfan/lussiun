@@ -11,7 +11,6 @@ import Icons from 'uikit/dist/js/uikit-icons'
 
 import { DatePicker, TimeSelect, TimePicker, Select, Button } from 'element-ui';
 require('element-theme-chalk/lib/icon.css')
-require('simplemde-theme-base/dist/simplemde-theme-base.min.css')
 
 Vue.use(Vuex)
 UIkit.use(Icons)

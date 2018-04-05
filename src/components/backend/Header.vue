@@ -1,6 +1,6 @@
 <template>
   <header id="header" class="uk-background-primary uk-light">
-    <nav class="uk-navbar-primary"  uk-navbar uk-sticky="bottom: .hero">
+    <nav class="uk-navbar-primary" uk-navbar uk-sticky="bottom: .hero">
       <div class="uk-navbar-left">
         <a href="#" class="uk-navbar-item uk-logo"><img uk-svg src="../../assets/images/uikit-logo.svg" class="uk-margin-small-right">Lussiun</a>
         <ul class="uk-navbar-nav">
@@ -17,6 +17,14 @@
               <div class="">
                 文章
                 <div class="uk-navbar-subtitle">Articles</div>
+              </div>
+            </a>
+          </router-link>
+          <router-link tag="li" to="/backend/category">
+            <a>
+              <div class="">
+                话题
+                <div class="uk-navbar-subtitle">Topics</div>
               </div>
             </a>
           </router-link>
@@ -40,11 +48,22 @@
       </div>
       <div class="uk-navbar-right">
         <ul class="navbar-right-controls uk-iconnav">
-            <li><a href="#" uk-icon="icon: plus; ratio: 0.875"></a></li>
-            <li><a href="#" uk-icon="icon: file-edit; ratio: 0.875"></a></li>
-            <li><a href="#" uk-icon="icon: copy; ratio: 0.875"></a></li>
-            <li><a href="#" uk-icon="icon: trash; ratio: 0.875"></a></li>
-            <li><a href="/index.php/admin/user/edit?id=1" title="Profile"><img class="uk-border-circle uk-margin-small-right" height="32" width="32" title="wwy701" src="https://avatars1.githubusercontent.com/u/3370745?s=460"><span>wwy701</span></a></li>
+          <li><a href="#" uk-icon="icon: home; ratio: 0.875"></a></li>
+          <li><a href="#" uk-icon="icon: file-edit; ratio: 0.875"></a></li>
+          <li><a href="#" uk-icon="icon: sign-out; ratio: 0.875"></a></li>
+        </ul>
+        <ul class="uk-navbar-nav">
+          <router-link to="/backend/profile" tag="li" exact>
+            <a>
+              <img class="uk-border-circle uk-margin-small-right" height="32" width="32" title="wwy701" src="https://avatars1.githubusercontent.com/u/3370745?s=460"><span>wwy701</span>
+            </a>
+            <div class="uk-navbar-dropdown">
+              <ul class="uk-nav uk-navbar-dropdown-nav">
+                <li><a href="#">个人资料</a></li>
+                <li><a href="#">登出</a></li>
+              </ul>
+            </div>
+          </router-link>
         </ul>
       </div>
     </nav>

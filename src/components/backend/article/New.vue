@@ -5,7 +5,7 @@
         <div class="article-new-edit">
           <div class="uk-card uk-card-default">
             <div class="uk-card-header">
-              <input class="uk-input uk-width-1-1 uk-form-large" placeholder="输入标题...">
+              <input class="title uk-input uk-width-1-1 uk-form-large" placeholder="输入标题...">
             </div>
             <div class="uk-card-body">
               <Editor></Editor>

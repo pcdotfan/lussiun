@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Dashboard from '@/components/backend/dashboard/Dashboard'
+import Profile from '@/components/backend/profile/Profile'
 import Article from '@/components/backend/article/Overview'
 import ArticleNew from '@/components/backend/article/New'
 import Login from '@/components/Login'
@@ -24,6 +25,11 @@ export default new Router({
       path: '/backend/dashboard',
       name: 'Dashboard',
       component: Dashboard
+    },
+    {
+      path: '/backend/profile',
+      name: 'Profile',
+      component: Profile
     },
     {
       path: '/backend/articles',
