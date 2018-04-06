@@ -16,6 +16,7 @@
 </template>
 <script>
 export default {
+  middleware: 'auth',
   name: 'Dashboard',
   layout: 'backend',
   components: {

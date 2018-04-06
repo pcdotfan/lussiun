@@ -110,12 +110,12 @@ export default {
     return data
   },
 
-  async ADMIN_INFO ({ state, getters }) {
+  async USER_INFO ({ state, getters }) {
     const { data } = await axios.get(`${getters.baseUrl}/user`)
     return data
   },
 
-  async UPDATE_ADMIN ({ commit, state, getters }, params) {
+  async UPDATE_USER ({ commit, state, getters }, params) {
     const { data } = await axios.patch(`${getters.baseUrl}/user`, params, {
       headers: {
         token: state.token

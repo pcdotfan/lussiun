@@ -69,6 +69,7 @@
 </template>
 <script>
 export default {
+  middleware: 'auth',
   name: 'CategoryIndex',
   layout: 'backend',
   data () {

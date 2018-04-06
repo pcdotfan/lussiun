@@ -51,7 +51,7 @@
             <ul class="navbar-right-controls uk-iconnav">
             <li><a href="#" uk-icon="icon: home; ratio: 0.875"></a></li>
             <li><a href="#" uk-icon="icon: file-edit; ratio: 0.875"></a></li>
-            <li><a href="#" uk-icon="icon: sign-out; ratio: 0.875"></a></li>
+            <li><a @click="logout" uk-icon="icon: sign-out; ratio: 0.875"></a></li>
             </ul>
             <ul class="uk-navbar-nav">
             <router-link to="/backend/profile" tag="li" exact>
@@ -61,7 +61,7 @@
                 <div class="uk-navbar-dropdown">
                 <ul class="uk-nav uk-navbar-dropdown-nav">
                     <li><a href="#">个人资料</a></li>
-                    <li><a href="#">登出</a></li>
+                    <li><a @click="logout">登出</a></li>
                 </ul>
                 </div>
             </router-link>
@@ -114,6 +114,16 @@ export default {
     },
     heroNavbarItems () {
       return this.$store.state.heroNavbarItems
+    }
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('LOGOUT').then(data => {
+        if (data.success) {
+          this.$store.state.token = ''
+          this.$router.push('/login')
+        }
+      })
     }
   }
 }

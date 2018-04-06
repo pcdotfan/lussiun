@@ -102,8 +102,21 @@
 </template>
 <script>
 export default {
+  middleware: 'auth',
   name: 'ProfileIndex',
   layout: 'backend',
+  async asyncData ({ store }) {
+    let data = await store.dispatch('USER_INFO')
+    if (data.success) {
+      return {
+        user: data.data
+      }
+    } else {
+      return {
+        user: {}
+      }
+    }
+  },
   data () {
     return {
       email: '467055732@qq.com',

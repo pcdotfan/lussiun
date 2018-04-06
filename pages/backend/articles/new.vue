@@ -53,6 +53,7 @@
 <script>
 import Editor from '~/components/MarkdownEditor'
 export default {
+  middleware: 'auth',
   name: 'New',
   layout: 'backend',
   components: {

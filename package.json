@@ -37,6 +37,7 @@
     "nuxt": "^1.0.0",
     "sass-loader": "^6.0.7",
     "uikit": "^3.0.0-beta.42",
+    "vue-avatar-cropper": "^0.0.26",
     "vue-simplemde": "^0.4.8"
   },
   "devDependencies": {
