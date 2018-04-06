@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
 import path from 'path'
-import os from 'os'
 import fs from 'fs'
 import formidable from 'formidable'
+
 const Article = mongoose.model('Article')
 
-export const getArticles = async(ctx, next) => {
+export const getArticles = async (ctx, next) => {
   let { page = 1, limit = 15 } = ctx.params
   page = Number((page - 1) * limit) || 0
   limit = Number(limit) || 15
@@ -36,7 +36,7 @@ export const getArticles = async(ctx, next) => {
   }
 }
 
-export const getPrivateArticles = async(ctx, next) => {
+export const getPrivateArticles = async (ctx, next) => {
   const data = await Article.find({ publish: false })
     .populate({
       path: 'tags',
@@ -50,7 +50,7 @@ export const getPrivateArticles = async(ctx, next) => {
   }
 }
 
-export const getArticle = async(ctx, next) => {
+export const getArticle = async (ctx, next) => {
   let { id } = ctx.params
   if (!id) {
     return (ctx.body = {
@@ -66,7 +66,7 @@ export const getArticle = async(ctx, next) => {
         select: 'id name'
       })
       .exec()
-      await Article.findByIdAndUpdate(id, {views: article.views + 1}).exec()
+    await Article.findByIdAndUpdate(id, {views: article.views + 1}).exec()
     ctx.body = {
       success: true,
       data: article
@@ -80,7 +80,7 @@ export const getArticle = async(ctx, next) => {
   }
 }
 
-export const postArticle = async(ctx, next) => {
+export const postArticle = async (ctx, next) => {
   let body = ctx.request.body
   let { title, content, publish } = body
   if (!title || !content || !String(publish)) {
@@ -108,7 +108,7 @@ export const postArticle = async(ctx, next) => {
 }
 
 // modify publish article or private article
-export const patchArticle = async(ctx, next) => {
+export const patchArticle = async (ctx, next) => {
   let body = ctx.request.body
   body.updatedAt = Date.now()
   let { id, title, content, publish } = body
@@ -133,7 +133,7 @@ export const patchArticle = async(ctx, next) => {
   }
 }
 
-export const deleteArticle = async(ctx, next) => {
+export const deleteArticle = async (ctx, next) => {
   let { id } = ctx.params
 
   if (!id) {
@@ -157,16 +157,16 @@ export const deleteArticle = async(ctx, next) => {
   }
 }
 
-export const search = async(ctx, next) => {
+export const search = async (ctx, next) => {
   const { keyword } = ctx.params
-  const reg = new RegExp(keyword, 'i');
+  const reg = new RegExp(keyword, 'i')
   try {
     let body = await Article.find({
       publish: true,
       $or: [{ title: { $regex: reg } }]
     })
-    .sort({'createdAt': -1})
-    .exec()
+      .sort({'createdAt': -1})
+      .exec()
     ctx.body = {
       success: true,
       data: body
@@ -179,7 +179,7 @@ export const search = async(ctx, next) => {
   }
 }
 
-export const archives = async(ctx, next) => {
+export const archives = async (ctx, next) => {
   let articles = await Article.find({ publish: true })
     .populate({
       path: 'tags',
@@ -188,14 +188,14 @@ export const archives = async(ctx, next) => {
     .select('id title tags createdAt updatedAt')
     .sort({'createdAt': -1})
     .exec()
-  let arr = [],
-    arr2 = [],
-    year, month, date
+  let arr = []
+  let arr2 = []
+  let year, month, date
   for (let i = 0; i < articles.length; i++) {
     year = new Date(articles[i].createdAt).getFullYear() + ''
     month = new Date(articles[i].createdAt).getMonth() + 1 + ''
     if (month.length === 1) {
-      month = '0' + month;
+      month = '0' + month
     }
     date = `${year}年${month}月`
     arr.push({
@@ -205,8 +205,8 @@ export const archives = async(ctx, next) => {
   }
 
   for (let i = 0; i < arr.length;) {
-    let total = 0,
-      archiveArticles = [];
+    let total = 0
+    let archiveArticles = []
     for (let j = i; j < arr.length; j++) {
       if (arr[i].date === arr[j].date) {
         archiveArticles.push(arr[j].article)
@@ -227,13 +227,12 @@ export const archives = async(ctx, next) => {
   }
 }
 
-export const upload = async(ctx, next) => {
-
+export const upload = async (ctx, next) => {
   let form = new formidable.IncomingForm()
 
-  function getImgUrl(ctx) {
+  function getImgUrl (ctx) {
     return new Promise((resolve, reject) => {
-      form.parse(ctx.req, function(err, fields, files) {
+      form.parse(ctx.req, function (err, fields, files) {
         if (err) {
           console.log(err)
           reject(err)

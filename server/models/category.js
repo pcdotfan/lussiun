@@ -1,16 +1,19 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
-const UserSchema = new Schema({
-  role: {
+const CategorySchema = new Schema({
+  name: {
     type: String,
-    default: 'user'
+    default: ''
   },
-  username: String,
-  password: String,
-  email: String,
-  nickname: String,
-  avatar: String,
+  slug: {
+    type: String,
+    default: ''
+  },
+  description: {
+    type: String,
+    default: ''
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -21,16 +24,13 @@ const UserSchema = new Schema({
   }
 })
 
-// hidden some field
-UserSchema.options.toJSON = {
+CategorySchema.options.toJSON = {
   virtuals: true,
   versionKey: false,
   transform (doc, ret) {
     ret.id = ret._id
     delete ret._id
-    delete ret.id
-    delete ret.password
-    delete ret.username
   }
 }
-mongoose.model('User', UserSchema)
+
+mongoose.model('Category', CategorySchema)

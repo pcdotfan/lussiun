@@ -1,4 +1,3 @@
-import path from 'path'
 import Koa from 'koa'
 import KoaStatic from 'koa-static'
 import bodyParser from 'koa-bodyparser'

@@ -1,8 +1,16 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
-const TagSchema = new Schema({
+const TopicSchema = new Schema({
   name: {
+    type: String,
+    default: ''
+  },
+  slug: {
+    type: String,
+    default: ''
+  },
+  description: {
     type: String,
     default: ''
   },
@@ -16,13 +24,13 @@ const TagSchema = new Schema({
   }
 })
 
-TagSchema.options.toJSON = {
+TopicSchema.options.toJSON = {
   virtuals: true,
   versionKey: false,
-  transform(doc, ret) {
+  transform (doc, ret) {
     ret.id = ret._id
     delete ret._id
   }
 }
 
-mongoose.model('Tag', TagSchema);
+mongoose.model('Topic', TopicSchema)

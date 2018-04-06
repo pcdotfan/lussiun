@@ -12,17 +12,17 @@ const ArticleSchema = new Schema({
     type: Number,
     default: 0
   },
-  flag: {
-    type: Number,
-    default: 1
-  },
-  like: {
-    type: Array,
-    default: []
+  body: {
+    type: String,
+    default: ''
   },
   comments: {
     type: Array,
     default: []
+  },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category'
   },
   tags: [{
     type: Schema.Types.ObjectId,
@@ -41,7 +41,7 @@ const ArticleSchema = new Schema({
 ArticleSchema.options.toJSON = {
   virtuals: true,
   versionKey: false,
-  transform(doc, ret) {
+  transform (doc, ret) {
     ret.id = ret._id
     delete ret._id
   }

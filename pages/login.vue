@@ -1,20 +1,17 @@
 <template>
     <div class="auth-page uk-height-viewport uk-flex uk-flex-center uk-flex-middle uk-text-center">
         <div class="authenticate-box">
-        <div class="uk-alert-danger" uk-alert>
-            <p>用户名或密码错误。</p>
-        </div>
-        <form class="uk-form" method="post" aria-hidden="false">
+            <auth-tip ref="alert"></auth-tip>
             <div class="uk-card uk-card-default">
             <div class="uk-card-body">
-                <div class="form-item">
-                <input class="uk-input uk-width-1-1" type="text" name="credentials[username]" value="" placeholder="用户名" autofocus="">
+                <div class="auth-item">
+                    <input class="uk-input uk-width-1-1" type="text" name="username" v-model="user.username" placeholder="用户名" autofocus="">
                 </div>
-                <div class="form-item">
-                <input class="uk-input uk-width-1-1" type="password" name="credentials[password]" value="" placeholder="密码">
+                <div class="auth-item">
+                    <input class="uk-input uk-width-1-1" type="password" name="password" v-model="user.password" placeholder="密码">
                 </div>
             </div>
-            <button class="uk-button uk-button-primary uk-button-large uk-width-1-1">登录</button>
+            <button class="uk-button uk-button-primary uk-button-large uk-width-1-1" @click="login">登录</button>
             </div>
             <ul class="uk-list uk-light uk-text-small">
             <li>
@@ -23,19 +20,39 @@
             </li>
             <li class="uk-margin-small-top"> 忘记密码 <a class="uk-link" data-uk-toggle="{ target: '.js-toggle' }">请求密码</a></li>
             </ul>
-        </form>
         </div>
   </div>
 </template>
 
 <script>
+import AuthTip from '../components/AuthTip'
 export default {
   name: 'Login',
+  components: {
+    AuthTip
+  },
   data () {
     return {
+      user: {
+      },
+      message: {
+
+      }
     }
   },
-  components: {
+  methods: {
+    login () {
+      if (!this.user.username || !this.user.password) {
+        this.$refs.alert.openAlert('请输入用户名和密码', 'warning')
+      }
+      this.$store.dispatch('LOGIN', this.user).then(data => {
+        if (data.success) {
+          this.$router.push('/backend/dashboard')
+        } else {
+          this.$refs.alert.openAlert('用户名或密码错误', 'danger')
+        }
+      })
+    }
   }
 }
 </script>

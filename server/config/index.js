@@ -18,11 +18,6 @@ export default {
     username: '',
     password: ''
   },
-  production: {
-    host: '198.13.32.165',
-    domain: 'https://www.86886.wang'
-    // domain: 'http://127.0.0.1:3000'
-  },
   app: {
     host: '127.0.0.1',
     port: 3000,

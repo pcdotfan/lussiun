@@ -5,13 +5,13 @@ import config from '../config'
 
 const User = mongoose.model('User')
 
-export const login = async(ctx, next) => {
+export const login = async (ctx, next) => {
   let { username, password } = ctx.request.body
   password = md5(password)
   try {
     let user = await User.findOne({username: username, password: password}).exec()
     let secret = config.jwt.secret
-    let expiresIn = config.jwt.expiresIn
+    // let expiresIn = config.jwt.expiresIn
     let token = jwt.sign({ username: user.username, userID: user._id }, secret)
     ctx.cookies.set('token', token)
     ctx.body = {
@@ -28,7 +28,7 @@ export const login = async(ctx, next) => {
   }
 }
 
-export const logout = async(ctx, next) => {
+export const logout = async (ctx, next) => {
   ctx.cookies.set('token', null)
   ctx.body = {
     success: true,
@@ -36,7 +36,7 @@ export const logout = async(ctx, next) => {
   }
 }
 
-export const getUserInfo = async(ctx, next) => {
+export const getUserInfo = async (ctx, next) => {
   let avatarUrl = ctx.protocol + '://' + ctx.host + '/public/' + config.user.avatar
   try {
     let data = await User.findOne({ role: 'superAdmin' }).exec()
@@ -53,7 +53,7 @@ export const getUserInfo = async(ctx, next) => {
   }
 }
 
-export const patchUserInfo = async(ctx, next) => {
+export const patchUserInfo = async (ctx, next) => {
   let body = ctx.request.body
 
   if (body.oldPassword && body.newPassword) {

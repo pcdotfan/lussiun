@@ -3,7 +3,7 @@ import md5 from 'md5'
 import config from '../config'
 
 require('./user')
-require('./tag')
+// require('./tag')
 require('./article')
 
 const User = mongoose.model('User')
