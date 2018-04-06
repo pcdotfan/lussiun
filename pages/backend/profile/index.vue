@@ -102,7 +102,6 @@
 </template>
 <script>
 export default {
-  middleware: 'auth',
   name: 'ProfileIndex',
   layout: 'backend',
   async asyncData ({ store }) {

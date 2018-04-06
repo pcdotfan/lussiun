@@ -100,9 +100,22 @@
 
 <script>
 export default {
+  middleware: 'auth',
   name: 'Backend',
   data () {
     return {
+    }
+  },
+  async asyncData ({ store }) {
+    let data = await store.dispatch('USER_INFO')
+    if (data.success) {
+      return {
+        user: data.data
+      }
+    } else {
+      return {
+        user: {}
+      }
     }
   },
   computed: {

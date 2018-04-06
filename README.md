@@ -1,4 +1,4 @@
-# lussiun
+# Lussiun
 
 > My groundbreaking Nuxt.js project
 

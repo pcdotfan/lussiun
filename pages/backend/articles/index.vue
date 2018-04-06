@@ -14,7 +14,6 @@
 import ControlSidebar from '~/components/backend/ArticlesControlSidebar'
 import List from '~/components/backend/ArticlesList'
 export default {
-  middleware: 'auth',
   name: 'ArticlesIndex',
   layout: 'backend',
   components: {
