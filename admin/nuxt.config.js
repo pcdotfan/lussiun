@@ -25,13 +25,14 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: "@/plugins/uikit", ssr: false }
+    { src: "@/plugins/uikit", ssr: false },
+    { src: "@/plugins/http", ssr: false }
   ],
-
   router: {
     linkActiveClass: "",
     linkExactActiveClass: "uk-active"
   },
+  modules: ["@nuxtjs/axios"],
   /*
   ** Build configuration
   */

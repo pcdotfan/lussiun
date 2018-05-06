@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import * as types from '~/store/types'
 import AuthTip from '../components/AuthTip'
 export default {
   name: 'Login',
@@ -34,6 +35,8 @@ export default {
   data () {
     return {
       user: {
+        username: '',
+        password: ''
       },
       message: {
 
@@ -44,14 +47,16 @@ export default {
     login () {
       if (!this.user.username || !this.user.password) {
         this.$refs.alert.openAlert('请输入用户名和密码', 'warning')
-      }
-      this.$store.dispatch('LOGIN', this.user).then(data => {
+      } else {
+        this.$store.commit(types.LOGIN, this.user)
+        this.$store.dispatch('LOGIN', this.user).then(data => {
         if (data.success) {
           this.$router.push('/backend/dashboard')
         } else {
           this.$refs.alert.openAlert('用户名或密码错误', 'danger')
         }
       })
+      }
     }
   }
 }

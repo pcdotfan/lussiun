@@ -31,6 +31,7 @@
     "typescript": "^2.8.1"
   },
   "dependencies": {
+    "@koa/cors": "2",
     "@types/jsonwebtoken": "^7.2.7",
     "bcrypt": "^2.0.1",
     "koa": "^2.5.0",

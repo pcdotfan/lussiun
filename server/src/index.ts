@@ -7,6 +7,8 @@ import * as jwt from 'koa-jwt'
 import { AppRoutes } from './routes'
 import errorHandle from './middleware/errorHandle'
 
+const cors = require('@koa/cors');
+
 // create connection with database
 // note that its not active database connection
 // TypeORM creates you connection pull to uses connections from pull on your requests
@@ -33,8 +35,9 @@ createConnection().then(async connection => {
   app.use(bodyParser())
   app.use(router.routes())
   app.use(router.allowedMethods())
-  app.listen(3000)
+  app.use(cors())
+  app.listen(8080)
 
-  console.log('Koa application is up and running on port 3000')
+  console.log('Koa application is up and running on port 8080')
 
 }).catch(error => console.log('TypeORM connection error: ', error))

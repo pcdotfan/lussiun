@@ -13,6 +13,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.3.1",
     "element-ui": "^2.3.7",
     "less": "^3.0.2",
     "less-loader": "^4.1.0",

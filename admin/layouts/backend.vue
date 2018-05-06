@@ -100,8 +100,8 @@
 
 <script>
 export default {
-  middleware: 'auth',
   name: 'Backend',
+  middleware: 'auth',
   data () {
     return {
     }
