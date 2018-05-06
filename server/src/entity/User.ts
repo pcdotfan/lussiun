@@ -16,7 +16,7 @@ export class User {
 
   @Column() password: string
 
-  @Column({
+  @Column("text", {
     nullable: true
   })
   token: string

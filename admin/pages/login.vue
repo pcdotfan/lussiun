@@ -30,7 +30,7 @@ import api from '~/consts/api'
 import AuthTip from '../components/AuthTip'
 export default {
   name: 'Login',
-  middleware: 'auth',
+  middleware: 'redirectWhenAuthenticated',
   components: {
     AuthTip
   },
@@ -46,20 +46,17 @@ export default {
     }
   },
   methods: {
-    async login () {
+    async login ({ redirect }) {
       if (!this.user.username || !this.user.password) {
         this.$refs.alert.openAlert('请输入用户名和密码', 'warning')
       } else {
         this.$axios.$post(api.login, this.user)
           .then(response => {
-            console.log(response.status)
-            if (response.success) {
-              this.message = response.data
-              this.$store.commit(types.LOGIN, this.message.token)
-              console.log('登录成功 ' + this.message)
-            } else {
-              this.$refs.alert.openAlert('用户名或密码错误', 'danger')
-            }
+            this.$store.commit(types.LOGIN, response.token)
+            this.$store.$router.push({ name: 'backend-dashboard'})
+          })
+          .catch(error => {
+            this.$refs.alert.openAlert('用户名或密码错误', 'danger')
           })
       }
     }

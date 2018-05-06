@@ -1,4 +1,5 @@
 module.exports = {
+  mode: "spa",
   /*
   ** Headers of the page
   */
@@ -16,7 +17,6 @@ module.exports = {
   */
   loading: { color: "#2889ED" },
   css: [
-    "~assets/css/simplemde-theme-minimum.min.css",
     { src: "~assets/less/uikit.theme.less", lang: "less" },
     { src: "~assets/sass/element-ui/index.scss", lang: "scss" }
   ],
@@ -26,7 +26,8 @@ module.exports = {
   */
   plugins: [
     { src: "@/plugins/uikit", ssr: false },
-    { src: "@/plugins/http", ssr: false }
+    { src: "@/plugins/http", ssr: false },
+    { src: "@/plugins/vuex-router-sync", ssr: false }
   ],
   router: {
     linkActiveClass: "",

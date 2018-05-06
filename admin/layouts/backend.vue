@@ -99,6 +99,7 @@
 </style>
 
 <script>
+import * as types from "~/store/types";
 export default {
   name: 'Backend',
   middleware: 'auth',
@@ -116,6 +117,11 @@ export default {
       return {
         user: {}
       }
+    }
+  },
+  mounted() {
+    if (window.localStorage.getItem('token')) {
+        this.$store.commit(types.LOGIN, window.localStorage.getItem('token'))
     }
   },
   computed: {
