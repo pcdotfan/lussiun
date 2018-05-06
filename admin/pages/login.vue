@@ -26,9 +26,11 @@
 
 <script>
 import * as types from '~/store/types'
+import api from '~/consts/api'
 import AuthTip from '../components/AuthTip'
 export default {
   name: 'Login',
+  middleware: 'auth',
   components: {
     AuthTip
   },
@@ -44,18 +46,21 @@ export default {
     }
   },
   methods: {
-    login () {
+    async login () {
       if (!this.user.username || !this.user.password) {
         this.$refs.alert.openAlert('请输入用户名和密码', 'warning')
       } else {
-        this.$store.commit(types.LOGIN, this.user)
-        this.$store.dispatch('LOGIN', this.user).then(data => {
-        if (data.success) {
-          this.$router.push('/backend/dashboard')
-        } else {
-          this.$refs.alert.openAlert('用户名或密码错误', 'danger')
-        }
-      })
+        this.$axios.$post(api.login, this.user)
+          .then(response => {
+            console.log(response.status)
+            if (response.success) {
+              this.message = response.data
+              this.$store.commit(types.LOGIN, this.message.token)
+              console.log('登录成功 ' + this.message)
+            } else {
+              this.$refs.alert.openAlert('用户名或密码错误', 'danger')
+            }
+          })
       }
     }
   }

@@ -49,7 +49,7 @@ function login(context) {
         const userRepository = typeorm_1.getManager().getRepository(User_1.User);
         try {
             const userExisted = yield userRepository.findOne({ username: body.username });
-            if (yield bcrypt.compare(body.password, userExisted.password)) {
+            if (userExisted && (yield bcrypt.compare(body.password, userExisted.password))) {
                 const token = jsonwebtoken_1.sign({
                     data: userExisted,
                     // 设置 token 过期时间
@@ -65,12 +65,11 @@ function login(context) {
             }
             else {
                 context.status = 401;
-                context.body = {
-                    message: '密码错误'
-                };
+                context.body = { message: "用户名或密码错误" };
             }
         }
         catch (error) {
+            console.log(error);
             context.throw(500);
         }
     });

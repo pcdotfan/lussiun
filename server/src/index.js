@@ -28,6 +28,7 @@ typeorm_1.createConnection().then((connection) => __awaiter(this, void 0, void 0
     // register all application routes
     routes_1.AppRoutes.forEach(route => router[route.method](route.path, route.action));
     // run app
+    app.use(cors());
     app.use(errorHandle_1.default);
     app.use(jwt({
         secret
@@ -38,7 +39,6 @@ typeorm_1.createConnection().then((connection) => __awaiter(this, void 0, void 0
     app.use(bodyParser());
     app.use(router.routes());
     app.use(router.allowedMethods());
-    app.use(cors());
     app.listen(8080);
     console.log('Koa application is up and running on port 8080');
 })).catch(error => console.log('TypeORM connection error: ', error));

@@ -13,7 +13,9 @@ const store = () => new Vuex.Store({
     heroNavbarItems: []
   },
   mutations: {
+    // 登录、登出都只靠 token 来实现
     [types.LOGIN]: (state, data) => {
+      // 调用一个 action 来获取登录成功后的 token，否则登录不成功
       localStorage.token = data;
       state.token = data;
     },

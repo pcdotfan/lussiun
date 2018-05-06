@@ -33,6 +33,10 @@ module.exports = {
     linkExactActiveClass: "uk-active"
   },
   modules: ["@nuxtjs/axios"],
+  axios: {
+    timeout: 5000,
+    baseURL: "http://localhost:8080/api"
+  },
   /*
   ** Build configuration
   */

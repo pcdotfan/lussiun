@@ -41,7 +41,7 @@ export async function login (context: Context) {
   const userRepository = getManager().getRepository(User)
   try {
     const userExisted = await userRepository.findOne({ username: body.username })
-    if (await bcrypt.compare(body.password, userExisted.password)) {
+    if (userExisted && await bcrypt.compare(body.password, userExisted.password)) {
       const token = sign({
         data: userExisted,
         // 设置 token 过期时间
@@ -55,12 +55,11 @@ export async function login (context: Context) {
         token
       }
     } else {
-      context.status = 401
-      context.body = {
-        message: '密码错误'
-      }
+      context.status = 401;
+      context.body = { message: "用户名或密码错误" };
     }
   } catch (error) {
+    console.log(error)
     context.throw(500)
   }
 }

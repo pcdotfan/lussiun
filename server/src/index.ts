@@ -24,6 +24,7 @@ createConnection().then(async connection => {
   AppRoutes.forEach(route => router[route.method](route.path, route.action))
 
     // run app
+  app.use(cors());
   app.use(errorHandle)
   app.use(jwt({
     secret
@@ -35,7 +36,6 @@ createConnection().then(async connection => {
   app.use(bodyParser())
   app.use(router.routes())
   app.use(router.allowedMethods())
-  app.use(cors())
   app.listen(8080)
 
   console.log('Koa application is up and running on port 8080')
