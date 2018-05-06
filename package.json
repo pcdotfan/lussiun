@@ -6,6 +6,5 @@
   "author": "PCDotFan <pc@edu.ax>",
   "license": "MIT",
   "dependencies": {
-    "tslint": "^5.10.0"
   }
 }
