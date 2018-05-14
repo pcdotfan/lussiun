@@ -1,0 +1,17 @@
+# Node modules
+node_modules
+
+.nuxt
+
+# Adonis directory for storing tmp files
+tmp
+
+# Environment variables, never commit this file
+.env
+
+# Lock files
+package-lock.json
+yarn.lock
+
+# The development sqlite file
+database/development.sqlite

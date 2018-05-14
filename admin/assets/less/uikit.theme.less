@@ -1,0 +1,132 @@
+//
+// Core
+//
+@import "~uikit/src/less/components/_import.less";
+
+//
+// Theme
+//
+@import "theme/_import.less";
+
+#backend {
+  header {
+    background: @global-darkgrey-background;
+    padding: 0 40px;
+    height: 60px;
+    nav {
+      background: @global-darkgrey-background;
+      border-bottom: rgba(255,255,255,0.05) 1px solid;
+      li > a {
+        margin: 0 8px;
+      }
+    }
+    .navbar-right-controls {
+      align-items: center;
+      justify-content: center;
+
+      li > a {
+        margin: 0 5px;
+      }
+    }
+  }
+  @media (min-width:768px) {
+    header {
+      height: 80px;
+    }
+  }
+  .hero {
+    background: @global-darkgrey-background;
+
+    .hero-navbar {
+      li  {
+        border-bottom: transparent 3px solid;
+        transition: 0.3s ease-in-out;
+        & > a {
+          height: 60px;
+          margin: 0 5px;
+        }
+        &:hover {
+          transition: 0.3s ease-in-out;
+          border-bottom-color: @global-primary-background
+        }
+      }
+      .uk-active {
+        border-bottom-color: @global-primary-background;
+      }
+    }
+  }
+  .overview-card {
+    .header, .footer {
+      border: 0;
+    }
+    .footer {
+      background: @global-muted-background;
+    }
+  }
+  .overview-sidebar {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    li {
+      padding: 8px 0;
+    }
+
+    .uk-active {
+      background: @global-muted-background;
+    }
+  }
+}
+
+.auth-page {
+  background: #74b3e7 url(../images/backgrounds/background.jpg) 50% 50% no-repeat;
+  background-size: cover;
+}
+
+.authenticate-box {
+  width: 350px;
+
+  .uk-card-body {
+    padding: 50px;
+  }
+
+  .auth-item+.auth-item {
+    margin-top: 50px;
+  }
+
+  .uk-input {
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    padding-left: 0;
+  }
+}
+.article-list {
+  table thead {
+  }
+}
+.article-new-edit {
+  .title {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+  }
+  .article-new-edit-controls {
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+  }
+}
+
+
+.profile-avatar-control {
+  text-align: center;
+  max-width: 250px;
+
+  .nickname {
+    margin-bottom: 10px;
+  }
+  .email {
+    display: inline-block;
+  }
+}
