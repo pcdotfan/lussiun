@@ -1,0 +1,18 @@
+{
+  "name": "default",
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "root",
+  "password": "",
+  "database": "koa",
+  "synchronize": true,
+  "entities": ["./server/entity/*.js"],
+  "subscribers": ["./server/subscriber/*.js"],
+  "migrations": ["./server/migration/*.js"],
+  "cli": {
+    "entitiesDir": "./server/entity",
+    "migrationsDir": "./server/migration",
+    "subscribersDir": "./server/subscriber"
+  }
+}
