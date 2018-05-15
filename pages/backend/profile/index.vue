@@ -104,18 +104,6 @@
 export default {
   name: 'ProfileIndex',
   layout: 'backend',
-  async asyncData({ store }) {
-    let data = await store.dispatch('USER_INFO')
-    if (data.success) {
-      return {
-        user: data.data
-      }
-    } else {
-      return {
-        user: {}
-      }
-    }
-  },
   data() {
     return {
       email: '467055732@qq.com',
@@ -129,8 +117,8 @@ export default {
   },
   mounted() {
     this.$store.commit('changeHero', {
-      heroTitle: '个人资料',
-      heroDescription: '从此无心爱良夜，任他明月下西楼。'
+      title: '个人资料',
+      description: '从此无心爱良夜，任他明月下西楼。'
     })
   }
 }

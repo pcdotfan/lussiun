@@ -51,7 +51,7 @@
             <ul class="navbar-right-controls uk-iconnav">
             <li><a href="#" uk-icon="icon: home; ratio: 0.875"></a></li>
             <li><a href="#" uk-icon="icon: file-edit; ratio: 0.875"></a></li>
-            <li><a @click="logout" uk-icon="icon: sign-out; ratio: 0.875"></a></li>
+            <li><a @click="$auth.logout()" uk-icon="icon: sign-out; ratio: 0.875"></a></li>
             </ul>
             <ul class="uk-navbar-nav">
             <router-link to="/backend/profile" tag="li" exact>
@@ -72,15 +72,15 @@
     <section class="hero uk-section-primary uk-preserve-color">
         <div class="uk-section uk-light">
         <div class="hero-content uk-container uk-container-medium">
-            <h2 v-text="heroTitle"></h2>
-            <p v-text="heroDescription"></p>
+            <h2 v-text="hero.title"></h2>
+            <p v-text="hero.description"></p>
         </div>
         </div>
-        <nav class="hero-navbar uk-navbar-transparent uk-light" v-if="heroNavbarItems">
+        <nav class="hero-navbar uk-navbar-transparent uk-light" v-if="hero.navbarItems">
             <div class="uk-container uk-container-medium">
                 <div uk-navbar>
                     <ul class="uk-navbar-nav">
-                        <router-link :to="item.path" tag="li" v-for="item in heroNavbarItems" :key="item.title"><a v-text="item.title" exact></a></router-link>
+                        <router-link :to="item.path" tag="li" v-for="item in hero.navbarItems" :key="item.title"><a v-text="item.title" exact></a></router-link>
                     </ul>
                 </div>
             </div>
@@ -108,15 +108,9 @@ export default {
   mounted() {
   },
   computed: {
-    heroTitle() {
-      return this.$store.state.heroTitle
+    hero() {
+      return this.$store.state.hero
     },
-    heroDescription() {
-      return this.$store.state.heroDescription
-    },
-    heroNavbarItems() {
-      return this.$store.state.heroNavbarItems
-    }
   },
   methods: {
   }

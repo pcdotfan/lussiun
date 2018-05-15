@@ -64,9 +64,9 @@ export default {
   },
   mounted() {
     this.$store.commit('changeHero', {
-      heroTitle: '撰写文章',
-      heroDescription: '词源倒流三江水，笔阵独扫千人军。',
-      heroNavbarItems: [
+      title: '撰写文章',
+      description: '词源倒流三江水，笔阵独扫千人军。',
+      navbarItems: [
         { title: '文章列表', path: '/backend/articles' },
         { title: '撰写文章', path: '/backend/articles/new' }
       ]

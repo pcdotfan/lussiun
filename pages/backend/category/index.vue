@@ -77,8 +77,8 @@ export default {
   },
   mounted() {
     this.$store.commit('changeHero', {
-      heroTitle: '分类目录',
-      heroDescription: '留连戏蝶时时舞，自在娇莺恰恰啼。'
+      title: '分类目录',
+      description: '留连戏蝶时时舞，自在娇莺恰恰啼。'
     })
   }
 }

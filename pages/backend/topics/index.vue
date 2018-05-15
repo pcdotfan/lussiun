@@ -77,8 +77,8 @@ export default {
   },
   mounted() {
     this.$store.commit('changeHero', {
-      heroTitle: '话题',
-      heroDescription: '瞻彼淇奥，绿竹猗猗。'
+      title: '话题',
+      description: '瞻彼淇奥，绿竹猗猗。'
     })
   }
 }

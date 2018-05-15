@@ -26,8 +26,8 @@ export default {
   },
   mounted() {
     this.$store.commit('changeHero', {
-      heroTitle: '控制面板',
-      heroDescription: 'Some insights and statistics'
+      title: '控制面板',
+      description: 'Some insights and statistics'
     })
   }
 }
