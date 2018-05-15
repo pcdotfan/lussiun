@@ -6,7 +6,9 @@
   "private": true,
   "scripts": {
     "nuxt": "nuxt",
-    "serve": "nodemon --watch './server/**/*' -e ts,tsx --exec 'tsc && node ./server/index.js' ./server/index.ts"
+    "dev": "NODE_ENV=development nodemon -w server -x ts-node ./server/index.ts",
+    "tsc": "tsc -p tsconfig.json",
+    "tsc:w": "tsc -p tsconfig.json -w"
   },
   "dependencies": {
     "@koa/cors": "2",
@@ -26,9 +28,11 @@
     "less-loader": "^4.1.0",
     "mysql": "^2.15.0",
     "node-sass": "^4.9.0",
+    "nodemon": "^1.17.4",
     "nuxt": "latest",
     "sass-loader": "^7.0.1",
     "source-map-support": "^0.4.15",
+    "ts-node-dev": "^1.0.0-pre.21",
     "tslint": "^5.10.0",
     "tslint-config-standard": "^7.0.0",
     "typeorm": "^0.2.0",
@@ -52,8 +56,6 @@
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^3.0.1",
-    "nodemon": "^1.11.0",
-    "scmp": "^2.0.0",
     "typescript": "^2.8.1"
   }
 }

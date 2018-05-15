@@ -7,7 +7,10 @@ export class Category {
 
   @Column() name: string
 
-  @Column() slug: string
+  @Column({
+    unique: true
+  })
+  slug: string
 
   @Column({
     nullable: true

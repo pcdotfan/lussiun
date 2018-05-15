@@ -18,7 +18,9 @@ createConnection().then(async connection => {
 
     // create koa app
   const app = new Koa()
-  const router = new Router()
+  const router = new Router({
+    prefix: '/api'
+  })
 
   // register all application routes
   AppRoutes.forEach(route => router[route.method](route.path, route.action))

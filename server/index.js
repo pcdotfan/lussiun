@@ -23,7 +23,9 @@ const secret = 'vy1C%iZ8W+`]X9#vQl}:/78ul:,CjXcV5{%b-W|_Nty$tGbDnaRGRpJ]e_MkR+O0
 typeorm_1.createConnection().then((connection) => __awaiter(this, void 0, void 0, function* () {
     // create koa app
     const app = new Koa();
-    const router = new Router();
+    const router = new Router({
+        prefix: '/api'
+    });
     // register all application routes
     routes_1.AppRoutes.forEach(route => router[route.method](route.path, route.action));
     // run app

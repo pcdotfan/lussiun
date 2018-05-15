@@ -80,7 +80,7 @@
             <div class="uk-container uk-container-medium">
                 <div uk-navbar>
                     <ul class="uk-navbar-nav">
-                        <router-link :to="item.path" tag="li" v-for="item in hero.navbarItems" :key="item.title"><a v-text="item.title" exact></a></router-link>
+                        <router-link :to="item.path" tag="li" v-for="item in hero.navbarItems" :key="item.title" exact><a v-text="item.title" exact></a></router-link>
                     </ul>
                 </div>
             </div>

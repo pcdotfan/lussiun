@@ -6,22 +6,22 @@ const UserController_1 = require("./controller/UserController");
  */
 exports.AppRoutes = [
     {
-        path: '/api/register',
+        path: '/register',
         method: 'post',
         action: UserController_1.register
     },
     {
-        path: '/api/login',
+        path: '/login',
         method: 'post',
         action: UserController_1.login
     },
     {
-        path: '/api/user',
+        path: '/user',
         method: 'get',
         action: UserController_1.user
     },
     {
-        path: '/api/logout',
+        path: '/logout',
         method: 'post',
         action: UserController_1.logout
     }
