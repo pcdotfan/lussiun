@@ -1,4 +1,5 @@
 import authRoutes from './route/auth'
+import userRoutes from './route/user'
 import categoryRoutes from './route/category'
 
 /**
@@ -6,4 +7,4 @@ import categoryRoutes from './route/category'
  */
 const routes = []
 
-export const AppRoutes = routes.concat(authRoutes, categoryRoutes)
+export const AppRoutes = routes.concat(authRoutes, categoryRoutes, userRoutes)

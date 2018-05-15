@@ -1,4 +1,4 @@
-import { register, login, user, logout, userBasicInfo, update, changePassword } from '../controller/UserController'
+import { register, login, user, logout, userBasicInfo, changePassword } from '../controller/UserController'
 
 /**
  * All application routes.
@@ -10,7 +10,7 @@ export default [
     action: register
   },
   {
-    path: '/login',
+    path: '/auth/login',
     method: 'post',
     action: login
   },
@@ -20,7 +20,12 @@ export default [
     action: user
   },
   {
-    path: '/logout',
+    path: '/auth/user/basicinfo',
+    method: 'get',
+    action: userBasicInfo
+  },
+  {
+    path: '/auth/logout',
     method: 'post',
     action: logout
   },

@@ -11,7 +11,7 @@ exports.default = [
         action: UserController_1.register
     },
     {
-        path: '/login',
+        path: '/auth/login',
         method: 'post',
         action: UserController_1.login
     },
@@ -21,7 +21,12 @@ exports.default = [
         action: UserController_1.user
     },
     {
-        path: '/logout',
+        path: '/auth/user/basicinfo',
+        method: 'get',
+        action: UserController_1.userBasicInfo
+    },
+    {
+        path: '/auth/logout',
         method: 'post',
         action: UserController_1.logout
     },

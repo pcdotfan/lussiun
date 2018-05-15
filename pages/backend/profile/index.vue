@@ -4,11 +4,11 @@
           <div class="profile-avatar-control">
             <div class="uk-card uk-card-default uk-card-small">
               <div class="uk-card-media-top">
-                <img src="https://avatars1.githubusercontent.com/u/3370745?s=460">
+                <img :src="avatar">
               </div>
               <div class="uk-card-body">
-                <h4 class="nickname uk-text-center" v-text="this.user.nickname"></h4>
-                <a class="email uk-text-small" v-text="this.user.email" :href="emailLink"></a>
+                <h4 class="nickname uk-text-center" v-text="user.nickname"></h4>
+                <a class="email uk-text-small" v-text="user.email" :href="emailLink"></a>
               </div>
             </div>
           </div>
@@ -104,6 +104,7 @@
 </template>
 <script>
 import UIkit from 'uikit'
+import Gravatar from 'gravatar'
 export default {
   name: 'ProfileIndex',
   layout: 'backend',
@@ -115,6 +116,7 @@ export default {
         username: '',
         introduction: ''
       },
+      gravatar: '',
       password: '',
       password_confirmation: ''
     }
@@ -133,17 +135,16 @@ export default {
   },
   methods: {
     async fetchUser() {
-      this.user = await this.$axios.$get('/api/user/basicinfo')
+      this.user = await this.$axios.$get('/api/auth/user/basicinfo')
+      this.avatar = Gravatar.url(this.user.email, { s: '200' })
     },
-    async updateProfile() {
+    async updateProfile () {
       const user = Object.assign(this.user, { id: this.$auth.user.id })
       await this.$axios.$post('/api/user/update', user)
         .then(function (response) {
-        UIkit.notification("操作成功");
-        console.log(response)
+        UIkit.notification("操作成功", 'success');
       }).catch(function (error) {
-        console.log(error)
-        UIkit.notification("出现内部错误");
+        UIkit.notification("出现内部错误", 'danger');
       });
     },
     async changePassword() {
@@ -151,13 +152,11 @@ export default {
         UIkit.notification("新密码与确认密码不一致", 'danger');
         return
       }
-      await this.$axios.$post('/api/user/changepassword', this.password)
+      await this.$axios.$post('/api/auth/user/changepassword', { password: this.password })
         .then(function (response) {
-        UIkit.notification("操作成功");
-        console.log(response)
+        UIkit.notification("操作成功", 'success');
       }).catch(function (error) {
-        console.log(error)
-        UIkit.notification("出现内部错误");
+        UIkit.notification("出现内部错误", 'danger');
       });
     }
   }

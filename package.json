@@ -20,6 +20,7 @@
     "element": "^0.1.4",
     "element-ui": "^2.3.8",
     "eslint-plugin-vue": "^4.5.0",
+    "gravatar": "^1.6.0",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
     "koa-jwt": "^3.3.1",
