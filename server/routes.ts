@@ -1,6 +1,6 @@
 import { register, login, user, logout } from './controller/UserController'
 
-import { index, store } from './controller/CategoriesController'
+import { index, store, destroy } from './controller/CategoriesController'
 
 /**
  * All application routes.
@@ -25,6 +25,20 @@ export const AppRoutes = [
     path: '/logout',
     method: 'post',
     action: logout
+  },
+  {
+    path: '/category/store',
+    method: 'post',
+    action: store
+  },
+  {
+    path: '/category/index',
+    method: 'get',
+    action: index
+  },
+  {
+    path: '/category/destroy',
+    method: 'post',
+    action: destroy
   }
-
 ]

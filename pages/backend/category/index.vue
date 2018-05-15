@@ -7,23 +7,18 @@
                 <thead>
                   <tr>
                     <th class="uk-width-expand">话题名称</th>
+                    <th class="uk-table-shrink uk-text-nowrap">别名</th>
                     <th class="uk-table-shrink uk-text-nowrap">总数</th>
                     <th class="uk-width-small">操作</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                  <tr v-for="category in categories" :key="category.id">
+                    <td v-text="category.name"></td>
+                    <td v-text="category.slug"></td>
                     <td>5</td>
                     <td>
-                      <button class="uk-button uk-button-default" type="button">Button</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
-                    <td>10</td>
-                    <td>
-                      <button class="uk-button uk-button-default" type="button">Button</button>
+                      <button class="uk-button uk-button-danger" type="button" @click="destoryCategory(category.id)">删除</button>
                     </td>
                   </tr>
                 </tbody>
@@ -40,26 +35,26 @@
                   <div class="uk-margin">
                     <label class="uk-form-label" for="form-stacked-text">分类名称</label>
                     <div class="uk-form-controls">
-                      <input class="uk-input" id="form-stacked-text" type="text">
+                      <input class="uk-input" id="form-stacked-text" type="text" v-model="newCategory.name">
                     </div>
                   </div>
                   <div class="uk-margin">
                     <label class="uk-form-label" for="form-stacked-text">别名</label>
                     <div class="uk-form-controls">
-                      <input class="uk-input" id="form-stacked-text" type="text">
+                      <input class="uk-input" id="form-stacked-text" type="text" v-model="newCategory.slug">
                     </div>
                   </div>
                   <div class="uk-margin">
                     <label class="uk-form-label" for="form-stacked-text">描述（可选）</label>
                     <div class="uk-form-controls">
-                      <textarea class="uk-textarea"></textarea>
+                      <textarea class="uk-textarea" v-model="newCategory.description"></textarea>
                     </div>
                   </div>
                 </form>
               </div>
               <div class="uk-card-footer">
                 <p class="uk-text-right">
-                  <button type="submit" class="uk-button uk-button-primary">发布话题</button>
+                  <button type="submit" class="uk-button uk-button-primary" @click="addCategory()">发布话题</button>
                 </p>
               </div>
             </div>
@@ -68,18 +63,51 @@
       </main>
 </template>
 <script>
+import UIkit from 'uikit'
 export default {
   name: 'CategoryIndex',
   layout: 'backend',
   data() {
     return {
+      categories: [],
+      newCategory: {
+        name: '',
+        slug: '',
+        description: ''
+      }
     }
   },
   mounted() {
+    this.listCategories()
     this.$store.commit('changeHero', {
       title: '分类目录',
       description: '留连戏蝶时时舞，自在娇莺恰恰啼。'
     })
+  },
+  methods: {
+    async listCategories() {
+      this.categories = await this.$axios.$get('/api/category/index')
+    },
+    async addCategory() {
+      const result = await this.$axios.$post('/api/category/store', this.newCategory)
+      .then(function (response) {
+        UIkit.notification("操作成功");
+        console.log('done')
+      }).catch(function (error) {
+        UIkit.notification("出现内部错误");
+      });
+    },
+    async destoryCategory(id) {
+      const result = await this.$axios.$post('/api/category/destroy', {
+        id: id
+      }).then(function (response) {
+        UIkit.notification("操作成功");
+        console.log(response)
+      }).catch(function (error) {
+        console.log(error)
+        UIkit.notification("出现内部错误");
+      });
+    }
   }
 }
 </script>

@@ -9,6 +9,31 @@ export async function index (context: Context) {
   context.body = categories
 }
 
+export async function destroy (context: Context) {
+  const { body } = context.request // 拿到传入的参数
+  const categoryRepository = getManager().getRepository(Category)
+
+  try {
+    if (!body.id) {
+      context.status = 400
+      context.body = { error: `无效的传入参数` }
+      return
+    }
+
+    const categoryExisted = await categoryRepository.findOne({
+      id: body.id
+    }) // 同步处理
+
+    if (categoryExisted) {
+      await categoryRepository.delete(categoryExisted)
+    }
+    context.status = 200
+  } catch (error) {
+    context.status = 500
+    context.body = { error: error }
+  }
+}
+
 export async function store (context: Context) {
   const { body } = context.request // 拿到传入的参数
   const categoryRepository = getManager().getRepository(Category)

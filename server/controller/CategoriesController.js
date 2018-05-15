@@ -18,6 +18,31 @@ function index(context) {
     });
 }
 exports.index = index;
+function destroy(context) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { body } = context.request; // 拿到传入的参数
+        const categoryRepository = typeorm_1.getManager().getRepository(Category_1.Category);
+        try {
+            if (!body.id) {
+                context.status = 400;
+                context.body = { error: `无效的传入参数` };
+                return;
+            }
+            const categoryExisted = yield categoryRepository.findOne({
+                id: body.id
+            }); // 同步处理
+            if (categoryExisted) {
+                yield categoryRepository.delete(categoryExisted);
+            }
+            context.status = 200;
+        }
+        catch (error) {
+            context.status = 500;
+            context.body = { error: error };
+        }
+    });
+}
+exports.destroy = destroy;
 function store(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { body } = context.request; // 拿到传入的参数
