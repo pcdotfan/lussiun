@@ -36,6 +36,14 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
+    typeorm_1.CreateDateColumn({ type: 'timestamp' }),
+    __metadata("design:type", Date)
+], User.prototype, "createdAt", void 0);
+__decorate([
+    typeorm_1.UpdateDateColumn({ type: 'timestamp' }),
+    __metadata("design:type", Date)
+], User.prototype, "updatedAt", void 0);
+__decorate([
     typeorm_1.OneToMany(type => Article_1.Article, article => article.user),
     __metadata("design:type", Array)
 ], User.prototype, "articles", void 0);

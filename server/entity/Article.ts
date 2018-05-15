@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { User } from './User'
 import { Category } from './Category'
 
@@ -11,6 +11,12 @@ export class Article {
   @Column() slug: string
 
   @Column('text') content: string
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date
 
   @ManyToOne(type => User, user => user.articles)
   user: User

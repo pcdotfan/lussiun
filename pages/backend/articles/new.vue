@@ -14,35 +14,19 @@
             <div>
               <label class="uk-form-label" for="published-date">发布时间</label>
               <el-date-picker
-                v-model="value1"
                 type="datetime"
                 name="published-date"
+                v-model="published_date"
                 placeholder="选择日期时间">
               </el-date-picker>
             </div>
             <div>
               <label class="uk-form-label" for="tags">文章标签</label>
-              <el-select
-                name="tags"
-                v-model="value10"
-                multiple
-                filterable
-                allow-create
-                default-first-option
-                placeholder="请选择文章标签">
-                <el-option
-                  v-for="item in options5"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
             </div>
             <div>
               <label class="uk-form-label" for="categories">分类目录</label>
               <select class="uk-select" name="categories">
-                  <option>Option 01</option>
-                  <option>Option 02</option>
+                  <option v-for="category in categories" v-text="category.name" :key="category.id"></option>
               </select>
             </div>
           </div>
@@ -60,9 +44,12 @@ export default {
   },
   data() {
     return {
+      categories: [],
+      published_date: new Date()
     }
   },
   mounted() {
+    this.listCategories()
     this.$store.commit('changeHero', {
       title: '撰写文章',
       description: '词源倒流三江水，笔阵独扫千人军。',
@@ -71,6 +58,11 @@ export default {
         { title: '撰写文章', path: '/backend/articles/new' }
       ]
     })
+  },
+  methods: {
+    async listCategories() {
+      this.categories = await this.$axios.$get('/api/category/index')
+    },
   }
 }
 </script>

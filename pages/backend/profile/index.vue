@@ -106,8 +106,12 @@ export default {
   layout: 'backend',
   data() {
     return {
-      email: '467055732@qq.com',
-      nickname: 'PCDotFan'
+      user: {
+        email: '',
+        nickname: '',
+        username: ''
+      }
+      
     }
   },
   computed: {
@@ -120,6 +124,11 @@ export default {
       title: '个人资料',
       description: '从此无心爱良夜，任他明月下西楼。'
     })
+  },
+  methods: {
+    async fetchUser() {
+      this.user = await this.$axios.$get('/api/user/basicinfo')
+    },
   }
 }
 </script>

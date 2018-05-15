@@ -5,6 +5,64 @@ import { User } from '../entity/User'
 
 const bcrypt = require('bcrypt')
 
+export async function get (context: Context) {
+  const { body } = context.request // 拿到传入的参数
+  const userRepository = getManager().getRepository(User)
+  try {
+    if (!body.id) {
+      context.status = 400
+      context.body = { error: `无效的传入参数` }
+      return
+    }
+
+    let userExisted = await userRepository.findOne({
+      id: body.id
+    }) // 同步处理
+
+    if (userExisted) {
+      context.status = 200
+      context.body = { userExisted }
+    } else {
+      context.status = 406
+      context.body = { message: '无效用户' }
+    }
+  } catch (error) {
+    context.status = 500
+    context.body = { error: error }
+  }
+}
+
+export async function update (context: Context) {
+  const { body } = context.request // 拿到传入的参数
+  const userRepository = getManager().getRepository(User)
+
+  try {
+    if (!body.id) {
+      context.status = 400
+      context.body = { error: `无效的传入参数` }
+      return
+    }
+
+    let userExisted = await userRepository.findOne({
+      id: body.id
+    }) // 同步处理
+
+    if (userExisted) {
+      userExisted = Object.assign(userExisted, body)
+      await userRepository.save(userExisted)
+
+      context.status = 200
+      context.body = { message: '更改成功' }
+    } else {
+      context.status = 406
+      context.body = { message: '无效用户' }
+    }
+  } catch (error) {
+    context.status = 500
+    context.body = { error: error }
+  }
+}
+
 export async function register (context: Context) {
   const { body } = context.request // 拿到传入的参数
   const userRepository = getManager().getRepository(User)
@@ -71,5 +129,9 @@ export async function logout (context: Context) {
 }
 
 export async function user (context: Context) {
+  context.body = { user: { id: context.state.user.id } }
+}
+
+export async function userBasicInfo (context: Context) {
   context.body = { user: { id: context.state.user.id } }
 }

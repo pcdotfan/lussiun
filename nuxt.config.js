@@ -27,7 +27,8 @@ module.exports = {
   */
   plugins: [
     { src: "@/plugins/uikit", ssr: false },
-    { src: "@/plugins/vuex-router-sync", ssr: false }
+    { src: "@/plugins/vuex-router-sync", ssr: false },
+    "@/plugins/element-ui"
   ],
   router: {
     linkActiveClass: "uk-active",
