@@ -5,9 +5,14 @@ import { User } from '../entity/User'
 
 const bcrypt = require('bcrypt')
 
-export async function get (context: Context) {
-  const { body } = context.request // 拿到传入的参数
+async function getById (id) {
   const userRepository = getManager().getRepository(User)
+  return userRepository.findOne({ id })
+}
+
+export async function show (context: Context) {
+  const { body } = context.request // 拿到传入的参数
+
   try {
     if (!body.id) {
       context.status = 400
@@ -15,9 +20,7 @@ export async function get (context: Context) {
       return
     }
 
-    let userExisted = await userRepository.findOne({
-      id: body.id
-    }) // 同步处理
+    let userExisted = getById(body.id)
 
     if (userExisted) {
       context.status = 200
@@ -133,5 +136,38 @@ export async function user (context: Context) {
 }
 
 export async function userBasicInfo (context: Context) {
-  context.body = { user: { id: context.state.user.id } }
+  const ctxGet = await getById(context.state.user.id)
+  delete ctxGet.password
+  delete ctxGet.createdAt
+  delete ctxGet.updatedAt
+  context.body = ctxGet
+  context.status = 200
+}
+
+export async function changePassword (context: Context) {
+  const { body } = context.request
+  const userRepository = getManager().getRepository(User)
+  const userExisted = await getById(context.state.user.id)
+  try {
+    if (!body.password) {
+      context.status = 400
+      context.body = { error: `无效的传入参数` }
+      return
+    }
+    body.password = await bcrypt.hash(body.password, 5)
+
+    if (userExisted) {
+      userExisted.password = body.password
+      await userRepository.save(userExisted)
+
+      context.status = 200
+      context.body = { message: '修改成功' }
+    } else {
+      context.status = 406
+      context.body = { message: '无匹配用户' }
+    }
+  } catch (error) {
+    context.status = 500
+    context.body = { error: error }
+  }
 }

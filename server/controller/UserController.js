@@ -12,19 +12,22 @@ const typeorm_1 = require("typeorm");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const User_1 = require("../entity/User");
 const bcrypt = require('bcrypt');
-function get(context) {
+function getById(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const userRepository = typeorm_1.getManager().getRepository(User_1.User);
+        return userRepository.findOne({ id });
+    });
+}
+function show(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { body } = context.request; // 拿到传入的参数
-        const userRepository = typeorm_1.getManager().getRepository(User_1.User);
         try {
             if (!body.id) {
                 context.status = 400;
                 context.body = { error: `无效的传入参数` };
                 return;
             }
-            let userExisted = yield userRepository.findOne({
-                id: body.id
-            }); // 同步处理
+            let userExisted = getById(body.id);
             if (userExisted) {
                 context.status = 200;
                 context.body = { userExisted };
@@ -40,7 +43,7 @@ function get(context) {
         }
     });
 }
-exports.get = get;
+exports.show = show;
 function update(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { body } = context.request; // 拿到传入的参数
@@ -148,7 +151,42 @@ function user(context) {
 exports.user = user;
 function userBasicInfo(context) {
     return __awaiter(this, void 0, void 0, function* () {
-        context.body = { user: { id: context.state.user.id } };
+        const ctxGet = yield getById(context.state.user.id);
+        delete ctxGet.password;
+        delete ctxGet.createdAt;
+        delete ctxGet.updatedAt;
+        context.body = ctxGet;
+        context.status = 200;
     });
 }
 exports.userBasicInfo = userBasicInfo;
+function changePassword(context) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { body } = context.request;
+        const userRepository = typeorm_1.getManager().getRepository(User_1.User);
+        const userExisted = yield getById(context.state.user.id);
+        try {
+            if (!body.password) {
+                context.status = 400;
+                context.body = { error: `无效的传入参数` };
+                return;
+            }
+            body.password = yield bcrypt.hash(body.password, 5);
+            if (userExisted) {
+                userExisted.password = body.password;
+                yield userRepository.save(userExisted);
+                context.status = 200;
+                context.body = { message: '修改成功' };
+            }
+            else {
+                context.status = 406;
+                context.body = { message: '无匹配用户' };
+            }
+        }
+        catch (error) {
+            context.status = 500;
+            context.body = { error: error };
+        }
+    });
+}
+exports.changePassword = changePassword;

@@ -7,8 +7,8 @@
                 <img src="https://avatars1.githubusercontent.com/u/3370745?s=460">
               </div>
               <div class="uk-card-body">
-                <h4 class="nickname uk-text-center" v-text="nickname"></h4>
-                <a class="email uk-text-small" v-text="email" :href="emailLink"></a>
+                <h4 class="nickname uk-text-center" v-text="this.user.nickname"></h4>
+                <a class="email uk-text-small" v-text="this.user.email" :href="emailLink"></a>
               </div>
             </div>
           </div>
@@ -20,15 +20,15 @@
                     <div>
                       <label class="uk-form-label" for="form-stacked-text">昵称（必填）</label>
                       <div class="uk-form-controls">
-                        <input class="uk-input" type="text" v-model="nickname">
+                        <input class="uk-input" type="text" v-model="user.nickname">
                       </div>
                     </div>
                     <div>
                       <label class="uk-form-label" for="form-stacked-text">公开显示为</label>
                       <div class="uk-form-controls">
                         <select class="uk-select">
-                            <option>Option 01</option>
-                            <option>Option 02</option>
+                            <option v-text="user.nickname"></option>
+                            <option v-text="user.username"></option>
                         </select>
                       </div>
                     </div>
@@ -36,9 +36,10 @@
                   <div class="uk-margin">
                     <label class="uk-form-label" for="form-stacked-text">E-Mail</label>
                     <div class="uk-form-controls">
-                      <input class="uk-input" type="email" v-model="email">
+                      <input class="uk-input" type="email" v-model="user.email">
                     </div>
                   </div>
+                  <!--
                   <div class="uk-grid-small uk-child-width-1-2" uk-grid>
                     <div>
                       <label class="uk-form-label" for="form-stacked-text">微博用户名</label>
@@ -53,17 +54,18 @@
                       </div>
                     </div>
                   </div>
+                  -->
                   <div class="uk-margin">
                     <label class="uk-form-label" for="form-stacked-text">个人简介</label>
                     <div class="uk-form-controls">
-                      <textarea class="uk-textarea" type="text" placeholder="Some text..."></textarea>
+                      <textarea class="uk-textarea" type="text" placeholder="Some text..." v-model="user.introduction"></textarea>
                     </div>
                   </div>
                 </form>
               </div>
               <div class="uk-card-footer">
                 <p class="uk-text-right">
-                  <button class="uk-button uk-button-primary" type="submit">保存资料</button>
+                  <button class="uk-button uk-button-primary" type="submit" @click="updateProfile()">保存资料</button>
                 </p>
               </div>
             </div>
@@ -75,7 +77,7 @@
                     <div class="uk-form-controls">
                       <div class="uk-inline uk-width-1-1">
                         <span class="uk-form-icon uk-form-icon-flip" uk-icon="lock"></span>
-                        <input class="uk-input" type="password">
+                        <input class="uk-input" type="password" v-model="password">
                       </div>
                     </div>
                   </div>
@@ -84,7 +86,7 @@
                     <div class="uk-form-controls">
                       <div class="uk-inline uk-width-1-1">
                         <span class="uk-form-icon uk-form-icon-flip" uk-icon="check"></span>
-                        <input class="uk-input" type="password">
+                        <input class="uk-input" type="password" v-model="password_confirmation">
                       </div>
                     </div>
                   </div>
@@ -92,7 +94,7 @@
               </div>
               <div class="uk-card-footer">
                 <p class="uk-text-right">
-                  <button class="uk-button uk-button-danger" type="submit">修改密码</button>
+                  <button class="uk-button uk-button-danger" type="submit" @click="changePassword()">修改密码</button>
                 </p>
               </div>
             </div>
@@ -101,6 +103,7 @@
       </main>
 </template>
 <script>
+import UIkit from 'uikit'
 export default {
   name: 'ProfileIndex',
   layout: 'backend',
@@ -109,9 +112,11 @@ export default {
       user: {
         email: '',
         nickname: '',
-        username: ''
-      }
-      
+        username: '',
+        introduction: ''
+      },
+      password: '',
+      password_confirmation: ''
     }
   },
   computed: {
@@ -120,6 +125,7 @@ export default {
     }
   },
   mounted() {
+    this.fetchUser()
     this.$store.commit('changeHero', {
       title: '个人资料',
       description: '从此无心爱良夜，任他明月下西楼。'
@@ -129,6 +135,31 @@ export default {
     async fetchUser() {
       this.user = await this.$axios.$get('/api/user/basicinfo')
     },
+    async updateProfile() {
+      const user = Object.assign(this.user, { id: this.$auth.user.id })
+      await this.$axios.$post('/api/user/update', user)
+        .then(function (response) {
+        UIkit.notification("操作成功");
+        console.log(response)
+      }).catch(function (error) {
+        console.log(error)
+        UIkit.notification("出现内部错误");
+      });
+    },
+    async changePassword() {
+      if (this.password !== this.password_confirmation) {
+        UIkit.notification("新密码与确认密码不一致", 'danger');
+        return
+      }
+      await this.$axios.$post('/api/user/changepassword', this.password)
+        .then(function (response) {
+        UIkit.notification("操作成功");
+        console.log(response)
+      }).catch(function (error) {
+        console.log(error)
+        UIkit.notification("出现内部错误");
+      });
+    }
   }
 }
 </script>

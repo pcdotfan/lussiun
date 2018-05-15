@@ -1,4 +1,4 @@
-import { register, login, user, logout } from './controller/UserController'
+import { register, login, user, logout, userBasicInfo, update, changePassword } from './controller/UserController'
 
 import { index, store, destroy } from './controller/CategoriesController'
 
@@ -22,6 +22,16 @@ export const AppRoutes = [
     action: user
   },
   {
+    path: '/user/update',
+    method: 'post',
+    action: update
+  },
+  {
+    path: '/user/basicinfo',
+    method: 'get',
+    action: userBasicInfo
+  },
+  {
     path: '/logout',
     method: 'post',
     action: logout
@@ -35,6 +45,11 @@ export const AppRoutes = [
     path: '/category/index',
     method: 'get',
     action: index
+  },
+  {
+    path: '/user/changepassword',
+    method: 'post',
+    action: changePassword
   },
   {
     path: '/category/destroy',

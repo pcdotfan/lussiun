@@ -23,6 +23,8 @@ export class User {
 
   @Column() password: string
 
+  @Column('text') introduction: string
+
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date
 
