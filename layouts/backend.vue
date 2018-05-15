@@ -56,7 +56,7 @@
             <ul class="uk-navbar-nav">
             <router-link to="/backend/profile" tag="li" exact>
                 <a>
-                <img class="uk-border-circle uk-margin-small-right" height="32" width="32" title="wwy701" src="https://avatars1.githubusercontent.com/u/3370745?s=460"><span>wwy701</span>
+                <img class="uk-border-circle uk-margin-small-right" height="32" width="32" :title="user.nickname" :src="avatar"><span v-text="user.nickname"></span>
                 </a>
                 <div class="uk-navbar-dropdown">
                 <ul class="uk-nav uk-navbar-dropdown-nav">
@@ -99,20 +99,34 @@
 </style>
 
 <script>
+import Gravatar from 'gravatar'
 export default {
   name: 'Backend',
   data() {
     return {
+        user: {
+            email: '',
+            nickname: '',
+            username: '',
+            introduction: ''
+        }
     }
   },
   mounted() {
+      this.fetchUser()
   },
   computed: {
     hero() {
       return this.$store.state.hero
     },
+    avatar() {
+      return Gravatar.url(this.user.email, { s: '32' })
+    },
   },
   methods: {
+    async fetchUser() {
+      this.user = await this.$axios.$get('/api/auth/user/basicinfo')
+    }
   }
 }
 </script>

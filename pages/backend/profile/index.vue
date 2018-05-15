@@ -116,12 +116,14 @@ export default {
         username: '',
         introduction: ''
       },
-      gravatar: '',
       password: '',
       password_confirmation: ''
     }
   },
   computed: {
+    avatar() {
+      return Gravatar.url(this.user.email, { s: '250' })
+    },
     emailLink() {
       return `mailto:${this.email}`
     }
@@ -136,7 +138,6 @@ export default {
   methods: {
     async fetchUser() {
       this.user = await this.$axios.$get('/api/auth/user/basicinfo')
-      this.avatar = Gravatar.url(this.user.email, { s: '200' })
     },
     async updateProfile () {
       const user = Object.assign(this.user, { id: this.$auth.user.id })

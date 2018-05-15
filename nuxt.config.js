@@ -28,7 +28,8 @@ module.exports = {
   plugins: [
     { src: "@/plugins/uikit", ssr: false },
     { src: "@/plugins/vuex-router-sync", ssr: false },
-    "@/plugins/element-ui"
+    "@/plugins/element-ui",
+    "@/plugins/vue-async-computed"
   ],
   router: {
     linkActiveClass: "uk-active",
@@ -46,8 +47,12 @@ module.exports = {
     strategies: {
       local: {
         endpoints: {
-          login: { url: "/api/auth/login", method: "post", propertyName: "token" },
-          logout: { url: "/api/auth/logout", method: "post" },
+          login: {
+            url: "/api/auth/login",
+            method: "post",
+            propertyName: "token"
+          },
+          logout: { url: "/api/auth/logout", method: "post" }
         }
       }
     }

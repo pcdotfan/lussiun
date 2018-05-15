@@ -7817,6 +7817,10 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-async-computed@^3.3.1:
+  version "3.3.1"
+  resolved "http://registry.npm.taobao.org/vue-async-computed/download/vue-async-computed-3.3.1.tgz#9d754e649ccabef97e7e3932f1bc097a66a23db7"
+
 vue-avatar-cropper@^0.0.27:
   version "0.0.27"
   resolved "http://registry.npm.taobao.org/vue-avatar-cropper/download/vue-avatar-cropper-0.0.27.tgz#c030f519b8d853c8631883d847512e5a6e1ebd8c"

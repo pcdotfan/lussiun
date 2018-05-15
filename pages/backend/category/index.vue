@@ -69,7 +69,6 @@ export default {
   layout: 'backend',
   data() {
     return {
-      categories: [],
       newCategory: {
         name: '',
         slug: '',
@@ -77,17 +76,18 @@ export default {
       }
     }
   },
+  asyncComputed: {
+    async categories() {
+      return this.$axios.$get('/api/category/index')
+    },
+  },
   mounted() {
-    this.listCategories()
     this.$store.commit('changeHero', {
       title: '分类目录',
       description: '留连戏蝶时时舞，自在娇莺恰恰啼。'
     })
   },
   methods: {
-    async listCategories() {
-      this.categories = await this.$axios.$get('/api/category/index')
-    },
     async addCategory() {
       const result = await this.$axios.$post('/api/category/store', this.newCategory)
       .then(function (response) {
