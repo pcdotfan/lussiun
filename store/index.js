@@ -6,8 +6,6 @@ Vue.use(Vuex)
 
 const store = () => new Vuex.Store({
   state: {
-    user: {},
-    token: null,
     heroTitle: '控制面板',
     heroDescription: 'Some insights and statistics',
     heroNavbarItems: []

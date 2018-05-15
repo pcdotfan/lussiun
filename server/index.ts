@@ -6,7 +6,6 @@ import * as Router from 'koa-router'
 import * as bodyParser from 'koa-bodyparser'
 import * as jwt from 'koa-jwt'
 import { AppRoutes } from './routes'
-import errorHandle from './middleware/errorHandle'
 
 const cors = require('@koa/cors')
 
@@ -21,46 +20,36 @@ createConnection().then(async connection => {
   const app = new Koa()
   const router = new Router()
 
-  // Import and Set Nuxt.js options
-  let config = require('../nuxt.config.js')
-
-  // Instantiate nuxt.js
-  const nuxt = new Nuxt(config)
-
-  // Build in development
-  const builder = new Builder(nuxt)
-  await builder.build()
-
   // register all application routes
   AppRoutes.forEach(route => router[route.method](route.path, route.action))
 
     // run app
   app.use(cors())
-  app.use(async (ctx, next) => {
-    await next()
-    ctx.status = 200 // koa defaults to 404 when it sees that status is unset
-    return new Promise((resolve, reject) => {
-      ctx.res.on('close', resolve)
-      ctx.res.on('finish', resolve)
-      nuxt.render(ctx.req, ctx.res, promise => {
-        // nuxt.render passes a rejected promise into callback on error.
-        promise.then(resolve).catch(reject)
-      })
+  app.use((ctx, next) => {
+    return next().catch((err) => {
+      if (err.status === 401) {
+        ctx.status = 401
+        ctx.body = {
+          error: err.originalError ? err.originalError.message : err.message
+        }
+      } else {
+        throw err
+      }
     })
-  })
-  app.use(errorHandle)
+  }
+  )
   app.use(jwt({
     secret
   })
     .unless({
-      path: [/\/register/, /\/login/]
+      path: [/\/register/, /\/login/, /\/logout/]
     })
   )
   app.use(bodyParser())
   app.use(router.routes())
   app.use(router.allowedMethods())
-  app.listen(3000)
+  app.listen(8080)
 
-  console.log('Koa application is up and running on port 3000')
+  console.log('Koa application is up and running on port 8080')
 
 }).catch(error => console.log('TypeORM connection error: ', error))

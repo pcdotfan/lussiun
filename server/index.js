@@ -9,14 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
-const nuxt_1 = require("nuxt");
 const typeorm_1 = require("typeorm");
 const Koa = require("koa");
 const Router = require("koa-router");
 const bodyParser = require("koa-bodyparser");
 const jwt = require("koa-jwt");
 const routes_1 = require("./routes");
-const errorHandle_1 = require("./middleware/errorHandle");
 const cors = require('@koa/cors');
 // create connection with database
 // note that its not active database connection
@@ -26,39 +24,32 @@ typeorm_1.createConnection().then((connection) => __awaiter(this, void 0, void 0
     // create koa app
     const app = new Koa();
     const router = new Router();
-    // Import and Set Nuxt.js options
-    let config = require('../nuxt.config.js');
-    // Instantiate nuxt.js
-    const nuxt = new nuxt_1.Nuxt(config);
-    // Build in development
-    const builder = new nuxt_1.Builder(nuxt);
-    yield builder.build();
     // register all application routes
     routes_1.AppRoutes.forEach(route => router[route.method](route.path, route.action));
     // run app
     app.use(cors());
-    app.use((ctx, next) => __awaiter(this, void 0, void 0, function* () {
-        yield next();
-        ctx.status = 200; // koa defaults to 404 when it sees that status is unset
-        return new Promise((resolve, reject) => {
-            ctx.res.on('close', resolve);
-            ctx.res.on('finish', resolve);
-            nuxt.render(ctx.req, ctx.res, promise => {
-                // nuxt.render passes a rejected promise into callback on error.
-                promise.then(resolve).catch(reject);
-            });
+    app.use((ctx, next) => {
+        return next().catch((err) => {
+            if (err.status === 401) {
+                ctx.status = 401;
+                ctx.body = {
+                    error: err.originalError ? err.originalError.message : err.message
+                };
+            }
+            else {
+                throw err;
+            }
         });
-    }));
-    app.use(errorHandle_1.default);
+    });
     app.use(jwt({
         secret
     })
         .unless({
-        path: [/\/register/, /\/login/]
+        path: [/\/register/, /\/login/, /\/logout/]
     }));
     app.use(bodyParser());
     app.use(router.routes());
     app.use(router.allowedMethods());
-    app.listen(3000);
-    console.log('Koa application is up and running on port 3000');
+    app.listen(8080);
+    console.log('Koa application is up and running on port 8080');
 })).catch(error => console.log('TypeORM connection error: ', error));

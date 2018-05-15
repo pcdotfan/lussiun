@@ -33,19 +33,23 @@ module.exports = {
     linkExactActiveClass: 'uk-active',
     middleware: ['auth']
   },
-  modules: ['@nuxtjs/axios'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
+  ],
   axios: {
-    proxy: true
-  },
-  proxy: {
-    '/api': 'http://localhost:3000'
+    baseURL: 'http://localhost:8080',
+    browserBaseURL: 'http://localhost:8080'
   },
   auth: {
+    redirect: false,
+    fetchUserOnLogin: false,
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/login', method: 'post', propertyName: 'token' },
-          user: { url: '/user', method: 'get', propertyName: 'user' }
+          login: { url: '/api/login', method: 'post', propertyName: 'token' },
+          logout: { url: '/api/logout', method: 'post' },
+          user: { url: '/api/user', method: 'get' },
         }
       }
     }

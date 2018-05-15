@@ -25,8 +25,6 @@
 </template>
 
 <script>
-import * as types from '~/store/types'
-import api from '~/consts/api'
 import AuthTip from '../components/AuthTip'
 export default {
   name: 'Login',
@@ -45,24 +43,21 @@ export default {
     }
   },
   methods: {
-    async login({ redirect }) {
+    async login() {
+      this.error = null
       if (!this.user.username || !this.user.password) {
-        this.$refs.alert.openAlert('请输入用户名和密码', 'warning')
-      } else {
-        this.$axios.$post(api.login, this.user)
-          .then(response => {
-            this.$store.commit(types.LOGIN, response.token)
-            this.$store.$router.push(
-              {
-                name: 'backend-dashboard'
-              }
-            )
-          })
-          .catch(() => {
-            // error
-            this.$refs.alert.openAlert('用户名或密码错误', 'danger')
-          })
+        return this.$refs.alert.openAlert('请输入用户名和密码', 'warning')
       }
+      return this.$auth
+        .loginWith('local', {
+          data: {
+            username: this.user.username,
+            password: this.user.password
+          }
+        })
+        .catch(e => {
+          this.$refs.alert.openAlert('用户名或密码错误', 'danger')
+        })
     }
   }
 }

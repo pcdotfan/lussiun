@@ -61,7 +61,7 @@
                 <div class="uk-navbar-dropdown">
                 <ul class="uk-nav uk-navbar-dropdown-nav">
                     <li><a href="#">个人资料</a></li>
-                    <li><a @click="logout">登出</a></li>
+                    <li><a @click="$auth.logout()">登出</a></li>
                 </ul>
                 </div>
             </router-link>
@@ -99,29 +99,13 @@
 </style>
 
 <script>
-import * as types from '~/store/types'
 export default {
   name: 'Backend',
   data() {
     return {
     }
   },
-  async asyncData({ store }) {
-    let data = await store.dispatch('USER_INFO')
-    if (data.success) {
-      return {
-        user: data.data
-      }
-    } else {
-      return {
-        user: {}
-      }
-    }
-  },
   mounted() {
-    if (window.localStorage.getItem('token')) {
-      this.$store.commit(types.LOGIN, window.localStorage.getItem('token'))
-    }
   },
   computed: {
     heroTitle() {
@@ -135,14 +119,6 @@ export default {
     }
   },
   methods: {
-    logout() {
-      this.$store.dispatch('LOGOUT').then(data => {
-        if (data.success) {
-          this.$store.state.token = ''
-          this.$router.push('/login')
-        }
-      })
-    }
   }
 }
 </script>

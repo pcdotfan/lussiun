@@ -19,5 +19,10 @@ exports.AppRoutes = [
         path: '/api/user',
         method: 'get',
         action: UserController_1.user
+    },
+    {
+        path: '/api/logout',
+        method: 'post',
+        action: UserController_1.logout
     }
 ];

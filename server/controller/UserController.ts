@@ -1,6 +1,6 @@
 import { Context } from 'koa'
 import { getManager } from 'typeorm'
-import { sign, verify } from 'jsonwebtoken'
+import { sign } from 'jsonwebtoken'
 import { User } from '../entity/User'
 
 const bcrypt = require('bcrypt')
@@ -42,16 +42,13 @@ export async function login (context: Context) {
   try {
     const userExisted = await userRepository.findOne({ username: body.username })
     if (userExisted && await bcrypt.compare(body.password, userExisted.password)) {
-      const token = sign({
-        data: userExisted,
-        // 设置 token 过期时间
-        exp: Math.floor(Date.now() / 1000) + (60 * 60) // 60 seconds * 60 minutes = 1 hour
-      }, secret)
+      const token = sign(
+        { id: userExisted.id },
+        secret,
+        { expiresIn: '1h' }
+      )
       context.status = 200
-      context.body = {
-        message: '登录成功',
-        token
-      }
+      context.body = { token }
     } else {
       context.status = 401
       context.body = { message: '用户名或密码错误' }
@@ -62,6 +59,17 @@ export async function login (context: Context) {
   }
 }
 
+export async function logout (context: Context) {
+  try {
+    context.status = 200
+    context.body = {
+      status: 'OK'
+    }
+  } catch (error) {
+    context.throw(500)
+  }
+}
+
 export async function user (context: Context) {
-  //
+  context.body = { user: { id: context.state.user.id } }
 }

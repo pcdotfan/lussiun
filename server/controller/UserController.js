@@ -50,16 +50,9 @@ function login(context) {
         try {
             const userExisted = yield userRepository.findOne({ username: body.username });
             if (userExisted && (yield bcrypt.compare(body.password, userExisted.password))) {
-                const token = jsonwebtoken_1.sign({
-                    data: userExisted,
-                    // 设置 token 过期时间
-                    exp: Math.floor(Date.now() / 1000) + (60 * 60) // 60 seconds * 60 minutes = 1 hour
-                }, secret);
+                const token = jsonwebtoken_1.sign({ id: userExisted.id }, secret, { expiresIn: '1h' });
                 context.status = 200;
-                context.body = {
-                    message: '登录成功',
-                    token
-                };
+                context.body = { token };
             }
             else {
                 context.status = 401;
@@ -73,9 +66,23 @@ function login(context) {
     });
 }
 exports.login = login;
+function logout(context) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            context.status = 200;
+            context.body = {
+                status: 'OK'
+            };
+        }
+        catch (error) {
+            context.throw(500);
+        }
+    });
+}
+exports.logout = logout;
 function user(context) {
     return __awaiter(this, void 0, void 0, function* () {
-        //
+        context.body = { user: { id: context.state.user.id } };
     });
 }
 exports.user = user;

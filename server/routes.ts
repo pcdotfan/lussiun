@@ -1,4 +1,4 @@
-import { register, login, user } from './controller/UserController'
+import { register, login, user, logout } from './controller/UserController'
 
 /**
  * All application routes.
@@ -18,5 +18,10 @@ export const AppRoutes = [
     path: '/api/user',
     method: 'get',
     action: user
+  },
+  {
+    path: '/api/logout',
+    method: 'post',
+    action: logout
   }
 ]
