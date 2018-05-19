@@ -55,7 +55,7 @@ $--link-hover-color: $--color-primary !default;
 
 /* Background
 -------------------------- */
-$--background-color-base: #f5f7fa !default;
+$--background-color-base: #f9f9fb !default;
 
 /* Border
 -------------------------- */
@@ -236,12 +236,12 @@ $--select-group-height: 30px !default;
 $--select-group-font-size: 12px !default;
 
 $--select-dropdown-background: $--color-white !default;
-$--select-dropdown-shadow: $--box-shadow-light !default;
+$--select-dropdown-shadow: $--box-shadow-base !default;
 $--select-dropdown-empty-color: #999 !default;
 $--select-dropdown-max-height: 274px !default;
 $--select-dropdown-padding: 6px 0 !default;
 $--select-dropdown-empty-padding: 10px 0 !default;
-$--select-dropdown-border: solid 1px $--border-color-light !default;
+$--select-dropdown-border: 0;
 
 /* Alert
 -------------------------- */

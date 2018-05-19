@@ -6,50 +6,94 @@
             <input class="title uk-input uk-width-1-1 uk-form-large" placeholder="输入标题...">
           </div>
           <div class="uk-card-body">
-            <Editor></Editor>
+            <markdown-editor v-model="content"></markdown-editor>
+          </div>
+          <div class="uk-card-footer">
+            <p class="uk-text-right">
+              <button class="uk-button uk-button-secondary uk-margin-right">保存草稿</button>
+              <button class="uk-button uk-button-primary">发布文章</button>
+            </p>
           </div>
         </div>
-        <div class="article-new-edit-controls uk-margin uk-card uk-card-default uk-card-body">
-          <div class="uk-grid uk-child-width-1-3 uk-grid-divider">
-            <div>
-              <label class="uk-form-label" for="published-date">发布时间</label>
-              <el-date-picker
-                type="datetime"
-                name="published-date"
-                v-model="published_date"
-                placeholder="选择日期时间">
-              </el-date-picker>
-            </div>
-            <div>
-              <label class="uk-form-label" for="tags">文章标签</label>
-            </div>
-            <div>
-              <label class="uk-form-label" for="categories">分类目录</label>
-              <el-select v-model="value" placeholder="选择一个分类目录">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
+        <section class="article-new-edit-controls">
+          <div class="uk-margin uk-card uk-card-default uk-card-body">
+            <div class="uk-grid uk-child-width-1-3 uk-grid-divider">
+              <div>
+                <label class="uk-form-label" for="slug">别名</label>
+                <input class="uk-input" type="text" name="slug" v-model="slug">
+              </div>
+              <div>
+                <label class="uk-form-label" for="status">状态</label>
+                <el-select v-model="statusSelected" name="status" placeholder="选择文章状态">
+                  <el-option
+                    v-for="status in statuses"
+                    :key="status.id"
+                    :label="status.name"
+                    :value="status.id">
+                  </el-option>
+                </el-select>
+              </div>
+              <div>
+                <label class="uk-form-label" for="categories">分类目录</label>
+                <el-select v-model="categorySelected" placeholder="选择一个分类目录">
+                  <el-option
+                    v-for="category in categories"
+                    :key="category.id"
+                    :label="category.name"
+                    :value="category.id">
+                  </el-option>
+                </el-select>
+              </div>
             </div>
           </div>
-        </div>
+          <div class="uk-margin uk-card uk-card-default uk-card-body">
+            <div class="uk-grid uk-child-width-1-3 uk-grid-divider">
+              <div>
+                <label class="uk-form-label" for="published-date">发布时间</label>
+                <el-date-picker
+                  type="datetime"
+                  name="published-date"
+                  v-model="publishedDate"
+                  placeholder="选择日期时间">
+                </el-date-picker>
+              </div>
+              <div>
+                <label class="uk-form-label" for="tags">文章标签</label>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
   </main>
 </template>
 <script>
-import Editor from '~/components/MarkdownEditor'
 export default {
   name: 'New',
   layout: 'backend',
-  components: {
-    Editor
-  },
   data () {
     return {
-      published_date: new Date()
+      publishedDate: new Date(),
+      categorySelected: '请选择',
+      statusSelected: '请选择',
+      content: '',
+      statuses: [
+        {
+          id: -1,
+          name: '已删除'
+        },
+        {
+          id: 0,
+          name: '草稿'
+        },
+        {
+          id: 1,
+          name: '待审核'
+        },
+        {
+          id: -1,
+          name: '已发布'
+        }
+      ]
     }
   },
   asyncComputed: {

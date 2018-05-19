@@ -20,6 +20,7 @@
     "cross-env": "^5.0.1",
     "element-ui": "^2.3.9",
     "eslint-plugin-vue": "^4.5.0",
+    "faker": "^4.1.0",
     "gravatar": "^1.6.0",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",

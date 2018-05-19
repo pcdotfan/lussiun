@@ -1,5 +1,4 @@
 module.exports = {
-  mode: 'spa',
   /*
   ** Headers of the page
   */
@@ -28,13 +27,13 @@ module.exports = {
   plugins: [
     { src: '@/plugins/uikit', ssr: false },
     { src: '@/plugins/vuex-router-sync', ssr: false },
-    '@/plugins/element-ui',
-    '@/plugins/vue-async-computed'
+    '@/plugins/vue-async-computed',
+    { src: '@plugins/simplemde.js', ssr: false },
+    '@/plugins/element-ui'
   ],
   router: {
     linkActiveClass: 'uk-active',
-    linkExactActiveClass: 'uk-active',
-    middleware: ['auth']
+    linkExactActiveClass: 'uk-active'
   },
   modules: ['@nuxtjs/axios', '@nuxtjs/auth'],
   axios: {
@@ -42,7 +41,6 @@ module.exports = {
     browserBaseURL: 'http://localhost:8080'
   },
   auth: {
-    redirect: false,
     strategies: {
       local: {
         endpoints: {
@@ -51,7 +49,8 @@ module.exports = {
             method: 'post',
             propertyName: 'token'
           },
-          logout: { url: '/api/auth/logout', method: 'post' }
+          logout: { url: '/api/auth/logout', method: 'post' },
+          user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
         }
       }
     }

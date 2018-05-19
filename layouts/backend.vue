@@ -98,6 +98,7 @@
 import Gravatar from 'gravatar'
 export default {
   name: 'Backend',
+  middleware: ['auth'],
   data () {
     return {
       user: {
