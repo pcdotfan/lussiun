@@ -31,6 +31,10 @@ __decorate([
     __metadata("design:type", String)
 ], Article.prototype, "content", void 0);
 __decorate([
+    typeorm_1.Column({ type: 'tinyint' }),
+    __metadata("design:type", Number)
+], Article.prototype, "status", void 0);
+__decorate([
     typeorm_1.CreateDateColumn({ type: 'timestamp' }),
     __metadata("design:type", Date)
 ], Article.prototype, "createdAt", void 0);

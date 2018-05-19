@@ -1,5 +1,5 @@
 <template>
-    <main class="uk-container uk-margin-top">   
+    <main class="uk-container uk-margin-top">
         <div class="uk-grid-medium" uk-grid>
             <div class="uk-width-1-4@m uk-width-1-1">
                 <control-sidebar></control-sidebar>
@@ -19,11 +19,11 @@ export default {
   components: {
     ControlSidebar, List
   },
-  data() {
+  data () {
     return {
     }
   },
-  mounted() {
+  mounted () {
     this.$store.commit('changeHero', {
       title: '文章',
       description: '屈平词赋悬日月，楚王台谢空山丘。',

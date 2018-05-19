@@ -32,7 +32,7 @@ function destroy(context) {
                 id: body.id
             }); // 同步处理
             if (categoryExisted) {
-                yield categoryRepository.delete(categoryExisted);
+                yield categoryRepository.delete(body.id);
             }
             context.status = 200;
         }

@@ -12,6 +12,9 @@ export class Article {
 
   @Column('text') content: string
 
+  // 0: 草稿; 1: 待审核 2: 已发布 -1：已删除
+  @Column({ type: 'tinyint' }) status: number
+
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date
 

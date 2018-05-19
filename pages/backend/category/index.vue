@@ -16,7 +16,7 @@
                   <tr v-for="category in categories" :key="category.id">
                     <td v-text="category.name"></td>
                     <td v-text="category.slug"></td>
-                    <td>5</td>
+                    <td>{{ category.id }}</td>
                     <td>
                       <button class="uk-button uk-button-danger" type="button" @click="destoryCategory(category.id)">删除</button>
                     </td>
@@ -67,8 +67,9 @@ import UIkit from 'uikit'
 export default {
   name: 'CategoryIndex',
   layout: 'backend',
-  data() {
+  data () {
     return {
+      refetch: false,
       newCategory: {
         name: '',
         slug: '',
@@ -77,36 +78,43 @@ export default {
     }
   },
   asyncComputed: {
-    async categories() {
-      return this.$axios.$get('/api/category/index')
-    },
+    categories: {
+      async get () {
+        return this.$axios.$get('/api/category/index')
+      },
+      watch () {
+        return this.refetch
+      }
+    }
   },
-  mounted() {
+  mounted () {
     this.$store.commit('changeHero', {
       title: '分类目录',
       description: '留连戏蝶时时舞，自在娇莺恰恰啼。'
     })
   },
   methods: {
-    async addCategory() {
-      const result = await this.$axios.$post('/api/category/store', this.newCategory)
-      .then(function (response) {
-        UIkit.notification("操作成功");
-        console.log('done')
-      }).catch(function (error) {
-        UIkit.notification("出现内部错误");
-      });
-    },
-    async destoryCategory(id) {
-      const result = await this.$axios.$post('/api/category/destroy', {
-        id: id
-      }).then(function (response) {
-        UIkit.notification("操作成功");
-        console.log(response)
-      }).catch(function (error) {
+    async addCategory () {
+      return this.$axios.$post('/api/category/store', this.newCategory)
+      .then(response => {
+        this.refetch = !this.refetch
+        UIkit.notification('操作成功')
+      }).catch(error => {
         console.log(error)
-        UIkit.notification("出现内部错误");
-      });
+        UIkit.notification('出现内部错误')
+      })
+    },
+    async destoryCategory (id) {
+      return this.$axios.$post('/api/category/destroy', {
+        id: id
+      }).then(response => {
+        UIkit.notification('操作成功')
+        this.refetch = !this.refetch
+        console.log(response)
+      }).catch(error => {
+        console.log(error)
+        UIkit.notification('出现内部错误')
+      })
     }
   }
 }

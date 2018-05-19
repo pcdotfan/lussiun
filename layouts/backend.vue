@@ -94,43 +94,38 @@
 @import "../assets/less/uikit.theme.less";
 </style>
 
-<style lang="scss">
-@import "../assets/sass/element-ui/index.scss";
-</style>
-
 <script>
 import Gravatar from 'gravatar'
 export default {
   name: 'Backend',
-  data() {
+  data () {
     return {
-        user: {
-            email: '',
-            nickname: '',
-            username: '',
-            introduction: ''
-        }
+      user: {
+        email: '',
+        nickname: '',
+        username: '',
+        introduction: ''
+      }
     }
   },
-  mounted() {
-      this.fetchUser()
+  mounted () {
+    this.fetchUser()
   },
   computed: {
-    hero() {
+    hero () {
       return this.$store.state.hero
     },
-    avatar() {
+    avatar () {
       return Gravatar.url(this.user.email, { s: '32' })
-    },
+    }
   },
   methods: {
-    async fetchUser() {
+    async fetchUser () {
       this.user = await this.$axios.$get('/api/auth/user/basicinfo')
     }
   }
 }
 </script>
-
 
 <style>
 

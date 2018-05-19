@@ -31,7 +31,7 @@ export default {
   components: {
     AuthTip
   },
-  data() {
+  data () {
     return {
       user: {
         username: '',
@@ -43,7 +43,7 @@ export default {
     }
   },
   methods: {
-    async login() {
+    async login () {
       this.error = null
       if (!this.user.username || !this.user.password) {
         return this.$refs.alert.openAlert('请输入用户名和密码', 'warning')

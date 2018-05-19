@@ -12,7 +12,7 @@ const store = () => new Vuex.Store({
     }
   },
   mutations: {
-    changeHero(state, hero) {
+    changeHero (state, hero) {
       state.hero = hero
     }
   }

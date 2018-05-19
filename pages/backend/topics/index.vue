@@ -71,11 +71,11 @@
 export default {
   name: 'TopicsIndex',
   layout: 'backend',
-  data() {
+  data () {
     return {
     }
   },
-  mounted() {
+  mounted () {
     this.$store.commit('changeHero', {
       title: '话题',
       description: '瞻彼淇奥，绿竹猗猗。'

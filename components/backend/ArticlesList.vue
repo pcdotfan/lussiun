@@ -32,7 +32,7 @@
 export default {
   name: 'ArticlesList',
   components: {},
-  data() {
+  data () {
     return {}
   }
 }

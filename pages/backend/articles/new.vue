@@ -25,9 +25,14 @@
             </div>
             <div>
               <label class="uk-form-label" for="categories">分类目录</label>
-              <select class="uk-select" name="categories">
-                  <option v-for="category in categories" v-text="category.name" :key="category.id"></option>
-              </select>
+              <el-select v-model="value" placeholder="选择一个分类目录">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </div>
           </div>
         </div>
@@ -42,13 +47,17 @@ export default {
   components: {
     Editor
   },
-  data() {
+  data () {
     return {
-      categories: [],
       published_date: new Date()
     }
   },
-  mounted() {
+  asyncComputed: {
+    async categories () {
+      return this.$axios.$get('/api/category/index')
+    }
+  },
+  mounted () {
     this.listCategories()
     this.$store.commit('changeHero', {
       title: '撰写文章',
@@ -60,9 +69,9 @@ export default {
     })
   },
   methods: {
-    async listCategories() {
+    async listCategories () {
       this.categories = await this.$axios.$get('/api/category/index')
-    },
+    }
   }
 }
 </script>

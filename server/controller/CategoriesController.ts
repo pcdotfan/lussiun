@@ -25,7 +25,7 @@ export async function destroy (context: Context) {
     }) // 同步处理
 
     if (categoryExisted) {
-      await categoryRepository.delete(categoryExisted)
+      await categoryRepository.delete(body.id)
     }
     context.status = 200
   } catch (error) {

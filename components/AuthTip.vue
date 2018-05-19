@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'AuthTip',
-  data() {
+  data () {
     return {
       message: '',
       isOpen: false,
@@ -15,7 +15,7 @@ export default {
     }
   },
   computed: {
-    getAlertType() {
+    getAlertType () {
       if (this.isOpen) {
         return `uk-alert-${this.type} uk-animation-shake`
       } else {
@@ -24,7 +24,7 @@ export default {
     }
   },
   methods: {
-    openAlert(text, type) {
+    openAlert (text, type) {
       this.isOpen = true
       this.message = text
       this.type = 'danger'

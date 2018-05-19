@@ -15,7 +15,7 @@ export default {
   name: 'ArticlesControlSidebar',
   components: {
   },
-  data() {
+  data () {
     return {
     }
   }

@@ -10,11 +10,11 @@ export default {
   components: {
     markdownEditor
   },
-  data() {
+  data () {
     return {
     }
   },
-  mounted() {
+  mounted () {
   }
 }
 </script>

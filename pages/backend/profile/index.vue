@@ -108,7 +108,7 @@ import Gravatar from 'gravatar'
 export default {
   name: 'ProfileIndex',
   layout: 'backend',
-  data() {
+  data () {
     return {
       user: {
         email: '',
@@ -121,14 +121,14 @@ export default {
     }
   },
   computed: {
-    avatar() {
+    avatar () {
       return Gravatar.url(this.user.email, { s: '250' })
     },
-    emailLink() {
+    emailLink () {
       return `mailto:${this.email}`
     }
   },
-  mounted() {
+  mounted () {
     this.fetchUser()
     this.$store.commit('changeHero', {
       title: '个人资料',
@@ -136,29 +136,31 @@ export default {
     })
   },
   methods: {
-    async fetchUser() {
+    async fetchUser () {
       this.user = await this.$axios.$get('/api/auth/user/basicinfo')
     },
     async updateProfile () {
       const user = Object.assign(this.user, { id: this.$auth.user.id })
       await this.$axios.$post('/api/user/update', user)
-        .then(function (response) {
-        UIkit.notification("操作成功", 'success');
-      }).catch(function (error) {
-        UIkit.notification("出现内部错误", 'danger');
-      });
+        .then(response => {
+          UIkit.notification('操作成功', 'success')
+        }).catch(error => {
+          console.log(error)
+          UIkit.notification('出现内部错误', 'danger')
+        })
     },
-    async changePassword() {
+    async changePassword () {
       if (this.password !== this.password_confirmation) {
-        UIkit.notification("新密码与确认密码不一致", 'danger');
+        UIkit.notification('新密码与确认密码不一致', 'danger')
         return
       }
       await this.$axios.$post('/api/auth/user/changepassword', { password: this.password })
-        .then(function (response) {
-        UIkit.notification("操作成功", 'success');
-      }).catch(function (error) {
-        UIkit.notification("出现内部错误", 'danger');
-      });
+        .then(response => {
+          UIkit.notification('操作成功', 'success')
+        }).catch(error => {
+          console.log(error)
+          UIkit.notification('出现内部错误', 'danger')
+        })
     }
   }
 }
