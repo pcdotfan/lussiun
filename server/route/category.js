@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const CategoriesController_1 = require("../controller/CategoriesController");
+const CategoriesController_1 = require("../controller/admin/CategoriesController");
 /**
  * All application routes.
  */

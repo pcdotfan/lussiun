@@ -1,5 +1,4 @@
-import { register, login, user, logout, userBasicInfo, changePassword } from '../controller/UserController'
-import { mockData } from '../controller/ArticlesController'
+import { register, login, user, logout, userBasicInfo, changePassword } from '../controller/admin/UserController'
 
 /**
  * All application routes.
@@ -34,10 +33,5 @@ export default [
     path: '/auth/user/changepassword',
     method: 'post',
     action: changePassword
-  },
-  {
-    path: '/auth/mockdata',
-    method: 'get',
-    action: mockData
   }
 ]

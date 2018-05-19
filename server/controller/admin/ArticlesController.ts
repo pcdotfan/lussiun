@@ -1,6 +1,6 @@
 import { Context } from 'koa'
 import { getManager } from 'typeorm'
-import { Article } from '../entity/Article'
+import { Article } from '../../entity/Article'
 
 export async function index (context: Context) {
   const articleRepository = getManager().getRepository(Article)
@@ -64,18 +64,24 @@ export async function store (context: Context) {
   }
 }
 
+/*
+  生成测试数据用
+
 export async function mockData (context: Context) {
   let faker = require('faker')
   const count = 20
   const articleRepository = getManager().getRepository(Article)
+  const admin = await getManager().getRepository(User).findOne({ id: 1 })
+  const category = await getManager().getRepository(Category).findOne({ id: 17 })
+
   for (let i = 0; i <= count; i++) {
     let structure = {
-      userId: 1,
       title: faker.lorem.sentence(),
       content: faker.lorem.paragraphs(),
       status: getRandomInt(-1, 2),
-      categoryId: getRandomInt(14, 17),
-      slug: faker.lorem.word()
+      category: category,
+      slug: faker.lorem.word(),
+      user: admin
     }
     let newArticle = articleRepository.create(structure)
     await articleRepository.save(newArticle)
@@ -87,3 +93,5 @@ function getRandomInt (min, max) {
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min)) + min // The maximum is exclusive and the minimum is inclusive
 }
+
+*/

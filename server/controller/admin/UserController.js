@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const jsonwebtoken_1 = require("jsonwebtoken");
-const User_1 = require("../entity/User");
+const User_1 = require("../../entity/User");
 const bcrypt = require('bcrypt');
 function getById(id) {
     return __awaiter(this, void 0, void 0, function* () {

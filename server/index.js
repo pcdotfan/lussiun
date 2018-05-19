@@ -24,7 +24,7 @@ typeorm_1.createConnection().then((connection) => __awaiter(this, void 0, void 0
     // create koa app
     const app = new Koa();
     const router = new Router({
-        prefix: '/api'
+    // prefix: '/api'
     });
     // register all application routes
     routes_1.AppRoutes.forEach(route => router[route.method](route.path, route.action));

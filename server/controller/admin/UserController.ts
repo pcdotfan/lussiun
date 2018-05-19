@@ -1,7 +1,7 @@
 import { Context } from 'koa'
 import { getManager } from 'typeorm'
 import { sign } from 'jsonwebtoken'
-import { User } from '../entity/User'
+import { User } from '../../entity/User'
 
 const bcrypt = require('bcrypt')
 

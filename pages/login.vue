@@ -11,7 +11,7 @@
                     <input class="uk-input uk-width-1-1" type="password" name="password" v-model="user.password" placeholder="密码">
                 </div>
             </div>
-            <button class="uk-button uk-button-primary uk-button-large uk-width-1-1" @click="login">登录</button>
+            <button class="uk-button uk-button-primary uk-button-large uk-width-1-1" @click="login" type="submit">登录</button>
             </div>
             <ul class="uk-list uk-light uk-text-small">
             <li>
@@ -28,6 +28,7 @@
 import AuthTip from '../components/AuthTip'
 export default {
   name: 'Login',
+  middleware: ['auth'],
   components: {
     AuthTip
   },

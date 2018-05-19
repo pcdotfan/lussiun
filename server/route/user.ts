@@ -1,4 +1,4 @@
-import { update } from '../controller/UserController'
+import { update } from '../controller/admin/UserController'
 
 /**
  * All application routes.

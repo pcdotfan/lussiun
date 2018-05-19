@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const UserController_1 = require("../controller/UserController");
-const ArticlesController_1 = require("../controller/ArticlesController");
+const UserController_1 = require("../controller/admin/UserController");
 /**
  * All application routes.
  */
@@ -35,10 +34,5 @@ exports.default = [
         path: '/auth/user/changepassword',
         method: 'post',
         action: UserController_1.changePassword
-    },
-    {
-        path: '/auth/mockdata',
-        method: 'get',
-        action: ArticlesController_1.mockData
     }
 ];

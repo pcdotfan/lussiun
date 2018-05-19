@@ -1,6 +1,6 @@
 import { Context } from 'koa'
 import { getManager } from 'typeorm'
-import { Category } from '../entity/Category'
+import { Category } from '../../entity/Category'
 
 export async function index (context: Context) {
   const categoryRepository = getManager().getRepository(Category)

@@ -1,4 +1,4 @@
-import { index, store, destroy } from '../controller/CategoriesController'
+import { index, store, destroy } from '../controller/admin/CategoriesController'
 
 /**
  * All application routes.
