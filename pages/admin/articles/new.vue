@@ -58,7 +58,22 @@
                 </el-date-picker>
               </div>
               <div>
-                <label class="uk-form-label" for="tags">文章标签</label>
+                <label class="uk-form-label" for="topics">文章话题</label>
+                <el-select
+                    v-model="topicSelected"
+                    name="topics"
+                    multiple
+                    filterable
+                    allow-create
+                    default-first-option
+                    placeholder="请选择文章话题">
+                    <el-option
+                      v-for="topic in topics"
+                      :key="topic.id"
+                      :label="topic.name"
+                      :value="topic.id">
+                    </el-option>
+                  </el-select>
               </div>
             </div>
           </div>
@@ -75,7 +90,9 @@ export default {
       publishedDate: new Date(),
       categorySelected: '请选择',
       statusSelected: '请选择',
+      topicSelected: [],
       content: '',
+      slug: '',
       statuses: [
         {
           id: -1,
@@ -98,24 +115,21 @@ export default {
   },
   asyncComputed: {
     async categories () {
-      return this.$axios.$get('/api/category/index')
+      return this.$axios.$get('/category/index')
+    },
+    async topics () {
+      return this.$axios.$get('/topics/index')
     }
   },
   mounted () {
-    this.listCategories()
     this.$store.commit('changeHero', {
       title: '撰写文章',
       description: '词源倒流三江水，笔阵独扫千人军。',
       navbarItems: [
-        { title: '文章列表', path: '/backend/articles' },
-        { title: '撰写文章', path: '/backend/articles/new' }
+        { title: '文章列表', path: '/admin/articles' },
+        { title: '撰写文章', path: '/admin/articles/new' }
       ]
     })
-  },
-  methods: {
-    async listCategories () {
-      this.categories = await this.$axios.$get('/api/category/index')
-    }
   }
 }
 </script>

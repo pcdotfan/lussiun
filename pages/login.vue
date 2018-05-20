@@ -16,7 +16,7 @@
             <ul class="uk-list uk-light uk-text-small">
             <li>
                 <label class="uk-form">
-                <input class="uk-checkbox" type="checkbox" name="remember_me"> 记住我</label>
+                <input class="uk-checkbox" type="checkbox" name="remember" v-model="remember"> 记住我</label>
             </li>
             <li class="uk-margin-small-top"> 忘记密码 <a class="uk-link" data-uk-toggle="{ target: '.js-toggle' }">请求密码</a></li>
             </ul>
@@ -38,6 +38,7 @@ export default {
         username: '',
         password: ''
       },
+      remember: false,
       message: {
 
       }
@@ -53,7 +54,8 @@ export default {
         .loginWith('local', {
           data: {
             username: this.user.username,
-            password: this.user.password
+            password: this.user.password,
+            remember: this.remember
           }
         })
         .catch(e => {

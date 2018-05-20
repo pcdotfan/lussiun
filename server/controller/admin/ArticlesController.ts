@@ -1,6 +1,14 @@
 import { Context } from 'koa'
 import { getManager } from 'typeorm'
 import { Article } from '../../entity/Article'
+import { getById } from './UserController'
+
+export async function test (context: Context) {
+  const articleRepository = getManager().getRepository(Article)
+  const article = await articleRepository.findOne(24)
+
+  console.log(article.user)
+}
 
 export async function index (context: Context) {
   const articleRepository = getManager().getRepository(Article)

@@ -5,7 +5,7 @@ import { User } from '../../entity/User'
 
 const bcrypt = require('bcrypt')
 
-async function getById (id) {
+export async function getById (id) {
   const userRepository = getManager().getRepository(User)
   return userRepository.findOne({ id })
 }
@@ -106,7 +106,7 @@ export async function login (context: Context) {
       const token = sign(
         { id: userExisted.id },
         secret,
-        { expiresIn: '1h' }
+        { expiresIn: body.remember ? '1d' : '1h' }
       )
       context.status = 200
       context.body = { token }

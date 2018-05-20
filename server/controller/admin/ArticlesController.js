@@ -10,6 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Article_1 = require("../../entity/Article");
+function test(context) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const articleRepository = typeorm_1.getManager().getRepository(Article_1.Article);
+        const article = yield articleRepository.findOne(24);
+        console.log(article.user);
+    });
+}
+exports.test = test;
 function index(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const articleRepository = typeorm_1.getManager().getRepository(Article_1.Article);

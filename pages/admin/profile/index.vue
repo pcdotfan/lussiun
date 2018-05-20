@@ -137,11 +137,11 @@ export default {
   },
   methods: {
     async fetchUser () {
-      this.user = await this.$axios.$get('/api/auth/user/basicinfo')
+      this.user = await this.$axios.$get('/auth/user/basicinfo')
     },
     async updateProfile () {
       const user = Object.assign(this.user, { id: this.$auth.user.id })
-      await this.$axios.$post('/api/user/update', user)
+      await this.$axios.$post('/user/update', user)
         .then(response => {
           UIkit.notification('操作成功', 'success')
         }).catch(error => {
@@ -154,7 +154,7 @@ export default {
         UIkit.notification('新密码与确认密码不一致', 'danger')
         return
       }
-      await this.$axios.$post('/api/auth/user/changepassword', { password: this.password })
+      await this.$axios.$post('/auth/user/changepassword', { password: this.password })
         .then(response => {
           UIkit.notification('操作成功', 'success')
         }).catch(error => {

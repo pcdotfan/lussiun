@@ -18,6 +18,7 @@ function getById(id) {
         return userRepository.findOne({ id });
     });
 }
+exports.getById = getById;
 function show(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { body } = context.request; // 拿到传入的参数
@@ -113,7 +114,7 @@ function login(context) {
         try {
             const userExisted = yield userRepository.findOne({ username: body.username });
             if (userExisted && (yield bcrypt.compare(body.password, userExisted.password))) {
-                const token = jsonwebtoken_1.sign({ id: userExisted.id }, secret, { expiresIn: '1h' });
+                const token = jsonwebtoken_1.sign({ id: userExisted.id }, secret, { expiresIn: body.remember ? '1d' : '1h' });
                 context.status = 200;
                 context.body = { token };
             }

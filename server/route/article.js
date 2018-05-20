@@ -9,5 +9,10 @@ exports.default = [
         path: '/articles/index',
         method: 'get',
         action: ArticlesController_1.index
+    },
+    {
+        path: '/articles/test',
+        method: 'get',
+        action: ArticlesController_1.test
     }
 ];

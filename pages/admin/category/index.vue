@@ -80,7 +80,7 @@ export default {
   asyncComputed: {
     categories: {
       async get () {
-        return this.$axios.$get('/api/category/index')
+        return this.$axios.$get('/category/index')
       },
       watch () {
         return this.refetch

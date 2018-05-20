@@ -28,8 +28,8 @@ export default {
       title: '文章',
       description: '屈平词赋悬日月，楚王台谢空山丘。',
       navbarItems: [
-        { title: '文章列表', path: '/backend/articles' },
-        { title: '撰写文章', path: '/backend/articles/new' }
+        { title: '文章列表', path: '/admin/articles' },
+        { title: '撰写文章', path: '/admin/articles/new' }
       ]
     })
   }

@@ -5,7 +5,7 @@
         <div class="uk-navbar-left">
             <a href="#" class="uk-navbar-item uk-logo"><img uk-svg src="~assets/images/uikit-logo.svg" class="uk-margin-small-right">Lussiun</a>
             <ul class="uk-navbar-nav">
-            <router-link tag="li" to="/backend/dashboard">
+            <router-link tag="li" to="/admin/dashboard">
                 <a>
                 <div class="">
                     控制面板
@@ -13,7 +13,7 @@
                 </div>
                 </a>
             </router-link>
-            <router-link tag="li" to="/backend/articles">
+            <router-link tag="li" to="/admin/articles">
                 <a>
                 <div class="">
                     文章
@@ -21,7 +21,7 @@
                 </div>
                 </a>
             </router-link>
-            <router-link tag="li" to="/backend/topics">
+            <router-link tag="li" to="/admin/topics">
                 <a>
                 <div class="">
                     话题
@@ -29,7 +29,7 @@
                 </div>
                 </a>
             </router-link>
-            <router-link tag="li" to="/backend/category">
+            <router-link tag="li" to="/admin/category">
                 <a>
                 <div class="">
                     分类目录
@@ -37,7 +37,7 @@
                 </div>
                 </a>
             </router-link>
-            <router-link tag="li" to="/backend/settings">
+            <router-link tag="li" to="/admin/settings">
                 <a>
                 <div class="">
                     设置
@@ -54,7 +54,7 @@
             <li><a @click="$auth.logout()" uk-icon="icon: sign-out; ratio: 0.875"></a></li>
             </ul>
             <ul class="uk-navbar-nav">
-            <router-link to="/backend/profile" tag="li" exact>
+            <router-link to="/admin/profile" tag="li" exact>
                 <a>
                 <img class="uk-border-circle uk-margin-small-right" height="32" width="32" :title="user.nickname" :src="avatar"><span v-text="user.nickname"></span>
                 </a>
@@ -122,7 +122,7 @@ export default {
   },
   methods: {
     async fetchUser () {
-      this.user = await this.$axios.$get('/api/auth/user/basicinfo')
+      this.user = await this.$axios.$get('/auth/user/basicinfo')
     }
   }
 }
