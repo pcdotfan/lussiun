@@ -11,9 +11,17 @@ export async function test (context: Context) {
 }
 
 export async function index (context: Context) {
+  const { body } = context.request
+  const query  = context.query
   const articleRepository = getManager().getRepository(Article)
-  const articles = await articleRepository.find()
 
+  if (query.status) {
+    const articles = await articleRepository.find({ status: query.status })
+    context.body = articles
+    return
+  }
+
+  const articles = await articleRepository.find()
   context.body = articles
 }
 

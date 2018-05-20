@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn
 } from 'typeorm'
+import { IsEmail, MinLength } from 'class-validator'
 import { Article } from './Article'
 
 @Entity()
@@ -17,13 +18,21 @@ export class User {
   })
   nickname: string
 
-  @Column() username: string
+  @Column()
+  username: string
 
-  @Column() email: string
+  @Column()
+  @IsEmail()
+  email: string
 
-  @Column() password: string
+  @Column()
+  @MinLength(6)
+  password: string
 
-  @Column('text') introduction: string
+  @Column('text', {
+    nullable: true
+  })
+  introduction: string
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date

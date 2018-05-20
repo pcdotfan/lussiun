@@ -20,7 +20,14 @@ function test(context) {
 exports.test = test;
 function index(context) {
     return __awaiter(this, void 0, void 0, function* () {
+        const { body } = context.request;
+        const query = context.query;
         const articleRepository = typeorm_1.getManager().getRepository(Article_1.Article);
+        if (query.status) {
+            const articles = yield articleRepository.find({ status: query.status });
+            context.body = articles;
+            return;
+        }
         const articles = yield articleRepository.find();
         context.body = articles;
     });
