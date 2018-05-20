@@ -1,6 +1,8 @@
 import { Context } from 'koa'
 import { getManager } from 'typeorm'
 import { Article } from '../../entity/Article'
+import { User } from '../../entity/User'
+import { Category } from '../../entity/Category'
 
 async function getBySlug (id) {
   const articleRepository = getManager().getRepository(Article)
@@ -95,9 +97,6 @@ export async function store (context: Context) {
   }
 }
 
-/*
-  生成测试数据用
-
 export async function mockData (context: Context) {
   let faker = require('faker')
   const count = 20
@@ -124,5 +123,3 @@ function getRandomInt (min, max) {
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min)) + min // The maximum is exclusive and the minimum is inclusive
 }
-
-*/

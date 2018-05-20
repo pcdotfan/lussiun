@@ -10,6 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Article_1 = require("../../entity/Article");
+const User_1 = require("../../entity/User");
+const Category_1 = require("../../entity/Category");
 function getBySlug(id) {
     return __awaiter(this, void 0, void 0, function* () {
         const articleRepository = typeorm_1.getManager().getRepository(Article_1.Article);
@@ -103,34 +105,30 @@ function store(context) {
     });
 }
 exports.store = store;
-/*
-  生成测试数据用
-
-export async function mockData (context: Context) {
-  let faker = require('faker')
-  const count = 20
-  const articleRepository = getManager().getRepository(Article)
-  const admin = await getManager().getRepository(User).findOne({ id: 1 })
-  const category = await getManager().getRepository(Category).findOne({ id: 17 })
-
-  for (let i = 0; i <= count; i++) {
-    let structure = {
-      title: faker.lorem.sentence(),
-      content: faker.lorem.paragraphs(),
-      status: getRandomInt(-1, 2),
-      category: category,
-      slug: faker.lorem.word(),
-      user: admin
-    }
-    let newArticle = articleRepository.create(structure)
-    await articleRepository.save(newArticle)
-  }
+function mockData(context) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let faker = require('faker');
+        const count = 20;
+        const articleRepository = typeorm_1.getManager().getRepository(Article_1.Article);
+        const admin = yield typeorm_1.getManager().getRepository(User_1.User).findOne({ id: 1 });
+        const category = yield typeorm_1.getManager().getRepository(Category_1.Category).findOne({ id: 17 });
+        for (let i = 0; i <= count; i++) {
+            let structure = {
+                title: faker.lorem.sentence(),
+                content: faker.lorem.paragraphs(),
+                status: getRandomInt(-1, 2),
+                category: category,
+                slug: faker.lorem.word(),
+                user: admin
+            };
+            let newArticle = articleRepository.create(structure);
+            yield articleRepository.save(newArticle);
+        }
+    });
 }
-
-function getRandomInt (min, max) {
-  min = Math.ceil(min)
-  max = Math.floor(max)
-  return Math.floor(Math.random() * (max - min)) + min // The maximum is exclusive and the minimum is inclusive
+exports.mockData = mockData;
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min; // The maximum is exclusive and the minimum is inclusive
 }
-
-*/

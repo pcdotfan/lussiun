@@ -4234,6 +4234,12 @@ koa-router@^7.4.0:
     path-to-regexp "^1.1.1"
     urijs "^1.19.0"
 
+koa-service@^1.0.1:
+  version "1.0.1"
+  resolved "http://registry.npm.taobao.org/koa-service/download/koa-service-1.0.1.tgz#7a29a9f0fc5b8af17947ee4edae4650fae5c82c3"
+  dependencies:
+    glob "^7.1.2"
+
 koa-unless@1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/koa-unless/download/koa-unless-1.0.0.tgz#5aa57384bc882568afc90ac04852a3d58658aeeb"
@@ -4797,6 +4803,10 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   resolved "http://registry.npm.taobao.org/mkdirp/download/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+moment@^2.22.1:
+  version "2.22.1"
+  resolved "http://registry.npm.taobao.org/moment/download/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
 
 move-concurrently@^1.0.1:
   version "1.0.1"

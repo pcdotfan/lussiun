@@ -1,6 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinTable } from 'typeorm'
-import { User } from './User'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinTable, RelationId } from 'typeorm'
 import { Category } from './Category'
+import { User } from './User'
 
 @Entity()
 export class Article {
@@ -22,9 +22,12 @@ export class Article {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date
 
-  @ManyToOne(type => User, user => user.articles)
-  user: User
-
   @ManyToOne(type => Category, category => category.articles)
   category: Category
+
+  @RelationId((article: Article) => article.category)
+  categoryId: number
+
+  @ManyToOne(type => User, user => user.articles)
+  user: User
 }

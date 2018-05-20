@@ -34,6 +34,10 @@ __decorate([
     __metadata("design:type", String)
 ], Category.prototype, "description", void 0);
 __decorate([
+    typeorm_1.OneToMany(type => Article_1.Article, article => article.category),
+    __metadata("design:type", Array)
+], Category.prototype, "articles", void 0);
+__decorate([
     typeorm_1.CreateDateColumn({ type: 'timestamp' }),
     __metadata("design:type", Date)
 ], Category.prototype, "createdAt", void 0);
@@ -41,10 +45,6 @@ __decorate([
     typeorm_1.UpdateDateColumn({ type: 'timestamp' }),
     __metadata("design:type", Date)
 ], Category.prototype, "updatedAt", void 0);
-__decorate([
-    typeorm_1.OneToMany(type => Article_1.Article, article => article.category),
-    __metadata("design:type", Array)
-], Category.prototype, "articles", void 0);
 Category = __decorate([
     typeorm_1.Entity()
 ], Category);

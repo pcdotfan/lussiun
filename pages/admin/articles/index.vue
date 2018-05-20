@@ -31,7 +31,7 @@
                       <td v-text="article.title"></td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small"><img class="uk-preserve-width uk-border-circle" src="http://thetheme.io/theadmin/samples/support/assets/img/avatar/1.jpg" width="40" alt=""> PCDotFan</td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small">WordPress 插件</td>
-                      <td class="uk-table-shrink uk-text-nowrap uk-text-small">2018-03-17</td>
+                      <td class="uk-table-shrink uk-text-nowrap uk-text-small" v-text="updatedAt(article.updatedAt)"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -46,6 +46,7 @@
     </main>
 </template>
 <script>
+import * as moment from 'moment'
 export default {
   name: 'ArticlesIndex',
   layout: 'backend',
@@ -55,6 +56,10 @@ export default {
     }
   },
   methods: {
+    updatedAt (date) {
+      let currentDate = moment(date)
+      return currentDate.format('YYYY-MM-DD')
+    },
     changeStatus (s) {
       this.status = s
       this.setActiveItem(this.status)

@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const User_1 = require("./User");
 const Category_1 = require("./Category");
+const User_1 = require("./User");
 let Article = class Article {
 };
 __decorate([
@@ -43,13 +43,17 @@ __decorate([
     __metadata("design:type", Date)
 ], Article.prototype, "updatedAt", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => User_1.User, user => user.articles),
-    __metadata("design:type", User_1.User)
-], Article.prototype, "user", void 0);
-__decorate([
     typeorm_1.ManyToOne(type => Category_1.Category, category => category.articles),
     __metadata("design:type", Category_1.Category)
 ], Article.prototype, "category", void 0);
+__decorate([
+    typeorm_1.RelationId((article) => article.category),
+    __metadata("design:type", Number)
+], Article.prototype, "categoryId", void 0);
+__decorate([
+    typeorm_1.ManyToOne(type => User_1.User, user => user.articles),
+    __metadata("design:type", User_1.User)
+], Article.prototype, "user", void 0);
 Article = __decorate([
     typeorm_1.Entity()
 ], Article);

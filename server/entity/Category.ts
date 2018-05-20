@@ -24,12 +24,12 @@ export class Category {
   })
   description: string
 
+  @OneToMany(type => Article, article => article.category)
+  articles: Article[]
+
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date
 
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date
-
-  @OneToMany(type => Article, article => article.category)
-  articles: Article[]
 }

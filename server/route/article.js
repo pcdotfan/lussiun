@@ -11,6 +11,11 @@ exports.default = [
         action: ArticlesController_1.index
     },
     {
+        path: '/articles/mock',
+        method: 'get',
+        action: ArticlesController_1.mockData
+    },
+    {
         path: '/articles/:id',
         method: 'get',
         action: ArticlesController_1.show

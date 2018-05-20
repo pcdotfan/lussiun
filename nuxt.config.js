@@ -25,11 +25,11 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/uikit', ssr: false },
     { src: '@/plugins/vuex-router-sync', ssr: false },
     '@/plugins/vue-async-computed',
-    { src: '@plugins/simplemde.js', ssr: false },
-    '@/plugins/element-ui'
+    { src: '@/plugins/uikit', ssr: false },
+    { src: '@/plugins/element-ui', ssr: false },
+    { src: '@plugins/simplemde.js', ssr: false }
   ],
   router: {
     linkActiveClass: 'uk-active',

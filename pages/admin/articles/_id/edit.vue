@@ -20,11 +20,11 @@
             <div class="uk-grid uk-child-width-1-3 uk-grid-divider">
               <div>
                 <label class="uk-form-label" for="slug">别名</label>
-                <input class="uk-input" type="text" name="slug" v-model="slug">
+                <input class="uk-input" type="text" name="slug" v-model="article.slug">
               </div>
               <div>
                 <label class="uk-form-label" for="status">状态</label>
-                <el-select v-model="statusSelected" name="status" placeholder="选择文章状态">
+                <el-select v-model="article.status" name="status" placeholder="选择文章状态">
                   <el-option
                     v-for="status in statuses"
                     :key="status.id"
@@ -91,11 +91,7 @@ export default {
     return {
       article: {},
       publishedDate: new Date(),
-      categorySelected: '请选择',
-      statusSelected: '请选择',
       topicSelected: [],
-      content: '',
-      slug: '',
       statuses: [
         {
           id: -1,
@@ -121,7 +117,7 @@ export default {
       return this.$axios.$get('/category/index')
     },
     async topics () {
-      return this.$axios.$get('/topics/index')
+      // return this.$axios.$get('/topics/index')
     }
   },
   async mounted () {
