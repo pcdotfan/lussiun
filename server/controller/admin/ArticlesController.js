@@ -10,14 +10,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Article_1 = require("../../entity/Article");
-function test(context) {
+function getBySlug(id) {
     return __awaiter(this, void 0, void 0, function* () {
         const articleRepository = typeorm_1.getManager().getRepository(Article_1.Article);
-        const article = yield articleRepository.findOne(24);
-        console.log(article.user);
+        return articleRepository.findOne({ id });
     });
 }
-exports.test = test;
+function show(context) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { body } = context.request;
+        const articleRepository = typeorm_1.getManager().getRepository(Article_1.Article);
+        if (context.params.id) {
+            const articles = yield getBySlug(context.params.id);
+            context.status = 200;
+            context.body = articles;
+            return;
+        }
+        context.status = 406;
+        context.body = {
+            message: '无效的传入参数'
+        };
+    });
+}
+exports.show = show;
 function index(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { body } = context.request;

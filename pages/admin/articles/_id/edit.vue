@@ -3,15 +3,15 @@
     <div class="article-new-edit">
         <div class="uk-card uk-card-default">
           <div class="uk-card-header">
-            <input class="title uk-input uk-width-1-1 uk-form-large" placeholder="输入标题...">
+            <input class="title uk-input uk-width-1-1 uk-form-large" v-model="article.title">
           </div>
           <div class="uk-card-body">
-            <markdown-editor v-model="content"></markdown-editor>
+            <markdown-editor v-model="article.content"></markdown-editor>
           </div>
           <div class="uk-card-footer">
             <p class="uk-text-right">
               <button class="uk-button uk-button-secondary uk-margin-right">保存草稿</button>
-              <button class="uk-button uk-button-primary">发布文章</button>
+              <button class="uk-button uk-button-primary">更新文章</button>
             </p>
           </div>
         </div>
@@ -35,7 +35,7 @@
               </div>
               <div>
                 <label class="uk-form-label" for="categories">分类目录</label>
-                <el-select v-model="categorySelected" placeholder="选择一个分类目录">
+                <el-select v-model="article.categoryId" placeholder="选择一个分类目录">
                   <el-option
                     v-for="category in categories"
                     :key="category.id"
@@ -49,12 +49,12 @@
           <div class="uk-margin uk-card uk-card-default uk-card-body">
             <div class="uk-grid uk-child-width-1-2 uk-grid-divider">
               <div>
-                <label class="uk-form-label" for="published-date">发布时间</label>
+                <label class="uk-form-label" for="published-date">更新时间</label>
                 <el-date-picker
                   type="datetime"
                   name="published-date"
                   class="uk-width-1-1"
-                  v-model="publishedDate"
+                  v-model="article.updateAt"
                   placeholder="选择日期时间">
                 </el-date-picker>
               </div>
@@ -89,6 +89,7 @@ export default {
   layout: 'backend',
   data () {
     return {
+      article: {},
       publishedDate: new Date(),
       categorySelected: '请选择',
       statusSelected: '请选择',
@@ -123,15 +124,17 @@ export default {
       return this.$axios.$get('/topics/index')
     }
   },
-  mounted () {
+  async mounted () {
     this.$store.commit('changeHero', {
-      title: '撰写文章',
+      title: '编辑文章',
       description: '词源倒流三江水，笔阵独扫千人军。',
       navbarItems: [
         { title: '文章列表', path: '/admin/articles' },
-        { title: '撰写文章', path: '/admin/articles/new' }
+        { title: '撰写文章', path: '/admin/articles/new' },
+        { title: '编辑文章', path: this.$route.path }
       ]
     })
+    this.article = await this.$axios.$get(`/articles/${this.$route.params.id}`)
   }
 }
 </script>

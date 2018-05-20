@@ -6,13 +6,13 @@ const ArticlesController_1 = require("../controller/admin/ArticlesController");
  */
 exports.default = [
     {
-        path: '/articles/index',
+        path: '/articles/',
         method: 'get',
         action: ArticlesController_1.index
     },
     {
-        path: '/articles/test',
+        path: '/articles/:id',
         method: 'get',
-        action: ArticlesController_1.test
+        action: ArticlesController_1.show
     }
 ];

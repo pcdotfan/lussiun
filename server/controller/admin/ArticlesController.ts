@@ -1,18 +1,33 @@
 import { Context } from 'koa'
 import { getManager } from 'typeorm'
 import { Article } from '../../entity/Article'
-import { getById } from './UserController'
 
-export async function test (context: Context) {
+async function getBySlug (id) {
   const articleRepository = getManager().getRepository(Article)
-  const article = await articleRepository.findOne(24)
+  return articleRepository.findOne({ id })
+}
 
-  console.log(article.user)
+export async function show (context: Context) {
+  const { body } = context.request
+  const articleRepository = getManager().getRepository(Article)
+
+  if (context.params.id) {
+    const articles = await getBySlug(context.params.id)
+    context.status = 200
+    context.body = articles
+
+    return
+  }
+
+  context.status = 406
+  context.body = {
+    message: '无效的传入参数'
+  }
 }
 
 export async function index (context: Context) {
   const { body } = context.request
-  const query  = context.query
+  const query = context.query
   const articleRepository = getManager().getRepository(Article)
 
   if (query.status) {

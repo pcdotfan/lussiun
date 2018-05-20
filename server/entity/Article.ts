@@ -8,7 +8,8 @@ export class Article {
 
   @Column() title: string
 
-  @Column() slug: string
+  @Column()
+  slug: string
 
   @Column('text') content: string
 

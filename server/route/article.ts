@@ -1,17 +1,17 @@
-import { index, test } from '../controller/admin/ArticlesController'
+import { index, show } from '../controller/admin/ArticlesController'
 
 /**
  * All application routes.
  */
 export default [
   {
-    path: '/articles/index',
+    path: '/articles/',
     method: 'get',
     action: index
   },
   {
-    path: '/articles/test',
+    path: '/articles/:id',
     method: 'get',
-    action: test
+    action: show
   }
 ]
