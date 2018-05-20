@@ -125,7 +125,7 @@ export default {
       return Gravatar.url(this.user.email, { s: '250' })
     },
     emailLink () {
-      return `mailto:${this.email}`
+      return `mailto:${this.user.email}`
     }
   },
   mounted () {

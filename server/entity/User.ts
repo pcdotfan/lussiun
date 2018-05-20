@@ -4,13 +4,14 @@ import {
   Column,
   OneToMany,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  BaseEntity
 } from 'typeorm'
 import { IsEmail, MinLength } from 'class-validator'
 import { Article } from './Article'
 
 @Entity()
-export class User {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn() id: number
 
   @Column({

@@ -5,7 +5,7 @@
         <div class="uk-navbar-left">
             <a href="#" class="uk-navbar-item uk-logo"><img uk-svg src="~assets/images/uikit-logo.svg" class="uk-margin-small-right">Lussiun</a>
             <ul class="uk-navbar-nav">
-            <router-link tag="li" to="/admin/dashboard">
+            <router-link tag="li" to="/admin/">
                 <a>
                 <div class="">
                     控制面板

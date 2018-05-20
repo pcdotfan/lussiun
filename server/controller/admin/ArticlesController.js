@@ -12,13 +12,24 @@ const typeorm_1 = require("typeorm");
 const Article_1 = require("../../entity/Article");
 const User_1 = require("../../entity/User");
 const Category_1 = require("../../entity/Category");
+const _ = require('lodash');
+const gravatar = require('gravatar');
 function show(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { body } = context.request;
         if (context.params.id) {
-            const articles = yield context.service.ArticleService.getBySlug(context.params.id);
+            let article = yield context.service.article.getById(context.params.id);
+            let user = yield context.service.user.getById(article.userId);
+            let category = yield context.service.category.getById(article.categoryId);
+            delete user.password;
+            delete user.createdAt;
+            delete user.updatedAt;
+            delete category.createdAt;
+            delete category.updatedAt;
+            article.user = user;
+            article.category = category;
             context.status = 200;
-            context.body = articles;
+            context.body = article;
             return;
         }
         context.status = 406;
@@ -31,14 +42,18 @@ exports.show = show;
 function index(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { body } = context.request;
-        const query = context.query;
         const articleRepository = typeorm_1.getManager().getRepository(Article_1.Article);
-        if (query.status) {
-            const articles = yield articleRepository.find({ status: query.status });
-            context.body = articles;
-            return;
-        }
-        const articles = yield articleRepository.find();
+        let articles = yield articleRepository.find({ status: context.query.status });
+        // 参考 egg-cnode 的写法，用 Promise.all 的方法让 Array.map 内部可异步
+        yield Promise.all(articles.map((article) => __awaiter(this, void 0, void 0, function* () {
+            const [user, category] = [
+                yield context.service.user.getById(article.userId),
+                yield context.service.category.getById(article.categoryId)
+            ];
+            user.avatar = gravatar.url(user.email, { 's': 40 });
+            article.user = _.pick(user, ['nickname', 'avatar']);
+            article.category = _.pick(category, ['name']);
+        })));
         context.body = articles;
     });
 }

@@ -30,6 +30,7 @@
     "koa-service": "^1.0.1",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
+    "lodash": "^4.17.10",
     "moment": "^2.22.1",
     "mysql": "^2.15.0",
     "node-sass": "^4.9.0",

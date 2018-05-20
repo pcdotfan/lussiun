@@ -1,9 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinTable, RelationId } from 'typeorm'
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+  JoinTable,
+  RelationId,
+  BaseEntity } from 'typeorm'
 import { Category } from './Category'
 import { User } from './User'
 
 @Entity()
-export class Article {
+export class Article extends BaseEntity {
   @PrimaryGeneratedColumn() id: number
 
   @Column() title: string
@@ -30,4 +40,7 @@ export class Article {
 
   @ManyToOne(type => User, user => user.articles)
   user: User
+
+  @RelationId((article: Article) => article.user)
+  userId: number
 }

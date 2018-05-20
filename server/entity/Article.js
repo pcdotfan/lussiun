@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Category_1 = require("./Category");
 const User_1 = require("./User");
-let Article = class Article {
+let Article = class Article extends typeorm_1.BaseEntity {
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
@@ -54,6 +54,10 @@ __decorate([
     typeorm_1.ManyToOne(type => User_1.User, user => user.articles),
     __metadata("design:type", User_1.User)
 ], Article.prototype, "user", void 0);
+__decorate([
+    typeorm_1.RelationId((article) => article.user),
+    __metadata("design:type", Number)
+], Article.prototype, "userId", void 0);
 Article = __decorate([
     typeorm_1.Entity()
 ], Article);

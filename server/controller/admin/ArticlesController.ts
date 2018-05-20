@@ -4,14 +4,26 @@ import { Article } from '../../entity/Article'
 import { User } from '../../entity/User'
 import { Category } from '../../entity/Category'
 
+const _ = require('lodash')
+const gravatar = require('gravatar')
+
 export async function show (context: Context) {
   const { body } = context.request
 
   if (context.params.id) {
-    const articles = await context.service.ArticleService.getBySlug(context.params.id)
-    context.status = 200
-    context.body = articles
+    let article = await context.service.article.getById(context.params.id)
+    let user = await context.service.user.getById(article.userId)
+    let category = await context.service.category.getById(article.categoryId)
+    delete user.password
+    delete user.createdAt
+    delete user.updatedAt
+    delete category.createdAt
+    delete category.updatedAt
 
+    article.user = user
+    article.category = category
+    context.status = 200
+    context.body = article
     return
   }
 
@@ -23,16 +35,22 @@ export async function show (context: Context) {
 
 export async function index (context: Context) {
   const { body } = context.request
-  const query = context.query
   const articleRepository = getManager().getRepository(Article)
+  let articles = await articleRepository.find({ status: context.query.status })
 
-  if (query.status) {
-    const articles = await articleRepository.find({ status: query.status })
-    context.body = articles
-    return
-  }
+  // 参考 egg-cnode 的写法，用 Promise.all 的方法让 Array.map 内部可异步
+  await Promise.all(
+    articles.map(async article => {
+      const [ user, category ] = [
+        await context.service.user.getById(article.userId),
+        await context.service.category.getById(article.categoryId)
+      ]
+      user.avatar = gravatar.url(user.email, { 's': 40 })
+      article.user = _.pick(user, ['nickname', 'avatar'])
+      article.category = _.pick(category, ['name'])
+    })
+  )
 
-  const articles = await articleRepository.find()
   context.body = articles
 }
 

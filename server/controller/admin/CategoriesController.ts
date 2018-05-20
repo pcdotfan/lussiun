@@ -11,6 +11,7 @@ export async function index (context: Context) {
 
 export async function show (context: Context) {
   const category = await context.service.category.getById(context.params.id)
+  console.log(category.articles)
   context.body = category
 }
 
