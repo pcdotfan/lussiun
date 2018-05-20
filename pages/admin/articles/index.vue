@@ -4,9 +4,9 @@
             <div class="uk-width-1-4@m uk-width-1-1">
               <div class="overview-sidebar uk-card uk-card-default uk-card-small uk-card-body">
                   <ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
-                      <li @click="changeStatus(2)" :class="{ 'uk-active': isActive(2) }"><a><span class="uk-margin-right" uk-icon="icon: table"></span> 已发布</a></li>
-                      <li @click="changeStatus(1)" :class="{ 'uk-active': isActive(1) }"><a><span class="uk-margin-right" uk-icon="icon: thumbnails"></span> 待审核</a></li>
-                      <li @click="changeStatus(0)" :class="{ 'uk-active': isActive(0) }"><a ><span class="uk-margin-right" uk-icon="icon: thumbnails"></span> 草稿</a></li>
+                      <li @click="changeStatus(2)" :class="{ 'uk-active': isActive(2) }"><a><span class="uk-margin-right" uk-icon="icon: pencil"></span> 已发布</a></li>
+                      <li @click="changeStatus(1)" :class="{ 'uk-active': isActive(1) }"><a><span class="uk-margin-right" uk-icon="icon: future"></span> 待审核</a></li>
+                      <li @click="changeStatus(0)" :class="{ 'uk-active': isActive(0) }"><a ><span class="uk-margin-right" uk-icon="icon: hashtag"></span> 草稿</a></li>
                       <li @click="changeStatus(-1)" :class="{ 'uk-active': isActive(-1) }"><a><span class="uk-margin-right" uk-icon="icon: trash"></span> 回收站</a></li>
                   </ul>
               </div>
@@ -28,7 +28,9 @@
                       <td>
                         <input class="uk-checkbox" type="checkbox">
                       </td>
-                      <td v-text="article.title"></td>
+                      <td>
+                        <router-link :to="{ name: 'admin-articles-id', params: { id: article.id } }">{{ article.title }}</router-link>
+                      </td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small"><img class="uk-margin-small-right uk-preserve-width uk-border-circle" :src="article.user.avatar" width="40">{{ article.user.nickname }}</td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small" v-text="article.category.name"></td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small" v-text="updatedAt(article.updatedAt)"></td>

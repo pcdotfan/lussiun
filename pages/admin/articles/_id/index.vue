@@ -53,29 +53,12 @@
                 <el-date-picker
                   type="datetime"
                   name="published-date"
-                  class="uk-width-1-1"
-                  v-model="article.updateAt"
+                  v-model="updateAt"
                   placeholder="选择日期时间">
                 </el-date-picker>
               </div>
               <div>
                 <label class="uk-form-label" for="topics">文章话题</label>
-                <el-select
-                    v-model="topicSelected"
-                    name="topics"
-                    class="uk-width-1-1"
-                    multiple
-                    filterable
-                    allow-create
-                    default-first-option
-                    placeholder="请选择文章话题">
-                    <el-option
-                      v-for="topic in topics"
-                      :key="topic.id"
-                      :label="topic.name"
-                      :value="topic.id">
-                    </el-option>
-                  </el-select>
               </div>
             </div>
           </div>
@@ -90,8 +73,7 @@ export default {
   data () {
     return {
       article: {},
-      publishedDate: new Date(),
-      topicSelected: [],
+      updateAt: Date,
       statuses: [
         {
           id: -1,
@@ -114,10 +96,7 @@ export default {
   },
   asyncComputed: {
     async categories () {
-      return this.$axios.$get('/category/index')
-    },
-    async topics () {
-      // return this.$axios.$get('/topics/index')
+      return this.$axios.$get('/categories')
     }
   },
   async mounted () {
@@ -131,6 +110,7 @@ export default {
       ]
     })
     this.article = await this.$axios.$get(`/articles/${this.$route.params.id}`)
+    this.updateAt = new Date(this.article.updateAt)
   }
 }
 </script>

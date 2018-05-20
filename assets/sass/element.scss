@@ -715,3 +715,7 @@ $--breakpoints-spec: (
 );
 
 @import "~element-ui/packages/theme-chalk/src/index";
+
+.el-date-editor.el-input, .el-date-editor.el-input__inner {
+  width: 100% !important
+}

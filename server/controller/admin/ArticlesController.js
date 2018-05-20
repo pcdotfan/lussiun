@@ -19,15 +19,13 @@ function show(context) {
         const { body } = context.request;
         if (context.params.id) {
             let article = yield context.service.article.getById(context.params.id);
-            let user = yield context.service.user.getById(article.userId);
-            let category = yield context.service.category.getById(article.categoryId);
-            delete user.password;
-            delete user.createdAt;
-            delete user.updatedAt;
-            delete category.createdAt;
-            delete category.updatedAt;
-            article.user = user;
-            article.category = category;
+            const [user, category] = [
+                yield context.service.user.getById(article.userId),
+                yield context.service.category.getById(article.categoryId)
+            ];
+            user.avatar = gravatar.url(user.email, { 's': 40 });
+            article.user = _.pick(user, ['nickname', 'avatar']);
+            article.category = _.pick(category, ['name']);
             context.status = 200;
             context.body = article;
             return;
@@ -46,7 +44,7 @@ function index(context) {
         let articles = yield articleRepository.find({ status: context.query.status });
         // 参考 egg-cnode 的写法，用 Promise.all 的方法让 Array.map 内部可异步
         yield Promise.all(articles.map((article) => __awaiter(this, void 0, void 0, function* () {
-            const [user, category] = [
+            let [user, category] = [
                 yield context.service.user.getById(article.userId),
                 yield context.service.category.getById(article.categoryId)
             ];

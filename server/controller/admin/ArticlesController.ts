@@ -12,16 +12,15 @@ export async function show (context: Context) {
 
   if (context.params.id) {
     let article = await context.service.article.getById(context.params.id)
-    let user = await context.service.user.getById(article.userId)
-    let category = await context.service.category.getById(article.categoryId)
-    delete user.password
-    delete user.createdAt
-    delete user.updatedAt
-    delete category.createdAt
-    delete category.updatedAt
+    const [user, category] = [
+      await context.service.user.getById(article.userId),
+      await context.service.category.getById(article.categoryId)
+    ]
 
-    article.user = user
-    article.category = category
+    user.avatar = gravatar.url(user.email, { 's': 40 })
+    article.user = _.pick(user, ['nickname', 'avatar'])
+    article.category = _.pick(category, ['name'])
+
     context.status = 200
     context.body = article
     return
@@ -41,7 +40,7 @@ export async function index (context: Context) {
   // 参考 egg-cnode 的写法，用 Promise.all 的方法让 Array.map 内部可异步
   await Promise.all(
     articles.map(async article => {
-      const [ user, category ] = [
+      let [ user, category ] = [
         await context.service.user.getById(article.userId),
         await context.service.category.getById(article.categoryId)
       ]

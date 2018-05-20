@@ -1,6 +1,8 @@
-# lussiun
+# Lussiun :triangular_ruler:
 
-> Nuxt.js project
+A forever-working-in-progress blog project based on Vue.js.
+
+![screenshot](screenshots/carbon.png)
 
 ## Build Setup
 

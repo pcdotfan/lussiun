@@ -117,10 +117,7 @@ export default {
   },
   asyncComputed: {
     async categories () {
-      return this.$axios.$get('/category/index')
-    },
-    async topics () {
-      return this.$axios.$get('/topics/index')
+      return this.$axios.$get('/categories')
     }
   },
   mounted () {
