@@ -14,7 +14,9 @@ const Koa = require("koa");
 const Router = require("koa-router");
 const bodyParser = require("koa-bodyparser");
 const jwt = require("koa-jwt");
+const service = require("koa-service");
 const routes_1 = require("./routes");
+const path = require('path');
 const cors = require('@koa/cors');
 // create connection with database
 // note that its not active database connection
@@ -23,6 +25,9 @@ const secret = 'vy1C%iZ8W+`]X9#vQl}:/78ul:,CjXcV5{%b-W|_Nty$tGbDnaRGRpJ]e_MkR+O0
 typeorm_1.createConnection().then((connection) => __awaiter(this, void 0, void 0, function* () {
     // create koa app
     const app = new Koa();
+    app.use(service({
+        serviceRoot: path.join(__dirname, 'service')
+    }));
     const router = new Router({
     // prefix: '/api'
     });

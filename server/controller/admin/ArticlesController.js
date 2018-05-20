@@ -12,18 +12,11 @@ const typeorm_1 = require("typeorm");
 const Article_1 = require("../../entity/Article");
 const User_1 = require("../../entity/User");
 const Category_1 = require("../../entity/Category");
-function getBySlug(id) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const articleRepository = typeorm_1.getManager().getRepository(Article_1.Article);
-        return articleRepository.findOne({ id });
-    });
-}
 function show(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { body } = context.request;
-        const articleRepository = typeorm_1.getManager().getRepository(Article_1.Article);
         if (context.params.id) {
-            const articles = yield getBySlug(context.params.id);
+            const articles = yield context.service.ArticleService.getBySlug(context.params.id);
             context.status = 200;
             context.body = articles;
             return;

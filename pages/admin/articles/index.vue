@@ -29,8 +29,8 @@
                         <input class="uk-checkbox" type="checkbox">
                       </td>
                       <td v-text="article.title"></td>
-                      <td class="uk-table-shrink uk-text-nowrap uk-text-small"><img class="uk-preserve-width uk-border-circle" src="http://thetheme.io/theadmin/samples/support/assets/img/avatar/1.jpg" width="40" alt=""> PCDotFan</td>
-                      <td class="uk-table-shrink uk-text-nowrap uk-text-small">WordPress 插件</td>
+                      <td class="uk-table-shrink uk-text-nowrap uk-text-small"><img class="uk-preserve-width uk-border-circle" :src="Gravatar.url(user(article.userId).email, { s: '40' })" width="40">{{ user(article.userId).name }}</td>
+                      <td class="uk-table-shrink uk-text-nowrap uk-text-small">WordPress</td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small" v-text="updatedAt(article.updatedAt)"></td>
                     </tr>
                   </tbody>
@@ -56,6 +56,10 @@ export default {
     }
   },
   methods: {
+    async user (id) {
+      const user = await this.$axios.$get(`/user/${id}`)
+      return user
+    },
     updatedAt (date) {
       let currentDate = moment(date)
       return currentDate.format('YYYY-MM-DD')

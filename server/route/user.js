@@ -9,5 +9,10 @@ exports.default = [
         path: '/user/update',
         method: 'post',
         action: UserController_1.update
+    },
+    {
+        path: '/user/:id',
+        method: 'get',
+        action: UserController_1.show
     }
 ];

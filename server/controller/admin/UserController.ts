@@ -11,28 +11,11 @@ export async function getById (id) {
 }
 
 export async function show (context: Context) {
-  const { body } = context.request // 拿到传入的参数
-
-  try {
-    if (!body.id) {
-      context.status = 400
-      context.body = { error: `无效的传入参数` }
-      return
-    }
-
-    let userExisted = getById(body.id)
-
-    if (userExisted) {
-      context.status = 200
-      context.body = { userExisted }
-    } else {
-      context.status = 406
-      context.body = { message: '无效用户' }
-    }
-  } catch (error) {
-    context.status = 500
-    context.body = { error: error }
-  }
+  const user = await context.service.user.getById(context.params.id)
+  delete user.password
+  delete user.createdAt
+  delete user.updatedAt
+  context.body = user
 }
 
 export async function update (context: Context) {

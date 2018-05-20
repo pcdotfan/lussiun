@@ -9,6 +9,11 @@ export async function index (context: Context) {
   context.body = categories
 }
 
+export async function show (context: Context) {
+  const category = await context.service.category.getById(context.params.id)
+  context.body = category
+}
+
 export async function destroy (context: Context) {
   const { body } = context.request // 拿到传入的参数
   const categoryRepository = getManager().getRepository(Category)

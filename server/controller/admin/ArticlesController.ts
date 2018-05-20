@@ -4,17 +4,11 @@ import { Article } from '../../entity/Article'
 import { User } from '../../entity/User'
 import { Category } from '../../entity/Category'
 
-async function getBySlug (id) {
-  const articleRepository = getManager().getRepository(Article)
-  return articleRepository.findOne({ id })
-}
-
 export async function show (context: Context) {
   const { body } = context.request
-  const articleRepository = getManager().getRepository(Article)
 
   if (context.params.id) {
-    const articles = await getBySlug(context.params.id)
+    const articles = await context.service.ArticleService.getBySlug(context.params.id)
     context.status = 200
     context.body = articles
 

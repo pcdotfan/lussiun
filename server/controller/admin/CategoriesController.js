@@ -18,6 +18,13 @@ function index(context) {
     });
 }
 exports.index = index;
+function show(context) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const category = yield context.service.category.getById(context.params.id);
+        context.body = category;
+    });
+}
+exports.show = show;
 function destroy(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { body } = context.request; // 拿到传入的参数

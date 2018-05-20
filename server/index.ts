@@ -5,8 +5,10 @@ import * as Koa from 'koa'
 import * as Router from 'koa-router'
 import * as bodyParser from 'koa-bodyparser'
 import * as jwt from 'koa-jwt'
+import * as service from 'koa-service'
 import { AppRoutes } from './routes'
 
+const path = require('path')
 const cors = require('@koa/cors')
 
 // create connection with database
@@ -18,6 +20,10 @@ createConnection().then(async connection => {
 
     // create koa app
   const app = new Koa()
+  app.use(service({
+    serviceRoot: path.join(__dirname, 'service')
+  }))
+
   const router = new Router({
     // prefix: '/api'
   })
@@ -25,7 +31,7 @@ createConnection().then(async connection => {
   // register all application routes
   AppRoutes.forEach(route => router[route.method](route.path, route.action))
 
-    // run app
+  // run app
   app.use(cors())
   app.use((ctx, next) => {
     return next().catch((err) => {
