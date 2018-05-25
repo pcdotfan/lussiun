@@ -1,82 +1,78 @@
 <template>
       <main class="uk-container uk-container-small uk-margin">
-        <div class="uk-grid-medium" uk-grid>
+        <vk-grid>
           <div class="profile-avatar-control">
-            <div class="uk-card uk-card-default uk-card-small">
-              <div class="uk-card-media-top">
+            <vk-card padding="small">
+              <div slot="media-top">
                 <img :src="avatar">
               </div>
-              <div class="uk-card-body">
-                <h4 class="nickname uk-text-center" v-text="user.nickname"></h4>
-                <a class="email uk-text-small" v-text="user.email" :href="emailLink"></a>
-              </div>
-            </div>
+              <h4 class="nickname uk-text-center" v-text="user.nickname"></h4>
+              <a class="email uk-text-small" v-text="user.email" :href="emailLink"></a>
+            </vk-card>
           </div>
           <div class="uk-width-expand">
-            <div class="basic uk-card-default uk-card-small">
-              <div class="uk-card-body">
-                <form class="uk-form-stacked">
-                  <div class="uk-grid-small uk-child-width-1-2" uk-grid>
-                    <div>
-                      <label class="uk-form-label" for="form-stacked-text">昵称（必填）</label>
-                      <div class="uk-form-controls">
-                        <input class="uk-input" type="text" v-model="user.nickname">
-                      </div>
-                    </div>
-                    <div>
-                      <label class="uk-form-label" for="form-stacked-text">公开显示为</label>
-                      <div class="uk-form-controls">
-                        <select class="uk-select">
-                            <option v-text="user.nickname"></option>
-                            <option v-text="user.username"></option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="uk-margin">
-                    <label class="uk-form-label" for="form-stacked-text">E-Mail</label>
+            <vk-card padding="small">
+              <form class="uk-form-stacked">
+                <vk-grid gutter="small" class="uk-child-width-1-2">
+                  <div>
+                    <label class="uk-form-label" for="form-stacked-text">昵称（必填）</label>
                     <div class="uk-form-controls">
-                      <input class="uk-input" type="email" v-model="user.email">
+                      <input class="uk-input" type="text" v-model="user.nickname">
                     </div>
                   </div>
-                  <!--
-                  <div class="uk-grid-small uk-child-width-1-2" uk-grid>
-                    <div>
-                      <label class="uk-form-label" for="form-stacked-text">微博用户名</label>
-                      <div class="uk-form-controls">
-                        <input class="uk-input" type="text">
-                      </div>
-                    </div>
-                    <div>
-                      <label class="uk-form-label" for="form-stacked-text">微博个人页面</label>
-                      <div class="uk-form-controls">
-                        <input class="uk-input" type="text">
-                      </div>
-                    </div>
-                  </div>
-                  -->
-                  <div class="uk-margin">
-                    <label class="uk-form-label" for="form-stacked-text">个人简介</label>
+                  <div>
+                    <label class="uk-form-label" for="form-stacked-text">公开显示为</label>
                     <div class="uk-form-controls">
-                      <textarea class="uk-textarea" type="text" placeholder="Some text..." v-model="user.introduction"></textarea>
+                      <select class="uk-select">
+                          <option v-text="user.nickname"></option>
+                          <option v-text="user.username"></option>
+                      </select>
                     </div>
                   </div>
-                </form>
-              </div>
-              <div class="uk-card-footer">
+                </vk-grid>
+                <div class="uk-margin">
+                  <label class="uk-form-label" for="form-stacked-text">E-Mail</label>
+                  <div class="uk-form-controls">
+                    <input class="uk-input" type="email" v-model="user.email">
+                  </div>
+                </div>
+                <!--
+                <div class="uk-grid-small uk-child-width-1-2" uk-grid>
+                  <div>
+                    <label class="uk-form-label" for="form-stacked-text">微博用户名</label>
+                    <div class="uk-form-controls">
+                      <input class="uk-input" type="text">
+                    </div>
+                  </div>
+                  <div>
+                    <label class="uk-form-label" for="form-stacked-text">微博个人页面</label>
+                    <div class="uk-form-controls">
+                      <input class="uk-input" type="text">
+                    </div>
+                  </div>
+                </div>
+                -->
+                <div class="uk-margin">
+                  <label class="uk-form-label" for="form-stacked-text">个人简介</label>
+                  <div class="uk-form-controls">
+                    <textarea class="uk-textarea" type="text" placeholder="Some text..." v-model="user.introduction"></textarea>
+                  </div>
+                </div>
+              </form>
+              <div slot="footer">
                 <p class="uk-text-right">
                   <button class="uk-button uk-button-primary" type="submit" @click="updateProfile()">保存资料</button>
                 </p>
               </div>
-            </div>
-            <div class="account uk-margin uk-card-default uk-card-small">
-              <div class="uk-card-body">
-                <form class="uk-form-stacked uk-grid-small uk-child-width-1-2" uk-grid>
+            </vk-card>
+            <vk-card padding="small" class="account uk-margin">
+              <form class="uk-form-stacked">
+                <vk-grid gutter="small" class="uk-child-width-1-2">
                   <div>
                     <label class="uk-form-label" for="form-stacked-text">新密码</label>
                     <div class="uk-form-controls">
                       <div class="uk-inline uk-width-1-1">
-                        <span class="uk-form-icon uk-form-icon-flip" uk-icon="lock"></span>
+                        <vk-icon class="uk-form-icon uk-form-icon-flip" icon="lock"></vk-icon>
                         <input class="uk-input" type="password" v-model="password">
                       </div>
                     </div>
@@ -85,25 +81,24 @@
                     <label class="uk-form-label" for="form-stacked-text">确认密码</label>
                     <div class="uk-form-controls">
                       <div class="uk-inline uk-width-1-1">
-                        <span class="uk-form-icon uk-form-icon-flip" uk-icon="check"></span>
+                        <vk-icon class="uk-form-icon uk-form-icon-flip" icon="check"></vk-icon>
                         <input class="uk-input" type="password" v-model="password_confirmation">
                       </div>
                     </div>
                   </div>
-                </form>
-              </div>
-              <div class="uk-card-footer">
+                </vk-grid>
+              </form>
+              <div slot="footer">
                 <p class="uk-text-right">
                   <button class="uk-button uk-button-danger" type="submit" @click="changePassword()">修改密码</button>
                 </p>
               </div>
-            </div>
+            </vk-card>
           </div>
-        </div>
+        </vk-grid>
       </main>
 </template>
 <script>
-import UIkit from 'uikit'
 import Gravatar from 'gravatar'
 export default {
   name: 'ProfileIndex',
@@ -143,23 +138,43 @@ export default {
       const user = Object.assign(this.user, { id: this.$auth.user.id })
       await this.$axios.$post('/user/update', user)
         .then(response => {
-          UIkit.notification('操作成功', 'success')
+          this.$notify({
+            title: '成功',
+            message: '操作成功',
+            type: 'success'
+          })
         }).catch(error => {
           console.log(error)
-          UIkit.notification('出现内部错误', 'danger')
+          this.$notify({
+            title: '失败',
+            message: '出现内部错误',
+            type: 'warning'
+          })
         })
     },
     async changePassword () {
       if (this.password !== this.password_confirmation) {
-        UIkit.notification('新密码与确认密码不一致', 'danger')
+        this.$notify({
+          title: '失败',
+          message: '新密码与确认密码不一致',
+          type: 'warning'
+        })
         return
       }
       await this.$axios.$post('/auth/user/changepassword', { password: this.password })
         .then(response => {
-          UIkit.notification('操作成功', 'success')
+          this.$notify({
+            title: '成功',
+            message: '操作成功',
+            type: 'success'
+          })
         }).catch(error => {
           console.log(error)
-          UIkit.notification('出现内部错误', 'danger')
+          this.$notify({
+            title: '失败',
+            message: '出现内部错误',
+            type: 'warning'
+          })
         })
     }
   }

@@ -1,15 +1,15 @@
 <template>
     <main class="uk-container uk-margin-top">
-        <div class="uk-grid-medium" uk-grid>
+        <vk-grid>
             <div class="uk-width-1-4@m uk-width-1-1">
-              <div class="overview-sidebar uk-card uk-card-default uk-card-small uk-card-body">
-                  <ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
-                      <li @click="changeStatus(2)" :class="{ 'uk-active': isActive(2) }"><a><span class="uk-margin-right" uk-icon="icon: pencil"></span> 已发布</a></li>
-                      <li @click="changeStatus(1)" :class="{ 'uk-active': isActive(1) }"><a><span class="uk-margin-right" uk-icon="icon: future"></span> 待审核</a></li>
-                      <li @click="changeStatus(0)" :class="{ 'uk-active': isActive(0) }"><a ><span class="uk-margin-right" uk-icon="icon: hashtag"></span> 草稿</a></li>
-                      <li @click="changeStatus(-1)" :class="{ 'uk-active': isActive(-1) }"><a><span class="uk-margin-right" uk-icon="icon: trash"></span> 回收站</a></li>
-                  </ul>
-              </div>
+              <vk-card padding="small" class="overview-sidebar">
+                  <vk-nav>
+                      <li @click="changeStatus(2)" :class="{ 'uk-active': isActive(2) }"><a><vk-icon class="uk-margin-right" icon="pencil"></vk-icon> 已发布</a></li>
+                      <li @click="changeStatus(1)" :class="{ 'uk-active': isActive(1) }"><a><vk-icon class="uk-margin-right" icon="future"></vk-icon> 待审核</a></li>
+                      <li @click="changeStatus(0)" :class="{ 'uk-active': isActive(0) }"><a ><vk-icon class="uk-margin-right" icon="hashtag"></vk-icon> 草稿</a></li>
+                      <li @click="changeStatus(-1)" :class="{ 'uk-active': isActive(-1) }"><a><vk-icon class="uk-margin-right" icon="trash"></vk-icon> 回收站</a></li>
+                  </vk-nav>
+              </vk-card>
             </div>
             <div class="uk-width-3-4@m uk-width-1-1">
               <div class="articles-list uk-card uk-card-default uk-card-small">
@@ -44,7 +44,7 @@
                 </div>
               </div>
             </div>
-        </div>
+        </vk-grid>
     </main>
 </template>
 <script>

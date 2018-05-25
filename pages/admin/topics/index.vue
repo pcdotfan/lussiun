@@ -1,6 +1,6 @@
 <template>
     <main class="uk-container uk-container-medium uk-margin">
-        <div class="uk-grid-medium" uk-grid>
+        <vk-grid>
           <div class="uk-width-3-5">
             <div class="uk-card uk-card-default">
               <table class="uk-table uk-table-divider">
@@ -31,40 +31,38 @@
             </div>
           </div>
           <div class="uk-width-2-5">
-            <div class="uk-card uk-card-default uk-card-small">
-              <div class="uk-card-header">
+            <vk-card padding="small">
+              <div slot="header">
                 <h4>创建新话题</h4>
               </div>
-              <div class="uk-card-body">
-                <form class="uk-form-stacked">
-                  <div class="uk-margin">
-                    <label class="uk-form-label" for="form-stacked-text">话题名称</label>
-                    <div class="uk-form-controls">
-                      <input class="uk-input" id="form-stacked-text" type="text">
-                    </div>
+              <form class="uk-form-stacked">
+                <div class="uk-margin">
+                  <label class="uk-form-label" for="form-stacked-text">话题名称</label>
+                  <div class="uk-form-controls">
+                    <input class="uk-input" id="form-stacked-text" type="text">
                   </div>
-                  <div class="uk-margin">
-                    <label class="uk-form-label" for="form-stacked-text">别名</label>
-                    <div class="uk-form-controls">
-                      <input class="uk-input" id="form-stacked-text" type="text">
-                    </div>
+                </div>
+                <div class="uk-margin">
+                  <label class="uk-form-label" for="form-stacked-text">别名</label>
+                  <div class="uk-form-controls">
+                    <input class="uk-input" id="form-stacked-text" type="text">
                   </div>
-                  <div class="uk-margin">
-                    <label class="uk-form-label" for="form-stacked-text">描述（可选）</label>
-                    <div class="uk-form-controls">
-                      <textarea class="uk-textarea"></textarea>
-                    </div>
+                </div>
+                <div class="uk-margin">
+                  <label class="uk-form-label" for="form-stacked-text">描述（可选）</label>
+                  <div class="uk-form-controls">
+                    <textarea class="uk-textarea"></textarea>
                   </div>
-                </form>
-              </div>
-              <div class="uk-card-footer">
+                </div>
+              </form>
+              <div slot="footer">
                 <p class="uk-text-right">
                   <button type="submit" class="uk-button uk-button-primary">发布话题</button>
                 </p>
               </div>
-            </div>
+            </vk-card>
           </div>
-        </div>
+        </vk-grid>
       </main>
 </template>
 <script>

@@ -27,7 +27,7 @@ module.exports = {
   plugins: [
     { src: '@/plugins/vuex-router-sync', ssr: false },
     '@/plugins/vue-async-computed',
-    { src: '@/plugins/uikit', ssr: false },
+    '@/plugins/vuikit',
     { src: '@/plugins/element-ui', ssr: false },
     { src: '@plugins/simplemde.js', ssr: false }
   ],

@@ -1,73 +1,74 @@
 <template>
   <div id="backend">
     <header id="header" class="uk-background-primary uk-light">
-        <nav class="uk-navbar-primary" uk-navbar uk-sticky="bottom: .hero">
-            <div class="uk-navbar-left">
-                <a href="#" class="uk-navbar-item uk-logo"><img src="~assets/images/uikit-logo.svg" class="uk-margin-small-right">Lussiun</a>
-                <ul class="uk-navbar-nav">
-                <router-link tag="li" to="/admin/" exact>
-                    <a>
-                    <div class="">
-                        控制面板
-                        <div class="uk-navbar-subtitle">Dashboard</div>
-                    </div>
+        <vk-sticky bottom=".hero">
+            <vk-navbar>
+                <vk-navbar-nav slot="left">
+                    <a href="#" class="uk-navbar-item uk-logo">
+                        <img src="~assets/images/uikit-logo.svg" class="uk-margin-small-right">Lussiun
                     </a>
-                </router-link>
-                <router-link tag="li" to="/admin/articles">
-                    <a>
-                    <div class="">
-                        文章
-                        <div class="uk-navbar-subtitle">Articles</div>
-                    </div>
-                    </a>
-                </router-link>
-                <router-link tag="li" to="/admin/topics">
-                    <a>
-                    <div class="">
-                        话题
-                        <div class="uk-navbar-subtitle">Topics</div>
-                    </div>
-                    </a>
-                </router-link>
-                <router-link tag="li" to="/admin/category">
-                    <a>
-                    <div class="">
-                        分类目录
-                        <div class="uk-navbar-subtitle">Category</div>
-                    </div>
-                    </a>
-                </router-link>
-                <router-link tag="li" to="/admin/settings">
-                    <a>
-                    <div class="">
-                        设置
-                        <div class="uk-navbar-subtitle">Settings</div>
-                    </div>
-                    </a>
-                </router-link>
-                </ul>
-            </div>
-            <div class="uk-navbar-right">
-                <ul class="navbar-right-controls uk-iconnav">
-                <li><a href="#" uk-icon="icon: home; ratio: 0.875"></a></li>
-                <li><a href="#" uk-icon="icon: file-edit; ratio: 0.875"></a></li>
-                <li><a @click="$auth.logout()" uk-icon="icon: sign-out; ratio: 0.875"></a></li>
-                </ul>
-                <ul class="uk-navbar-nav">
-                <router-link to="/admin/profile" tag="li" exact>
-                    <a>
-                    <img class="uk-border-circle uk-margin-small-right" height="32" width="32" :title="user.nickname" :src="avatar"><span v-text="user.nickname"></span>
-                    </a>
-                    <div class="uk-navbar-dropdown">
-                    <ul class="uk-nav uk-navbar-dropdown-nav">
-                        <li><a href="#">个人资料</a></li>
-                        <li><a @click="$auth.logout()">登出</a></li>
+                    <ul class="uk-navbar-nav">
+                        <router-link tag="li" to="/admin/" exact>
+                            <a>
+                            <div class="">
+                                控制面板
+                                <div class="uk-navbar-subtitle">Dashboard</div>
+                            </div>
+                            </a>
+                        </router-link>
+                        <router-link tag="li" to="/admin/articles">
+                            <a>
+                            <div class="">
+                                文章
+                                <div class="uk-navbar-subtitle">Articles</div>
+                            </div>
+                            </a>
+                        </router-link>
+                        <router-link tag="li" to="/admin/topics">
+                            <a>
+                            <div class="">
+                                话题
+                                <div class="uk-navbar-subtitle">Topics</div>
+                            </div>
+                            </a>
+                        </router-link>
+                        <router-link tag="li" to="/admin/category">
+                            <a>
+                            <div class="">
+                                分类目录
+                                <div class="uk-navbar-subtitle">Category</div>
+                            </div>
+                            </a>
+                        </router-link>
+                        <router-link tag="li" to="/admin/settings">
+                            <a>
+                            <div class="">
+                                设置
+                                <div class="uk-navbar-subtitle">Settings</div>
+                            </div>
+                            </a>
+                        </router-link>
                     </ul>
-                    </div>
-                </router-link>
-                </ul>
-            </div>
-        </nav>
+                </vk-navbar-nav>
+                <vk-navbar-nav slot="right">
+                    <vk-iconnav class="navbar-right-controls">
+                        <vk-iconnav-item icon="home" ratio="0.875"></vk-iconnav-item>
+                        <vk-iconnav-item icon="file-edit" ratio="0.875"></vk-iconnav-item>
+                        <vk-iconnav-item @click="$auth.logout()" icon="sign-out" ratio="0.875"></vk-iconnav-item>
+                    </vk-iconnav>
+                    <ul class="uk-navbar-nav">
+                        <router-link to="/admin/profile" exact>
+                            <vk-navbar-nav-dropdown :title="user.nickname">
+                                <vk-navbar-nav-dropdown-nav>
+                                    <vk-nav-item title="个人资料"></vk-nav-item>
+                                    <vk-nav-item @click="$auth.logout()" title="登出"></vk-nav-item>
+                                </vk-navbar-nav-dropdown-nav>
+                            </vk-navbar-nav-dropdown>
+                        </router-link>
+                    </ul>
+                </vk-navbar-nav>
+            </vk-navbar>
+        </vk-sticky>
     </header>
     <section class="hero uk-section-primary uk-preserve-color">
         <div class="uk-section uk-light">
@@ -113,6 +114,9 @@ export default {
     this.fetchUser()
   },
   computed: {
+    profileDropdownTitle () {
+      return `<img class="uk-border-circle uk-margin-small-right" height="32" width="32" title="${this.user.nickname}" src="${this.avatar}"><span>${this.user.nickname}</span>`
+    },
     hero () {
       return this.$store.state.hero
     },
