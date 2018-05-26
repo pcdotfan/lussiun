@@ -5,45 +5,24 @@
   "author": "PCDotFan <pc@edu.ax>",
   "private": true,
   "scripts": {
-    "nuxt": "nuxt",
-    "dev": "NODE_ENV=development nodemon -w server -x ts-node ./server/index.ts",
-    "tsc": "tsc -p tsconfig.json",
-    "tsc:w": "tsc -p tsconfig.json -w"
+    "nuxt": "nuxt"
   },
   "dependencies": {
-    "@koa/cors": "2",
     "@nuxtjs/auth": "^4.3.0",
     "@nuxtjs/axios": "^5.3.1",
     "@nuxtjs/moment": "^1.0.0",
-    "@types/jsonwebtoken": "^7.2.7",
     "@vuikit/icons": "^0.8.1",
     "@vuikit/theme": "^0.8.0",
-    "bcrypt": "^2.0.1",
-    "class-validator": "^0.8.5",
-    "cross-env": "^5.0.1",
     "element-ui": "^2.3.9",
     "eslint-plugin-vue": "^4.5.0",
-    "faker": "^4.1.0",
     "gravatar": "^1.6.0",
-    "koa": "^2.5.0",
-    "koa-bodyparser": "^4.2.0",
-    "koa-jwt": "^3.3.1",
-    "koa-router": "^7.4.0",
-    "koa-service": "^1.0.1",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
-    "lodash": "^4.17.10",
     "moment": "^2.22.1",
-    "mysql": "^2.15.0",
     "node-sass": "^4.9.0",
-    "nodemon": "^1.17.4",
     "nuxt": "latest",
     "sass-loader": "^7.0.1",
     "source-map-support": "^0.4.15",
-    "ts-node-dev": "^1.0.0-pre.21",
-    "tslint": "^5.10.0",
-    "tslint-config-standard": "^7.0.0",
-    "typeorm": "^0.2.0",
     "uikit": "^3.0.0-rc.2",
     "vue-async-computed": "^3.3.1",
     "vue-avatar-cropper": "^0.0.27",
@@ -52,10 +31,6 @@
     "vuikit": "^0.8.4"
   },
   "devDependencies": {
-    "@types/koa": "^2.0.45",
-    "@types/koa-bodyparser": "^4.2.0",
-    "@types/koa-router": "^7.0.27",
-    "@types/node": "^9.6.5",
     "babel-eslint": "^7.1.1",
     "eslint": "^3.13.1",
     "eslint-config-standard": "^10.2.1",
@@ -64,7 +39,6 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "typescript": "^2.8.1"
+    "eslint-plugin-standard": "^3.0.1"
   }
 }
