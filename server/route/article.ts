@@ -11,7 +11,7 @@ export default [
   },
   {
     path: '/articles/',
-    method: 'post',
+    method: 'patch',
     action: update
   },
   {

@@ -12,7 +12,7 @@ exports.default = [
     },
     {
         path: '/articles/',
-        method: 'post',
+        method: 'patch',
         action: ArticlesController_1.update
     },
     {

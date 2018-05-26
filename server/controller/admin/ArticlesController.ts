@@ -86,15 +86,13 @@ export async function update (context: Context) {
       return
     }
 
-    const articleExisted = await articleRepository.findOne({ slug: body.slug }) // 同步处理
+    const articleExisted = await articleRepository.findOne({ id: body.id }) // 同步处理
 
-    if (!articleExisted) {
-      const articleId = body.id
-      delete body.id
-      const updatedArticle = await articleRepository.update(articleId, body)
+    if (articleExisted) {
+      const updatedArticle = await articleRepository.update(body.id, body)
 
       context.status = 200
-      context.body = { message: '更新成功', updatedArticle }
+      context.body = { message: '更新成功' }
     } else {
       context.status = 406
       context.body = { message: '找不到文章' }

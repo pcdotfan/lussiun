@@ -88,13 +88,11 @@ function update(context) {
                 context.body = { error: `无效的传入参数` };
                 return;
             }
-            const articleExisted = yield articleRepository.findOne({ slug: body.slug }); // 同步处理
-            if (!articleExisted) {
-                const articleId = body.id;
-                delete body.id;
-                const updatedArticle = yield articleRepository.update(articleId, body);
+            const articleExisted = yield articleRepository.findOne({ id: body.id }); // 同步处理
+            if (articleExisted) {
+                const updatedArticle = yield articleRepository.update(body.id, body);
                 context.status = 200;
-                context.body = { message: '更新成功', updatedArticle };
+                context.body = { message: '更新成功' };
             }
             else {
                 context.status = 406;
