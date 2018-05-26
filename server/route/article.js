@@ -16,6 +16,11 @@ exports.default = [
         action: ArticlesController_1.update
     },
     {
+        path: '/articles/',
+        method: 'post',
+        action: ArticlesController_1.store
+    },
+    {
         path: '/articles/mock',
         method: 'get',
         action: ArticlesController_1.mockData

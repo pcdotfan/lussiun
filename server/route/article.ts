@@ -1,4 +1,4 @@
-import { index, show, mockData, update } from '../controller/admin/ArticlesController'
+import { index, show, mockData, update, store } from '../controller/admin/ArticlesController'
 
 /**
  * All application routes.
@@ -13,6 +13,11 @@ export default [
     path: '/articles/',
     method: 'patch',
     action: update
+  },
+  {
+    path: '/articles/',
+    method: 'post',
+    action: store
   },
   {
     path: '/articles/mock',
