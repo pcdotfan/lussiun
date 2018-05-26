@@ -10,6 +10,10 @@ class ArticleService {
     const articleRepository = getManager().getRepository(Article)
     return articleRepository.findOne({ slug })
   }
+  async getByWhere (whereCondition: Object) {
+    const articleRepository = getManager().getRepository(Article)
+    return articleRepository.find(whereCondition)
+  }
 }
 
 module.exports = ArticleService

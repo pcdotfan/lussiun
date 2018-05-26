@@ -34,8 +34,7 @@ export async function show (context: Context) {
 
 export async function index (context: Context) {
   const { body } = context.request
-  const articleRepository = getManager().getRepository(Article)
-  let articles = await articleRepository.find({ status: context.query.status })
+  let articles = await context.service.article.getByWhere({ status: context.query.status })
 
   // 参考 egg-cnode 的写法，用 Promise.all 的方法让 Array.map 内部可异步
   await Promise.all(
@@ -64,14 +63,42 @@ export async function destroy (context: Context) {
       return
     }
 
-    const articleExisted = await articleRepository.findOne({
-      id: body.id
-    }) // 同步处理
+    const articleExisted = await context.service.user.getById(body.id)
 
     if (articleExisted) {
       await articleRepository.delete(body.id)
     }
     context.status = 200
+  } catch (error) {
+    context.status = 500
+    context.body = { error: error }
+  }
+}
+
+export async function update (context: Context) {
+  const { body } = context.request // 拿到传入的参数
+  const articleRepository = getManager().getRepository(Article)
+  try {
+
+    if (!body.id) {
+      context.status = 400
+      context.body = { error: `无效的传入参数` }
+      return
+    }
+
+    const articleExisted = await articleRepository.findOne({ slug: body.slug }) // 同步处理
+
+    if (!articleExisted) {
+      const articleId = body.id
+      delete body.id
+      const updatedArticle = await articleRepository.update(articleId, body)
+
+      context.status = 200
+      context.body = { message: '更新成功', updatedArticle }
+    } else {
+      context.status = 406
+      context.body = { message: '找不到文章' }
+    }
   } catch (error) {
     context.status = 500
     context.body = { error: error }

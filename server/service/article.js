@@ -23,5 +23,11 @@ class ArticleService {
             return articleRepository.findOne({ slug });
         });
     }
+    getByWhere(whereCondition) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const articleRepository = typeorm_1.getManager().getRepository(Article_1.Article);
+            return articleRepository.find(whereCondition);
+        });
+    }
 }
 module.exports = ArticleService;

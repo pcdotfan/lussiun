@@ -1,5 +1,4 @@
 import 'reflect-metadata'
-import { Nuxt, Builder } from 'nuxt'
 import { createConnection } from 'typeorm'
 import * as Koa from 'koa'
 import * as Router from 'koa-router'

@@ -16,6 +16,7 @@
     "class-validator": "^0.8.5",
     "cross-env": "^5.0.1",
     "faker": "^4.1.0",
+    "gravatar": "^1.6.0",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
     "koa-jwt": "^3.3.1",

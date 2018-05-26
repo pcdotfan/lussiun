@@ -40,8 +40,7 @@ exports.show = show;
 function index(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { body } = context.request;
-        const articleRepository = typeorm_1.getManager().getRepository(Article_1.Article);
-        let articles = yield articleRepository.find({ status: context.query.status });
+        let articles = yield context.service.article.getByWhere({ status: context.query.status });
         // 参考 egg-cnode 的写法，用 Promise.all 的方法让 Array.map 内部可异步
         yield Promise.all(articles.map((article) => __awaiter(this, void 0, void 0, function* () {
             let [user, category] = [
@@ -66,9 +65,7 @@ function destroy(context) {
                 context.body = { error: `无效的传入参数` };
                 return;
             }
-            const articleExisted = yield articleRepository.findOne({
-                id: body.id
-            }); // 同步处理
+            const articleExisted = yield context.service.user.getById(body.id);
             if (articleExisted) {
                 yield articleRepository.delete(body.id);
             }
@@ -81,6 +78,36 @@ function destroy(context) {
     });
 }
 exports.destroy = destroy;
+function update(context) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { body } = context.request; // 拿到传入的参数
+        const articleRepository = typeorm_1.getManager().getRepository(Article_1.Article);
+        try {
+            if (!body.id) {
+                context.status = 400;
+                context.body = { error: `无效的传入参数` };
+                return;
+            }
+            const articleExisted = yield articleRepository.findOne({ slug: body.slug }); // 同步处理
+            if (!articleExisted) {
+                const articleId = body.id;
+                delete body.id;
+                const updatedArticle = yield articleRepository.update(articleId, body);
+                context.status = 200;
+                context.body = { message: '更新成功', updatedArticle };
+            }
+            else {
+                context.status = 406;
+                context.body = { message: '找不到文章' };
+            }
+        }
+        catch (error) {
+            context.status = 500;
+            context.body = { error: error };
+        }
+    });
+}
+exports.update = update;
 function store(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { body } = context.request; // 拿到传入的参数
