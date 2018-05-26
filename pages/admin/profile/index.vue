@@ -105,26 +105,23 @@ export default {
   layout: 'backend',
   data () {
     return {
-      user: {
-        email: '',
-        nickname: '',
-        username: '',
-        introduction: ''
-      },
+      user: {},
       password: '',
       password_confirmation: ''
     }
   },
   computed: {
-    avatar () {
-      return Gravatar.url(this.user.email, { s: '250' })
-    },
     emailLink () {
       return `mailto:${this.user.email}`
     }
   },
-  mounted () {
-    this.user = this.$axios.$get('/auth/user/basicinfo')
+  asyncComputed: {
+    async avatar () {
+      return Gravatar.url(this.user.email, { s: '250' })
+    }
+  },
+  async mounted () {
+    this.user = await this.$axios.$get('/auth/user/basicinfo')
     this.$store.commit('changeHero', {
       title: '个人资料',
       description: '从此无心爱良夜，任他明月下西楼。'

@@ -108,6 +108,7 @@ export default {
             message: '操作成功',
             type: 'success'
           })
+          console.log(response.data)
         }).catch(error => {
           console.log(error)
           this.$notify({

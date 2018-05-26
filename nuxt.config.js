@@ -45,11 +45,6 @@ module.exports = {
     browserBaseURL: 'http://localhost:8080'
   },
   auth: {
-    redirect: {
-      login: '/login',
-      logout: '/',
-      user: '/'
-    },
     strategies: {
       local: {
         endpoints: {

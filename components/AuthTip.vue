@@ -1,6 +1,6 @@
 <template>
     <div :class="getAlertType" v-if="isOpen" uk-alert>
-        <p>{{ message }}</p>
+        <span>{{ message }}</span>
     </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
   computed: {
     getAlertType () {
       if (this.isOpen) {
-        return `uk-alert-${this.type} uk-animation-shake`
+        return `auth-tip uk-alert-${this.type} uk-animation-shake`
       } else {
         return `uk-hidden`
       }

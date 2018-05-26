@@ -3,15 +3,14 @@
     <div class="article-new-edit">
         <vk-card>
           <div slot="header">
-            <input class="title uk-input uk-width-1-1 uk-form-large" placeholder="输入标题...">
+            <input class="title uk-input uk-width-1-1 uk-form-large" placeholder="输入标题..." v-model="article.title">
           </div>
           <div>
-            <markdown-editor v-model="content"></markdown-editor>
+            <markdown-editor v-model="article.content"></markdown-editor>
           </div>
           <div slot="footer">
             <p class="uk-text-right">
-              <button class="uk-button uk-button-secondary uk-margin-right">保存草稿</button>
-              <button class="uk-button uk-button-primary">发布文章</button>
+              <vk-button @click="createArticle()" type="primary">发布文章</vk-button>
             </p>
           </div>
         </vk-card>
@@ -20,11 +19,11 @@
             <vk-grid class="uk-child-width-1-3" divided>
               <div>
                 <label class="uk-form-label" for="slug">别名</label>
-                <input class="uk-input" type="text" name="slug" v-model="slug">
+                <input class="uk-input" type="text" name="slug" v-model="article.slug">
               </div>
               <div>
                 <label class="uk-form-label" for="status">状态</label>
-                <el-select v-model="statusSelected" name="status" placeholder="选择文章状态">
+                <el-select v-model="article.status" name="status" placeholder="选择文章状态">
                   <el-option
                     v-for="status in statuses"
                     :key="status.id"
@@ -35,7 +34,7 @@
               </div>
               <div>
                 <label class="uk-form-label" for="categories">分类目录</label>
-                <el-select v-model="categorySelected" placeholder="选择一个分类目录">
+                <el-select v-model="article.categoryId" placeholder="选择一个分类目录">
                   <el-option
                     v-for="category in categories"
                     :key="category.id"
@@ -49,12 +48,12 @@
           <vk-card class="uk-margin">
             <vk-grid class="uk-child-width-1-2" divided>
               <div>
-                <label class="uk-form-label" for="published-date">发布时间</label>
+                <label class="uk-form-label" for="createdAt">发布时间</label>
                 <el-date-picker
                   type="datetime"
-                  name="published-date"
+                  name="createdAt"
                   class="uk-width-1-1"
-                  v-model="publishedDate"
+                  v-model="article.createdAt"
                   placeholder="选择日期时间">
                 </el-date-picker>
               </div>
@@ -89,12 +88,14 @@ export default {
   layout: 'backend',
   data () {
     return {
-      publishedDate: new Date(),
-      categorySelected: '请选择',
-      statusSelected: '请选择',
+      article: {
+        categoryId: '请选择',
+        status: 1,
+        content: '',
+        slug: '',
+        createdAt: new Date()
+      },
       topicSelected: [],
-      content: '',
-      slug: '',
       statuses: [
         {
           id: -1,
@@ -109,7 +110,7 @@ export default {
           name: '待审核'
         },
         {
-          id: -1,
+          id: 2,
           name: '已发布'
         }
       ]
@@ -117,7 +118,29 @@ export default {
   },
   asyncComputed: {
     async categories () {
-      return this.$axios.$get('/categories')
+      const categories = await this.$axios.$get('/categories')
+      this.article.category = categories[0].id
+
+      return categories
+    }
+  },
+  methods: {
+    async createArticle () {
+      await this.$axios.$post('/articles', this.article)
+        .then(response => {
+          this.$notify({
+            title: '成功',
+            message: '操作成功',
+            type: 'success'
+          })
+        }).catch(error => {
+          console.log(error)
+          this.$notify({
+            title: '失败',
+            message: '出现内部错误',
+            type: 'warning'
+          })
+        })
     }
   },
   mounted () {

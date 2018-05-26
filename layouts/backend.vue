@@ -56,17 +56,18 @@
                         <vk-iconnav-item icon="file-edit" ratio="0.875"></vk-iconnav-item>
                         <vk-iconnav-item @click="$auth.logout()" icon="sign-out" ratio="0.875"></vk-iconnav-item>
                     </vk-iconnav>
-                    <vk-navbar-nav>
-                        <!--
-                        <router-link to="/admin/profile" exact>
-                            <vk-navbar-nav-dropdown :title="user.nickname">
-                                <vk-navbar-nav-dropdown-nav>
-                                    <vk-nav-item title="个人资料"></vk-nav-item>
-                                    <vk-nav-item @click="$auth.logout()" title="登出"></vk-nav-item>
-                                </vk-navbar-nav-dropdown-nav>
-                            </vk-navbar-nav-dropdown>
-                        </router-link>-->
-                    </vk-navbar-nav>
+                    <router-link to="/admin/profile" tag="li" exact>
+                        <a class="user-drop">
+                            <img class="uk-border-circle uk-margin-small-right" height="32" width="32" :src="avatar">
+                            <span v-text="user.nickname"></span>
+                        </a>
+                        <vk-dropdown target=".user-drop">
+                            <vk-nav-dropdown>
+                                <vk-nav-item title="个人资料"></vk-nav-item>
+                                <vk-nav-item @click="$auth.logout()" title="登出"></vk-nav-item>
+                            </vk-nav-dropdown>
+                        </vk-dropdown>
+                    </router-link>
                 </vk-navbar-nav>
             </vk-navbar>
         </vk-sticky>
@@ -78,7 +79,7 @@
             <p v-text="hero.description"></p>
         </div>
         </div>
-        <nav class="hero-navbar uk-navbar-transparent uk-light" v-if="hero.navbarItems">
+        <nav class="hero-navbar uk-light" v-if="hero.navbarItems">
             <div class="uk-container uk-container-medium">
                 <vk-navbar transparent>
                     <vk-navbar-nav>
@@ -105,31 +106,20 @@ export default {
   middleware: ['auth'],
   data () {
     return {
-      user: {
-        email: '',
-        nickname: '',
-        username: '',
-        introduction: ''
-      }
+      user: {}
     }
   },
-  mounted () {
-    this.fetchUser()
+  async mounted () {
+    this.user = await this.$axios.$get('/auth/user/basicinfo')
   },
   computed: {
-    profileDropdownTitle () {
-      return `<img class="uk-border-circle uk-margin-small-right" height="32" width="32" title="${this.user.nickname}" src="${this.avatar}"><span>${this.user.nickname}</span>`
-    },
     hero () {
       return this.$store.state.hero
-    },
-    avatar () {
-      return Gravatar.url(this.user.email, { s: '32' })
     }
   },
-  methods: {
-    async fetchUser () {
-      this.user = await this.$axios.$get('/auth/user/basicinfo')
+  asyncComputed: {
+    avatar () {
+      return Gravatar.url(this.user.email, { s: '32' })
     }
   }
 }
