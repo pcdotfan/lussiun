@@ -80,7 +80,7 @@ function destroy(context) {
 exports.destroy = destroy;
 function update(context) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { body } = context.request; // 拿到传入的参数
+        let { body } = context.request; // 拿到传入的参数
         const articleRepository = typeorm_1.getManager().getRepository(Article_1.Article);
         try {
             if (!body.id) {
@@ -90,7 +90,9 @@ function update(context) {
             }
             const articleExisted = yield articleRepository.findOne({ id: body.id }); // 同步处理
             if (articleExisted) {
-                const updatedArticle = yield articleRepository.update(body.id, body);
+                const articleId = body.id;
+                body = _.omit(body, ['userId', 'categoryId', 'createdAt', 'id', 'user', 'category']);
+                const updatedArticle = yield articleRepository.update(articleId, body);
                 context.status = 200;
                 context.body = { message: '更新成功' };
             }

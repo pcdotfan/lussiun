@@ -3,6 +3,7 @@ import { getManager } from 'typeorm'
 import { Article } from '../../entity/Article'
 import { User } from '../../entity/User'
 import { Category } from '../../entity/Category'
+import article from '../../route/article'
 
 const _ = require('lodash')
 const gravatar = require('gravatar')
@@ -76,7 +77,7 @@ export async function destroy (context: Context) {
 }
 
 export async function update (context: Context) {
-  const { body } = context.request // 拿到传入的参数
+  let { body } = context.request // 拿到传入的参数
   const articleRepository = getManager().getRepository(Article)
   try {
 
@@ -89,7 +90,9 @@ export async function update (context: Context) {
     const articleExisted = await articleRepository.findOne({ id: body.id }) // 同步处理
 
     if (articleExisted) {
-      const updatedArticle = await articleRepository.update(body.id, body)
+      const articleId = body.id
+      body = _.omit(body, ['userId', 'categoryId', 'createdAt', 'id', 'user', 'category'])
+      const updatedArticle = await articleRepository.update(articleId, body)
 
       context.status = 200
       context.body = { message: '更新成功' }
