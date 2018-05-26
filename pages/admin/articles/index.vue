@@ -48,7 +48,6 @@
     </main>
 </template>
 <script>
-import * as moment from 'moment'
 export default {
   name: 'ArticlesIndex',
   layout: 'backend',
@@ -59,12 +58,11 @@ export default {
   },
   methods: {
     updatedAt (date) {
-      let currentDate = moment(date)
+      let currentDate = this.$moment(date)
       return currentDate.format('YYYY-MM-DD')
     },
     changeStatus (s) {
       this.status = s
-      this.setActiveItem(this.status)
     },
     isActive (s) {
       return s === this.status

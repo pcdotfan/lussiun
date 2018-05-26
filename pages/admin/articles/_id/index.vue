@@ -10,8 +10,7 @@
           </div>
           <div slot="footer">
             <p class="uk-text-right">
-              <button class="uk-button uk-button-secondary uk-margin-right">保存草稿</button>
-              <button class="uk-button uk-button-primary">更新文章</button>
+              <vk-button type="primary" @click="updateArticle()">更新文章</vk-button>
             </p>
           </div>
         </vk-card>
@@ -49,11 +48,11 @@
           <vk-card class="uk-margin">
             <vk-grid class="uk-child-width-1-2" divided>
               <div>
-                <label class="uk-form-label" for="published-date">更新时间</label>
+                <label class="uk-form-label" for="updated-at">更新时间</label>
                 <el-date-picker
                   type="datetime"
-                  name="published-date"
-                  v-model="updateAt"
+                  name="updated-at"
+                  v-model="updatedAt"
                   placeholder="选择日期时间">
                 </el-date-picker>
               </div>
@@ -73,7 +72,7 @@ export default {
   data () {
     return {
       article: {},
-      updateAt: Date,
+      updatedAt: Date,
       statuses: [
         {
           id: -1,
@@ -99,6 +98,26 @@ export default {
       return this.$axios.$get('/categories')
     }
   },
+  methods: {
+    async updateArticle () {
+      this.article.updatedAt = this.$moment(this.article.updatedAt).toDate()
+      await this.$axios.$patch('/articles', this.article)
+        .then(response => {
+          this.$notify({
+            title: '成功',
+            message: '操作成功',
+            type: 'success'
+          })
+        }).catch(error => {
+          console.log(error)
+          this.$notify({
+            title: '失败',
+            message: '出现内部错误',
+            type: 'warning'
+          })
+        })
+    }
+  },
   async mounted () {
     this.$store.commit('changeHero', {
       title: '编辑文章',
@@ -110,7 +129,7 @@ export default {
       ]
     })
     this.article = await this.$axios.$get(`/articles/${this.$route.params.id}`)
-    this.updateAt = this.$moment(this.article.updateAt).toDate()
+    this.updatedAt = this.$moment(this.article.updatedAt).toDate()
   }
 }
 </script>

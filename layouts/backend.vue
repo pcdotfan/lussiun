@@ -7,8 +7,8 @@
                     <vk-navbar-logo>
                         <img src="~assets/images/uikit-logo.svg" class="uk-margin-small-right">Lussiun
                     </vk-navbar-logo>
-                    <ul class="uk-navbar-nav">
-                        <router-link tag="li" to="/admin/articles">
+                    <vk-navbar-nav>
+                        <router-link tag="li" to="/admin" exact>
                             <a>
                             <div class="">
                                 控制面板
@@ -48,7 +48,7 @@
                             </div>
                             </a>
                         </router-link>
-                    </ul>
+                    </vk-navbar-nav>
                 </vk-navbar-nav>
                 <vk-navbar-nav slot="right">
                     <vk-iconnav class="navbar-right-controls">
@@ -56,7 +56,8 @@
                         <vk-iconnav-item icon="file-edit" ratio="0.875"></vk-iconnav-item>
                         <vk-iconnav-item @click="$auth.logout()" icon="sign-out" ratio="0.875"></vk-iconnav-item>
                     </vk-iconnav>
-                    <ul class="uk-navbar-nav">
+                    <vk-navbar-nav>
+                        <!--
                         <router-link to="/admin/profile" exact>
                             <vk-navbar-nav-dropdown :title="user.nickname">
                                 <vk-navbar-nav-dropdown-nav>
@@ -64,8 +65,8 @@
                                     <vk-nav-item @click="$auth.logout()" title="登出"></vk-nav-item>
                                 </vk-navbar-nav-dropdown-nav>
                             </vk-navbar-nav-dropdown>
-                        </router-link>
-                    </ul>
+                        </router-link>-->
+                    </vk-navbar-nav>
                 </vk-navbar-nav>
             </vk-navbar>
         </vk-sticky>
@@ -79,11 +80,13 @@
         </div>
         <nav class="hero-navbar uk-navbar-transparent uk-light" v-if="hero.navbarItems">
             <div class="uk-container uk-container-medium">
-                <div uk-navbar>
-                    <ul class="uk-navbar-nav">
-                        <router-link :to="item.path" tag="li" v-for="item in hero.navbarItems" :key="item.title" exact><a v-text="item.title" exact></a></router-link>
-                    </ul>
-                </div>
+                <vk-navbar transparent>
+                    <vk-navbar-nav>
+                        <router-link :to="item.path" tag="li" v-for="item in hero.navbarItems" :key="item.title" exact>
+                            <a v-text="item.title" exact></a>
+                        </router-link>
+                    </vk-navbar-nav>
+                </vk-navbar>
             </div>
         </nav>
     </section>

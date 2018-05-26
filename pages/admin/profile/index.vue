@@ -124,16 +124,13 @@ export default {
     }
   },
   mounted () {
-    this.fetchUser()
+    this.user = this.$axios.$get('/auth/user/basicinfo')
     this.$store.commit('changeHero', {
       title: '个人资料',
       description: '从此无心爱良夜，任他明月下西楼。'
     })
   },
   methods: {
-    async fetchUser () {
-      this.user = await this.$axios.$get('/auth/user/basicinfo')
-    },
     async updateProfile () {
       const user = Object.assign(this.user, { id: this.$auth.user.id })
       await this.$axios.$post('/user/update', user)

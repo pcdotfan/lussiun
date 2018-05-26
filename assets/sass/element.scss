@@ -74,8 +74,8 @@ $--border-radius-circle: 100% !default;
 /* Box-shadow
 -------------------------- */
 $--box-shadow-base: 0 2px 5px 0 rgba(146, 146, 146, .1);
-$--box-shadow-dark: 0 8px 25px 0 rgba(146, 146, 146, 0.21);
-$--box-shadow-light: 0 2px 8px rgba(0,0,0,0.08);
+$--box-shadow-dark: 0 8px 25px 0 rgba(0, 0, 0, 0.21);
+$--box-shadow-light: 0 2px 3px rgba(146, 146, 146, 0.08);
 
 /* Fill
 -------------------------- */
@@ -295,9 +295,9 @@ $--message-danger-color: $--color-danger !default;
 -------------------------- */
 $--notification-width: 330px !default;
 $--notification-padding: 14px 26px 14px 13px !default;
-$--notification-radius: 8px !default;
-$--notification-shadow: $--box-shadow-light !default;
-$--notification-border-color: $--border-color-lighter !default;
+$--notification-radius: 0px;
+$--notification-shadow: $--box-shadow-light;
+$--notification-border-color: transparent;
 $--notification-icon-size: 24px !default;
 $--notification-close-font-size: $--message-close-size !default;
 $--notification-group-margin: 13px !default;
