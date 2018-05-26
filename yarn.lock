@@ -42,6 +42,12 @@
     axios-retry "^3.0.2"
     consola "^1.1.4"
 
+"@nuxtjs/moment@^1.0.0":
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/@nuxtjs/moment/download/@nuxtjs/moment-1.0.0.tgz#f7758911849323e22e23bb62feff06db05e16d91"
+  dependencies:
+    moment-locales-webpack-plugin "^1.0.5"
+
 "@nuxtjs/proxy@^1.2.4":
   version "1.2.4"
   resolved "http://registry.npm.taobao.org/@nuxtjs/proxy/download/@nuxtjs/proxy-1.2.4.tgz#41aafac58854f14e28aed17238936bb6404e6071"
@@ -4426,6 +4432,10 @@ lodash.clonedeep@^4.3.2:
   version "4.5.0"
   resolved "http://registry.npm.taobao.org/lodash.clonedeep/download/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
 
+lodash.difference@^4.5.0:
+  version "4.5.0"
+  resolved "http://registry.npm.taobao.org/lodash.difference/download/lodash.difference-4.5.0.tgz#9ccb4e505d486b91651345772885a2df27fd017c"
+
 lodash.includes@^4.3.0:
   version "4.3.0"
   resolved "http://registry.npm.taobao.org/lodash.includes/download/lodash.includes-4.3.0.tgz#60bb98a87cb923c68ca1e51325483314849f553f"
@@ -4780,6 +4790,12 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   resolved "http://registry.npm.taobao.org/mkdirp/download/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+moment-locales-webpack-plugin@^1.0.5:
+  version "1.0.7"
+  resolved "http://registry.npm.taobao.org/moment-locales-webpack-plugin/download/moment-locales-webpack-plugin-1.0.7.tgz#ce2931b8a25100dae0868adbd9e93972dcb33359"
+  dependencies:
+    lodash.difference "^4.5.0"
 
 moment@^2.22.1:
   version "2.22.1"

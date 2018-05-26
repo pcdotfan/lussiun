@@ -35,7 +35,11 @@ module.exports = {
     linkActiveClass: 'uk-active',
     linkExactActiveClass: 'uk-active'
   },
-  modules: ['@nuxtjs/axios', '@nuxtjs/auth'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
+    ['@nuxtjs/moment', ['zh-cn']]
+  ],
   axios: {
     baseURL: 'http://localhost:8080',
     browserBaseURL: 'http://localhost:8080'
@@ -44,7 +48,6 @@ module.exports = {
     redirect: {
       login: '/login',
       logout: '/',
-      callback: '/login',
       user: '/'
     },
     strategies: {

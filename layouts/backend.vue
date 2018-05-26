@@ -4,11 +4,11 @@
         <vk-sticky bottom=".hero">
             <vk-navbar>
                 <vk-navbar-nav slot="left">
-                    <a href="#" class="uk-navbar-item uk-logo">
+                    <vk-navbar-logo>
                         <img src="~assets/images/uikit-logo.svg" class="uk-margin-small-right">Lussiun
-                    </a>
+                    </vk-navbar-logo>
                     <ul class="uk-navbar-nav">
-                        <router-link tag="li" to="/admin/" exact>
+                        <router-link tag="li" to="/admin/articles">
                             <a>
                             <div class="">
                                 控制面板

@@ -1,23 +1,23 @@
 <template>
   <main class="uk-container uk-container-small uk-margin-top">
     <div class="article-new-edit">
-        <div class="uk-card uk-card-default">
-          <div class="uk-card-header">
+        <vk-card>
+          <div slot="header">
             <input class="title uk-input uk-width-1-1 uk-form-large" v-model="article.title">
           </div>
-          <div class="uk-card-body">
+          <div>
             <markdown-editor v-model="article.content"></markdown-editor>
           </div>
-          <div class="uk-card-footer">
+          <div slot="footer">
             <p class="uk-text-right">
               <button class="uk-button uk-button-secondary uk-margin-right">保存草稿</button>
               <button class="uk-button uk-button-primary">更新文章</button>
             </p>
           </div>
-        </div>
+        </vk-card>
         <section class="article-new-edit-controls">
-          <div class="uk-margin uk-card uk-card-default uk-card-body">
-            <div class="uk-grid uk-child-width-1-3 uk-grid-divider">
+          <vk-card class="uk-margin">
+            <vk-grid class="uk-child-width-1-3" divided>
               <div>
                 <label class="uk-form-label" for="slug">别名</label>
                 <input class="uk-input" type="text" name="slug" v-model="article.slug">
@@ -44,10 +44,10 @@
                   </el-option>
                 </el-select>
               </div>
-            </div>
-          </div>
-          <div class="uk-margin uk-card uk-card-default uk-card-body">
-            <div class="uk-grid uk-child-width-1-2 uk-grid-divider">
+            </vk-grid>
+          </vk-card>
+          <vk-card class="uk-margin">
+            <vk-grid class="uk-child-width-1-2" divided>
               <div>
                 <label class="uk-form-label" for="published-date">更新时间</label>
                 <el-date-picker
@@ -60,8 +60,8 @@
               <div>
                 <label class="uk-form-label" for="topics">文章话题</label>
               </div>
-            </div>
-          </div>
+            </vk-grid>
+          </vk-card>
         </section>
       </div>
   </main>
@@ -88,7 +88,7 @@ export default {
           name: '待审核'
         },
         {
-          id: -1,
+          id: 2,
           name: '已发布'
         }
       ]
@@ -110,7 +110,7 @@ export default {
       ]
     })
     this.article = await this.$axios.$get(`/articles/${this.$route.params.id}`)
-    this.updateAt = new Date(this.article.updateAt)
+    this.updateAt = this.$moment(this.article.updateAt).toDate()
   }
 }
 </script>
