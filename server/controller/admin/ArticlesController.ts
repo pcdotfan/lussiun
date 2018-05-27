@@ -141,7 +141,7 @@ export async function mockData (context: Context) {
   const count = 20
   const articleRepository = getManager().getRepository(Article)
   const admin = await getManager().getRepository(User).findOne({ id: 1 })
-  const category = await getManager().getRepository(Category).findOne({ id: 17 })
+  const category = await getManager().getRepository(Category).findOne({ id: 15 })
 
   for (let i = 0; i <= count; i++) {
     let structure = {
