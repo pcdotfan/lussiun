@@ -1,73 +1,64 @@
+const pkg = require('./package')
+
 module.exports = {
+  mode: 'spa',
+
   /*
   ** Headers of the page
   */
   head: {
-    title: 'Lussiun',
+    title: pkg.name,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      { hid: 'description', name: 'description', content: pkg.description }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ]
   },
+
   /*
-  ** Customize the progress bar color
+  ** Customize the progress-bar color
   */
-  loading: { color: '#2889ED' },
+  loading: { color: '#FFFFFF' },
+
+  /*
+  ** Global CSS
+  */
   css: [
-    { src: '~assets/less/uikit.theme.less', lang: 'less' },
-    { src: '~assets/sass/element.scss', lang: 'scss' },
-    { src: '~assets/css/simplemde-theme-minimum.min.css' }
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/vuex-router-sync', ssr: false },
-    '@/plugins/vue-async-computed',
-    '@/plugins/vuikit',
-    { src: '@/plugins/element-ui', ssr: false },
-    { src: '@plugins/simplemde.js', ssr: false }
   ],
-  router: {
-    linkActiveClass: 'uk-active',
-    linkExactActiveClass: 'uk-active'
-  },
+
+  /*
+  ** Nuxt.js modules
+  */
   modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/auth',
-    ['@nuxtjs/moment', ['zh-cn']]
+    // Doc: https://github.com/nuxt-community/axios-module#usage
+    '@nuxtjs/axios'
   ],
+  /*
+  ** Axios module configuration
+  */
   axios: {
-    baseURL: 'http://localhost:8080',
-    browserBaseURL: 'http://localhost:8080'
+    // See https://github.com/nuxt-community/axios-module#options
   },
-  auth: {
-    strategies: {
-      local: {
-        endpoints: {
-          login: {
-            url: '/auth/login',
-            method: 'post',
-            propertyName: 'token'
-          },
-          logout: { url: '/auth/logout', method: 'post' },
-          user: { url: '/auth/user', method: 'get', propertyName: 'user' }
-        }
-      }
-    }
-  },
+
   /*
   ** Build configuration
   */
   build: {
     /*
-    ** Run ESLint on save
+    ** You can extend webpack config here
     */
-    extend (config, { isDev, isClient }) {
-      if (isDev && isClient) {
+    extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,

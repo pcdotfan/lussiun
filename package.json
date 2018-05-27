@@ -1,44 +1,27 @@
 {
   "name": "lussiun",
-  "version": "1.1.0",
-  "description": "Nuxt.js project",
-  "author": "PCDotFan <pc@edu.ax>",
+  "version": "1.0.0",
+  "description": "My groovy Nuxt.js project",
+  "author": "PCDotFan",
   "private": true,
   "scripts": {
-    "nuxt": "nuxt"
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
   },
   "dependencies": {
-    "@nuxtjs/auth": "^4.3.0",
-    "@nuxtjs/axios": "^5.3.1",
-    "@nuxtjs/moment": "^1.0.0",
-    "@vuikit/icons": "^0.8.1",
-    "@vuikit/theme": "^0.8.0",
-    "element-ui": "^2.3.9",
-    "eslint-plugin-vue": "^4.5.0",
-    "gravatar": "^1.6.0",
-    "less": "^3.0.4",
-    "less-loader": "^4.1.0",
-    "moment": "^2.22.1",
-    "node-sass": "^4.9.0",
-    "nuxt": "latest",
-    "sass-loader": "^7.0.1",
-    "source-map-support": "^0.4.15",
-    "uikit": "^3.0.0-rc.2",
-    "vue-async-computed": "^3.3.1",
-    "vue-avatar-cropper": "^0.0.27",
-    "vue-simplemde": "^0.4.8",
-    "vuex-router-sync": "^5.0.0",
+    "@nuxtjs/axios": "^5.0.0",
+    "nuxt": "^1.0.0",
     "vuikit": "^0.8.4"
   },
   "devDependencies": {
-    "babel-eslint": "^7.1.1",
-    "eslint": "^3.13.1",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-loader": "^1.9.0",
-    "eslint-plugin-html": "^2.0.3",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-node": "^4.2.2",
-    "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "babel-eslint": "^8.2.1",
+    "cross-env": "^5.0.1",
+    "eslint": "^4.15.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-vue": "^4.0.0"
   }
 }
