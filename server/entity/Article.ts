@@ -45,9 +45,7 @@ export class Article extends BaseEntity {
   @RelationId((article: Article) => article.user)
   userId: number
 
-  @ManyToMany(type => Topic, topic => topic.articles)
+  @ManyToMany(type => Topic, topics => topics.articles)
   topics: Topic[]
 
-  @RelationId((article: Article) => article.topics)
-  topicsId: number[]
 }

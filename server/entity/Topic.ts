@@ -5,6 +5,7 @@ import {
     ManyToMany,
     CreateDateColumn,
     UpdateDateColumn,
+    JoinTable,
     BaseEntity
 } from 'typeorm'
 import { Article } from './Article'
@@ -27,6 +28,9 @@ export class Topic extends BaseEntity {
   description: string
 
   @ManyToMany(type => Article, article => article.topics)
+  @JoinTable({
+    name: 'taggable'
+  })
   articles: Article[]
 
   @CreateDateColumn({ type: 'timestamp' })
