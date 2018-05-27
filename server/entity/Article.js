@@ -61,9 +61,12 @@ __decorate([
 ], Article.prototype, "userId", void 0);
 __decorate([
     typeorm_1.ManyToMany(type => Topic_1.Topic, topic => topic.articles),
-    typeorm_1.JoinTable(),
     __metadata("design:type", Array)
 ], Article.prototype, "topics", void 0);
+__decorate([
+    typeorm_1.RelationId((article) => article.topics),
+    __metadata("design:type", Array)
+], Article.prototype, "topicsId", void 0);
 Article = __decorate([
     typeorm_1.Entity()
 ], Article);

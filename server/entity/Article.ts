@@ -24,7 +24,7 @@ export class Article extends BaseEntity {
 
   @Column('text') content: string
 
-  // 0: 草稿; 1: 待审核 2: 已发布 -1：已删除
+  // -1：已删除 0: 草稿; 1: 待审核 2: 已发布
   @Column({ type: 'tinyint' }) status: number
 
   @CreateDateColumn({ type: 'timestamp' })
@@ -46,6 +46,8 @@ export class Article extends BaseEntity {
   userId: number
 
   @ManyToMany(type => Topic, topic => topic.articles)
-  @JoinTable()
   topics: Topic[]
+
+  @RelationId((article: Article) => article.topics)
+  topicsId: number[]
 }
