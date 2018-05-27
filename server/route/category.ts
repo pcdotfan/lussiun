@@ -1,4 +1,4 @@
-import { index, store, destroy, show } from '../controller/admin/CategoriesController'
+import { index, store, destroy, show, update } from '../controller/admin/CategoriesController'
 
 /**
  * All application routes.
@@ -8,6 +8,11 @@ export default [
     path: '/categories',
     method: 'post',
     action: store
+  },
+  {
+    path: '/categories/:id',
+    method: 'patch',
+    action: update
   },
   {
     path: '/categories',
@@ -20,8 +25,8 @@ export default [
     action: show
   },
   {
-    path: '/categories/destroy',
-    method: 'post',
+    path: '/categories/:id',
+    method: 'delete',
     action: destroy
   }
 ]

@@ -2,6 +2,7 @@ import { getManager } from 'typeorm'
 import { Category } from '../entity/Category'
 
 const categoryRepository = getManager().getRepository(Category)
+const _ = require('lodash')
 
 class CategoryService {
   async getById (id) {
@@ -22,6 +23,10 @@ class CategoryService {
   async newAndSave (body: Object) {
     const newCategory = categoryRepository.create(body)
     return categoryRepository.save(newCategory)
+  }
+  async update (id: number, body: Object) {
+    body = _.omit(body, ['id'])
+    return categoryRepository.update(id, body)
   }
 }
 

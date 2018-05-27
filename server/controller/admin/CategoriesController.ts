@@ -11,6 +11,31 @@ export async function show (context: Context) {
   context.body = category
 }
 
+export async function update (context: Context) {
+  let { body } = context.request
+  try {
+    if (!body.id) {
+      context.status = 400
+      context.body = { error: `无效的传入参数` }
+      return
+    }
+    const categoryExisted = await context.service.category.getById(body.id)
+
+    if (categoryExisted) {
+      await context.service.category.update(body.id, body)
+
+      context.status = 200
+      context.body = { message: '更新成功' }
+    } else {
+      context.status = 406
+      context.body = { message: '找不到文章' }
+    }
+  } catch (error) {
+    context.status = 500
+    context.body = { error: error }
+  }
+}
+
 export async function destroy (context: Context) {
   const { body } = context.request // 拿到传入的参数
 
