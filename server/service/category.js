@@ -10,17 +10,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const Category_1 = require("../entity/Category");
+const categoryRepository = typeorm_1.getManager().getRepository(Category_1.Category);
 class CategoryService {
     getById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const categoryRepository = typeorm_1.getManager().getRepository(Category_1.Category);
             return categoryRepository.findOne({ id });
         });
     }
     getBySlug(slug) {
         return __awaiter(this, void 0, void 0, function* () {
-            const categoryRepository = typeorm_1.getManager().getRepository(Category_1.Category);
             return categoryRepository.findOne({ slug });
+        });
+    }
+    getAll(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return categoryRepository.find();
+        });
+    }
+    getByWhere(whereCondition) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return categoryRepository.find(whereCondition);
+        });
+    }
+    removeById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return categoryRepository.delete(id);
+        });
+    }
+    newAndSave(body) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const newCategory = categoryRepository.create(body);
+            return categoryRepository.save(newCategory);
         });
     }
 }

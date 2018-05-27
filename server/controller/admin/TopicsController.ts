@@ -1,19 +1,18 @@
 import { Context } from 'koa'
-import { Category } from '../../entity/Category'
+import { Topic } from '../../entity/Topic'
 
 export async function index (context: Context) {
-  const categories = await context.service.category.getAll()
-  context.body = categories
+  const topics = await context.service.topic.getAll()
+  context.body = topics
 }
 
 export async function show (context: Context) {
-  const category = await context.service.category.getById(context.params.id)
-  console.log(category.articles)
-  context.body = category
+  const topic = await context.service.topic.getById(context.params.id)
+  context.body = topic
 }
 
 export async function destroy (context: Context) {
-  const { body } = context.request // 拿到传入的参数
+  const { body } = context.request
 
   try {
     if (!body.id) {
@@ -22,10 +21,10 @@ export async function destroy (context: Context) {
       return
     }
 
-    const categoryExisted = await context.service.category.getById(body.id)
+    const topicExisted = await context.service.topic.getById(body.id)
 
-    if (categoryExisted) {
-      await context.service.category.removeById(body.id)
+    if (topicExisted) {
+      await context.service.topic.removeById(body.id)
     }
     context.status = 200
   } catch (error) {
@@ -44,13 +43,13 @@ export async function store (context: Context) {
       return
     }
 
-    const categoryExisted = await context.service.category.getBySlug(body.slug)
+    const topicExisted = await context.service.topic.getBySlug(body.slug)
 
-    if (!categoryExisted) {
-      const newCategory = await context.service.category.newAndSave(body)
+    if (!topicExisted) {
+      const newTopic = await context.service.topic.newAndSave(body)
 
       context.status = 200
-      context.body = { message: '创建成功', newCategory }
+      context.body = { message: '创建成功', newTopic }
     } else {
       context.status = 406
       context.body = { message: '同别名分类目录已经存在' }

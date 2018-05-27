@@ -6,7 +6,7 @@ const CategoriesController_1 = require("../controller/admin/CategoriesController
  */
 exports.default = [
     {
-        path: '/categories/store',
+        path: '/categories',
         method: 'post',
         action: CategoriesController_1.store
     },

@@ -65,7 +65,7 @@ function destroy(context) {
                 context.body = { error: `无效的传入参数` };
                 return;
             }
-            const articleExisted = yield context.service.user.getById(body.id);
+            const articleExisted = yield context.service.article.getById(body.id);
             if (articleExisted) {
                 yield articleRepository.delete(body.id);
             }
@@ -88,7 +88,7 @@ function update(context) {
                 context.body = { error: `无效的传入参数` };
                 return;
             }
-            const articleExisted = yield articleRepository.findOne({ id: body.id }); // 同步处理
+            const articleExisted = yield context.service.article.getById(body.id);
             if (articleExisted) {
                 const articleId = body.id;
                 body = _.omit(body, ['userId', 'categoryId', 'createdAt', 'id', 'user', 'category']);
@@ -119,7 +119,7 @@ function store(context) {
                 return;
             }
             body.userId = context.state.user.id;
-            const articleExisted = yield articleRepository.findOne({ slug: body.slug }); // 同步处理
+            const articleExisted = yield context.service.article.getBySlug(body.slug);
             if (!articleExisted) {
                 const newArticle = articleRepository.create(body);
                 yield articleRepository.save(newArticle);

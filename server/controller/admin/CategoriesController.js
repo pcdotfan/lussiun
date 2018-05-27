@@ -8,12 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const typeorm_1 = require("typeorm");
-const Category_1 = require("../../entity/Category");
 function index(context) {
     return __awaiter(this, void 0, void 0, function* () {
-        const categoryRepository = typeorm_1.getManager().getRepository(Category_1.Category);
-        const categories = yield categoryRepository.find();
+        const categories = yield context.service.category.getAll();
         context.body = categories;
     });
 }
@@ -29,18 +26,15 @@ exports.show = show;
 function destroy(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { body } = context.request; // 拿到传入的参数
-        const categoryRepository = typeorm_1.getManager().getRepository(Category_1.Category);
         try {
             if (!body.id) {
                 context.status = 400;
                 context.body = { error: `无效的传入参数` };
                 return;
             }
-            const categoryExisted = yield categoryRepository.findOne({
-                id: body.id
-            }); // 同步处理
+            const categoryExisted = yield context.service.category.getById(body.id);
             if (categoryExisted) {
-                yield categoryRepository.delete(body.id);
+                yield context.service.category.removeById(body.id);
             }
             context.status = 200;
         }
@@ -54,17 +48,15 @@ exports.destroy = destroy;
 function store(context) {
     return __awaiter(this, void 0, void 0, function* () {
         const { body } = context.request; // 拿到传入的参数
-        const categoryRepository = typeorm_1.getManager().getRepository(Category_1.Category);
         try {
             if (!body.name || !body.slug) {
                 context.status = 400;
                 context.body = { error: `无效的传入参数` };
                 return;
             }
-            const categoryExisted = yield categoryRepository.findOne({ slug: body.slug }); // 同步处理
+            const categoryExisted = yield context.service.category.getBySlug(body.slug);
             if (!categoryExisted) {
-                const newCategory = categoryRepository.create(body);
-                yield categoryRepository.save(newCategory);
+                const newCategory = yield context.service.category.newAndSave(body);
                 context.status = 200;
                 context.body = { message: '创建成功', newCategory };
             }

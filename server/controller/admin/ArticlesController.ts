@@ -64,7 +64,7 @@ export async function destroy (context: Context) {
       return
     }
 
-    const articleExisted = await context.service.user.getById(body.id)
+    const articleExisted = await context.service.article.getById(body.id)
 
     if (articleExisted) {
       await articleRepository.delete(body.id)
@@ -87,7 +87,7 @@ export async function update (context: Context) {
       return
     }
 
-    const articleExisted = await articleRepository.findOne({ id: body.id }) // 同步处理
+    const articleExisted = await context.service.article.getById(body.id)
 
     if (articleExisted) {
       const articleId = body.id
@@ -118,7 +118,7 @@ export async function store (context: Context) {
     }
 
     body.userId = context.state.user.id
-    const articleExisted = await articleRepository.findOne({ slug: body.slug }) // 同步处理
+    const articleExisted = await context.service.article.getBySlug(body.slug)
 
     if (!articleExisted) {
       const newArticle = articleRepository.create(body)

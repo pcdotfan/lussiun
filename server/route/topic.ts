@@ -1,26 +1,26 @@
-import { index, store, destroy, show } from '../controller/admin/CategoriesController'
+import { index, store, destroy, show } from '../controller/admin/TopicsController'
 
 /**
  * All application routes.
  */
 export default [
   {
-    path: '/categories',
+    path: '/topics',
     method: 'post',
     action: store
   },
   {
-    path: '/categories',
+    path: '/topics',
     method: 'get',
     action: index
   },
   {
-    path: '/categories/:id',
+    path: '/topics/:id',
     method: 'get',
     action: show
   },
   {
-    path: '/categories/destroy',
+    path: '/topics/destroy',
     method: 'post',
     action: destroy
   }

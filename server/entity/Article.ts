@@ -10,6 +10,7 @@ import {
   RelationId,
   BaseEntity } from 'typeorm'
 import { Category } from './Category'
+import { Topic } from './Topic'
 import { User } from './User'
 
 @Entity()
@@ -43,4 +44,8 @@ export class Article extends BaseEntity {
 
   @RelationId((article: Article) => article.user)
   userId: number
+
+  @ManyToMany(type => Topic, topic => topic.articles)
+  @JoinTable()
+  topics: Topic[]
 }
