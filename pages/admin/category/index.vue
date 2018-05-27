@@ -6,7 +6,7 @@
               <table class="uk-table uk-table-divider">
                 <thead>
                   <tr>
-                    <th class="uk-width-expand">话题名称</th>
+                    <th class="uk-width-expand">分类名称</th>
                     <th class="uk-table-shrink uk-text-nowrap">别名</th>
                     <th class="uk-table-shrink uk-text-nowrap">总数</th>
                     <th class="uk-width-small">操作</th>
@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     async addCategory () {
-      return this.$axios.$post('/categories/store', this.newCategory)
+      return this.$axios.$post('/categories', this.newCategory)
       .then(response => {
         this.refetch = !this.refetch
         this.$notify({

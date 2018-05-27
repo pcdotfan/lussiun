@@ -58,6 +58,22 @@
               </div>
               <div>
                 <label class="uk-form-label" for="topics">文章话题</label>
+                <el-select
+                    v-model="article.topics"
+                    name="topics"
+                    class="uk-width-1-1"
+                    multiple
+                    filterable
+                    allow-create
+                    default-first-option
+                    placeholder="请选择文章话题">
+                    <el-option
+                      v-for="topic in topics"
+                      :key="topic.id"
+                      :label="topic.name"
+                      :value="topic.id">
+                    </el-option>
+                </el-select>
               </div>
             </vk-grid>
           </vk-card>
@@ -129,6 +145,7 @@ export default {
         { title: '编辑文章', path: this.$route.path }
       ]
     })
+    this.topics = await this.$axios.$get('/topics')
     this.article = await this.$axios.$get(`/articles/${this.$route.params.id}`)
     this.updatedAt = this.$moment(this.article.updatedAt).toDate()
   }

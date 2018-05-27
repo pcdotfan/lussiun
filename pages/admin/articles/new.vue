@@ -60,7 +60,7 @@
               <div>
                 <label class="uk-form-label" for="topics">文章话题</label>
                 <el-select
-                    v-model="topicSelected"
+                    v-model="article.topics"
                     name="topics"
                     class="uk-width-1-1"
                     multiple
@@ -93,9 +93,9 @@ export default {
         status: 1,
         content: '',
         slug: '',
+        topics: [],
         createdAt: new Date()
       },
-      topicSelected: [],
       statuses: [
         {
           id: -1,
@@ -143,7 +143,8 @@ export default {
         })
     }
   },
-  mounted () {
+  async mounted () {
+    this.topics = await this.$axios.$get('/topics')
     this.$store.commit('changeHero', {
       title: '撰写文章',
       description: '词源倒流三江水，笔阵独扫千人军。',
