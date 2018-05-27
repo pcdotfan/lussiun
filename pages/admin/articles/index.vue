@@ -53,7 +53,8 @@ export default {
   layout: 'backend',
   data () {
     return {
-      status: 0
+      status: 0,
+      selection: []
     }
   },
   methods: {

@@ -1,5 +1,6 @@
 <template>
   <main class="uk-container uk-container-small uk-margin-top">
+
     <div class="article-new-edit">
         <vk-card>
           <div slot="header">
@@ -10,7 +11,7 @@
           </div>
           <div slot="footer">
             <p class="uk-text-right">
-              <vk-button @click="createArticle()" type="primary">发布文章</vk-button>
+              <vk-button @click="createArticle" type="primary">发布文章</vk-button>
             </p>
           </div>
         </vk-card>
@@ -59,7 +60,8 @@
               </div>
               <div>
                 <label class="uk-form-label" for="topics">文章话题</label>
-                <el-select
+                <!--
+                  <el-select
                     v-model="article.topics"
                     name="topics"
                     class="uk-width-1-1"
@@ -75,6 +77,7 @@
                       :value="topic.id">
                     </el-option>
                   </el-select>
+                -->
               </div>
             </vk-grid>
           </vk-card>
@@ -88,13 +91,15 @@ export default {
   layout: 'backend',
   data () {
     return {
+      topics: [],
       article: {
-        categoryId: '请选择',
+        title: '',
+        categoryId: 0,
         status: 1,
         content: '',
         slug: '',
         topics: [],
-        createdAt: new Date()
+        createdAt: ''
       },
       statuses: [
         {
@@ -133,8 +138,7 @@ export default {
             message: '操作成功',
             type: 'success'
           })
-        }).catch(error => {
-          console.log(error)
+        }).catch(() => {
           this.$notify({
             title: '失败',
             message: '出现内部错误',
@@ -144,7 +148,7 @@ export default {
     }
   },
   async mounted () {
-    this.topics = await this.$axios.$get('/topics')
+    // this.topics = await this.$axios.$get('/topics')
     this.$store.commit('changeHero', {
       title: '撰写文章',
       description: '词源倒流三江水，笔阵独扫千人军。',

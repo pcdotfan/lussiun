@@ -58,8 +58,8 @@
               </div>
               <div>
                 <label class="uk-form-label" for="topics">文章话题</label>
+                <!--
                 <el-select
-                    v-model="article.topics"
                     name="topics"
                     class="uk-width-1-1"
                     multiple
@@ -74,6 +74,7 @@
                       :value="topic.id">
                     </el-option>
                 </el-select>
+                -->
               </div>
             </vk-grid>
           </vk-card>
@@ -88,7 +89,9 @@ export default {
   data () {
     return {
       article: {},
+      topicsSelected: [],
       updatedAt: Date,
+      topics: [],
       statuses: [
         {
           id: -1,
@@ -116,7 +119,7 @@ export default {
   },
   methods: {
     async updateArticle () {
-      this.article.updatedAt = this.$moment(this.article.updatedAt).toDate()
+      this.article.updatedAt = this.updatedAt
       await this.$axios.$patch('/articles', this.article)
         .then(response => {
           this.$notify({
@@ -124,9 +127,7 @@ export default {
             message: '操作成功',
             type: 'success'
           })
-          console.log(response.data)
-        }).catch(error => {
-          console.log(error)
+        }).catch(() => {
           this.$notify({
             title: '失败',
             message: '出现内部错误',
