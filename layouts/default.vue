@@ -68,5 +68,8 @@
 
           </div>
     </footer>
+    <div class="totop">
+      <a href="#" uk-totop uk-scroll></a>
+    </div>
   </div>
 </template>

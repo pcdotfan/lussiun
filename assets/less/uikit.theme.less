@@ -20,15 +20,12 @@
     transition: all 0.6s ease;
 }
 
-.site-header {
+header {
     margin: 0 auto;
     min-height: 140px;
     padding-left: 5%;
     padding-right: 5%;
     padding-top: 100px;
-}
-
-header {
     .title {
         color: @global-emphasis-color;
         font-size: @global-xlarge-font-size;
@@ -42,6 +39,47 @@ header {
         margin-top: 0;
         font-weight: normal;
         text-align: right;
+    }
+}
+
+main {
+    .articles {
+        padding: 0 50px;
+    }
+    article {
+        margin-top: 50px;
+        .title {
+            font-size: @global-medium-font-size;
+            font-weight: 600;
+
+            a {
+                color: @global-emphasis-color;
+            }
+            span {
+                font-size: @global-xsmall-font-size;
+                margin-left: 5px;
+                color: #bbb;
+            }
+        }
+        .lead {
+            font-size: @global-small-font-size;
+            letter-spacing: 0.2px;
+            line-height: 2em;
+        }
+        .meta {
+            font-size: @global-xsmall-font-size;
+            padding: 20px 0 40px 0;
+            .item {
+                margin-right: 10px;
+
+                .icon {
+                    position: relative;
+                    bottom: 1px;
+                    margin-right: 5px;
+                }
+            }
+            
+        }
     }
 }
 
