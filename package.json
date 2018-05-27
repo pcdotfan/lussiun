@@ -14,7 +14,12 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
+    "@vuikit/icons": "^0.8.1",
+    "@vuikit/theme": "^0.8.0",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
     "nuxt": "^1.0.0",
+    "uikit": "^3.0.0-rc.2",
     "vuikit": "^0.8.4"
   },
   "devDependencies": {

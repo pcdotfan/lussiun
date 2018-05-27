@@ -21,18 +21,18 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#FFFFFF' },
+  loading: { color: '#2889ED' },
 
-  /*
-  ** Global CSS
-  */
   css: [
+    { src: '~assets/less/uikit.theme.less', lang: 'less' }
   ],
+
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vuikit.js'
   ],
 
   /*
