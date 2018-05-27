@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import AuthTip from '../components/AuthTip'
+import AuthTip from '@/components/AuthTip'
 export default {
   name: 'Login',
   middleware: ['auth'],
@@ -64,8 +64,6 @@ export default {
           this.$refs.alert.openAlert('用户名或密码错误', 'danger')
         })
     }
-  },
-  mounted () {
   }
 }
 </script>

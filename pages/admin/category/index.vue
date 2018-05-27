@@ -18,7 +18,10 @@
                     <td v-text="category.slug"></td>
                     <td>{{ category.id }}</td>
                     <td>
-                      <button class="uk-button uk-button-danger" type="button" @click="destoryCategory(category.id)">删除</button>
+                      <vk-iconnav>
+                        <vk-iconnav-item @click="editCategory(category.id)" icon="file-edit"></vk-iconnav-item>
+                        <vk-iconnav-item @click="destoryCategory(category.id)" icon="trash"></vk-iconnav-item>
+                      </vk-iconnav>
                     </td>
                   </tr>
                 </tbody>
@@ -26,52 +29,23 @@
             </div>
           </div>
           <div class="uk-width-2-5">
-            <vk-card padding="small">
-              <div slot="header">
-                <h4>创建新分类</h4>
-              </div>
-              <form class="uk-form-stacked">
-                <div class="uk-margin">
-                  <label class="uk-form-label" for="form-stacked-text">分类名称</label>
-                  <div class="uk-form-controls">
-                    <input class="uk-input" id="form-stacked-text" type="text" v-model="newCategory.name">
-                  </div>
-                </div>
-                <div class="uk-margin">
-                  <label class="uk-form-label" for="form-stacked-text">别名</label>
-                  <div class="uk-form-controls">
-                    <input class="uk-input" id="form-stacked-text" type="text" v-model="newCategory.slug">
-                  </div>
-                </div>
-                <div class="uk-margin">
-                  <label class="uk-form-label" for="form-stacked-text">描述（可选）</label>
-                  <div class="uk-form-controls">
-                    <textarea class="uk-textarea" v-model="newCategory.description"></textarea>
-                  </div>
-                </div>
-              </form>
-              <div slot="footer">
-                <p class="uk-text-right">
-                  <button type="submit" class="uk-button uk-button-primary" @click="addCategory()">发布话题</button>
-                </p>
-              </div>
-            </vk-card>
+            <category-form :id="editId"></category-form>
           </div>
         </vk-grid>
       </main>
 </template>
 <script>
+import CategoryForm from '@/components/CategoryForm'
 export default {
   name: 'CategoryIndex',
   layout: 'backend',
+  components: {
+    CategoryForm
+  },
   data () {
     return {
       refetch: false,
-      newCategory: {
-        name: '',
-        slug: '',
-        description: ''
-      }
+      editId: 0
     }
   },
   asyncComputed: {
@@ -91,23 +65,8 @@ export default {
     })
   },
   methods: {
-    async addCategory () {
-      return this.$axios.$post('/categories', this.newCategory)
-      .then(response => {
-        this.refetch = !this.refetch
-        this.$notify({
-          title: '成功',
-          message: '操作成功',
-          type: 'success'
-        })
-      }).catch(error => {
-        console.log(error)
-        this.$notify({
-          title: '失败',
-          message: '出现内部错误',
-          type: 'warning'
-        })
-      })
+    editCategory (id) {
+      this.editId = id
     },
     async destoryCategory (id) {
       this.$confirm('此操作将永久删除该目录以及目录下所有文章, 是否继续?', '提示', {

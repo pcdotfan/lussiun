@@ -45,39 +45,6 @@
               </div>
             </vk-grid>
           </vk-card>
-          <vk-card class="uk-margin">
-            <vk-grid class="uk-child-width-1-2" divided>
-              <div>
-                <label class="uk-form-label" for="updated-at">更新时间</label>
-                <el-date-picker
-                  type="datetime"
-                  name="updated-at"
-                  v-model="updatedAt"
-                  placeholder="选择日期时间">
-                </el-date-picker>
-              </div>
-              <div>
-                <label class="uk-form-label" for="topics">文章话题</label>
-                <!--
-                <el-select
-                    name="topics"
-                    class="uk-width-1-1"
-                    multiple
-                    filterable
-                    allow-create
-                    default-first-option
-                    placeholder="请选择文章话题">
-                    <el-option
-                      v-for="topic in topics"
-                      :key="topic.id"
-                      :label="topic.name"
-                      :value="topic.id">
-                    </el-option>
-                </el-select>
-                -->
-              </div>
-            </vk-grid>
-          </vk-card>
         </section>
       </div>
   </main>
@@ -90,7 +57,6 @@ export default {
     return {
       article: {},
       topicsSelected: [],
-      updatedAt: Date,
       topics: [],
       statuses: [
         {
@@ -119,7 +85,6 @@ export default {
   },
   methods: {
     async updateArticle () {
-      this.article.updatedAt = this.updatedAt
       await this.$axios.$patch('/articles', this.article)
         .then(response => {
           this.$notify({
@@ -148,7 +113,6 @@ export default {
     })
     this.topics = await this.$axios.$get('/topics')
     this.article = await this.$axios.$get(`/articles/${this.$route.params.id}`)
-    this.updatedAt = this.$moment(this.article.updatedAt).toDate()
   }
 }
 </script>

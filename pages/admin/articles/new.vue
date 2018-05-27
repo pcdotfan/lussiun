@@ -46,41 +46,6 @@
               </div>
             </vk-grid>
           </vk-card>
-          <vk-card class="uk-margin">
-            <vk-grid class="uk-child-width-1-2" divided>
-              <div>
-                <label class="uk-form-label" for="createdAt">发布时间</label>
-                <el-date-picker
-                  type="datetime"
-                  name="createdAt"
-                  class="uk-width-1-1"
-                  v-model="article.createdAt"
-                  placeholder="选择日期时间">
-                </el-date-picker>
-              </div>
-              <div>
-                <label class="uk-form-label" for="topics">文章话题</label>
-                <!--
-                  <el-select
-                    v-model="article.topics"
-                    name="topics"
-                    class="uk-width-1-1"
-                    multiple
-                    filterable
-                    allow-create
-                    default-first-option
-                    placeholder="请选择文章话题">
-                    <el-option
-                      v-for="topic in topics"
-                      :key="topic.id"
-                      :label="topic.name"
-                      :value="topic.id">
-                    </el-option>
-                  </el-select>
-                -->
-              </div>
-            </vk-grid>
-          </vk-card>
         </section>
       </div>
   </main>
@@ -94,7 +59,7 @@ export default {
       topics: [],
       article: {
         title: '',
-        categoryId: 0,
+        categoryId: '请选择',
         status: 1,
         content: '',
         slug: '',
