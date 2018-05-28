@@ -29,7 +29,7 @@
             </div>
           </div>
           <div class="uk-width-2-5">
-            <category-form :id="editId"></category-form>
+            <category-form @refresh-event="refresh" :id="editId"></category-form>
           </div>
         </vk-grid>
       </main>
@@ -65,6 +65,9 @@ export default {
     })
   },
   methods: {
+    refresh () {
+      this.refetch = !this.refetch
+    },
     editCategory (id) {
       this.editId = id
     },
@@ -74,9 +77,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$axios.$post('/categories/destroy', {
-          id: id
-        }).then(response => {
+        this.$axios.$delete(`/categories/${id}`).then(response => {
           this.$message({
             type: 'success',
             message: '删除成功!'

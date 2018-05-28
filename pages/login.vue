@@ -40,6 +40,7 @@ export default {
         username: '',
         password: ''
       },
+      error: null,
       remember: false,
       message: {
 
@@ -61,6 +62,7 @@ export default {
           }
         })
         .catch(e => {
+          console.log(e)
           this.$refs.alert.openAlert('用户名或密码错误', 'danger')
         })
     }

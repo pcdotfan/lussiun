@@ -2,7 +2,7 @@
 <div>
     <vk-card padding="small">
         <div slot="header">
-          <h4 v-if="idCopied === 0">创建新话题</h4>
+          <h4 v-if="!idCopied">创建新话题</h4>
           <h4 v-else>编辑话题</h4>
         </div>
         <form class="uk-form-stacked">
@@ -26,7 +26,7 @@
         </div>
         </form>
         <div slot="footer">
-          <p class="uk-text-right" v-if="idCopied === 0">
+          <p class="uk-text-right" v-if="!idCopied">
             <vk-button type="primary" @click="addTopic">发布话题</vk-button>
           </p>
           <p class="uk-text-right" v-else>
@@ -62,6 +62,7 @@ export default {
     async addTopic () {
       return this.$axios.$post('/topics', this.topic)
       .then(response => {
+        this.$emit('refresh-event')
         this.$notify({
           title: '成功',
           message: '操作成功',
@@ -79,6 +80,7 @@ export default {
     async updateTopic () {
       return this.$axios.$patch(`/topics/${this.id}`, this.topic)
       .then(response => {
+        this.$emit('refresh-event')
         this.$notify({
           title: '成功',
           message: '操作成功',
@@ -97,7 +99,9 @@ export default {
   watch: {
     async id (val) {
       this.idCopied = this.id
-      this.topic = await this.$axios.$get(`/topics/${this.idCopied}`)
+      if (val !== 0) {
+        this.topic = await this.$axios.$get(`/topics/${this.idCopied}`)
+      }
     }
   }
 }

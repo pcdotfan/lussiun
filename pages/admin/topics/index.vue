@@ -29,7 +29,7 @@
             </div>
           </div>
           <div class="uk-width-2-5">
-            <topic-form :id="editId"></topic-form>
+            <topic-form @refresh-event="refresh" :id="editId"></topic-form>
           </div>
         </vk-grid>
       </main>
@@ -66,26 +66,11 @@ export default {
     })
   },
   methods: {
+    refresh () {
+      this.refetch = !this.refresh
+    },
     editTopic (id) {
       this.editId = id
-    },
-    async addTopic () {
-      return this.$axios.$post('/topics', this.topic)
-      .then(response => {
-        this.refetch = !this.refetch
-        this.$notify({
-          title: '成功',
-          message: '操作成功',
-          type: 'success'
-        })
-      }).catch(() => {
-        // error 待处理
-        this.$notify({
-          title: '失败',
-          message: '出现内部错误',
-          type: 'warning'
-        })
-      })
     },
     async destoryTopic (id) {
       this.$confirm('此操作将永久删除该目录以及目录下所有文章, 是否继续?', '提示', {
@@ -93,9 +78,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$axios.$delete('/topics', {
-          id: id
-        }).then(response => {
+        this.$axios.$delete(`/topics/${id}`).then(response => {
           this.$message({
             type: 'success',
             message: '删除成功!'

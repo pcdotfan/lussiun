@@ -2,31 +2,31 @@
 <div>
     <vk-card padding="small">
         <div slot="header">
-          <h4 v-if="idCopied === 0">创建新分类</h4>
+          <h4 v-if="!idCopied">创建新分类</h4>
           <h4 v-else>编辑分类</h4>
         </div>
         <form class="uk-form-stacked">
-        <div class="uk-margin">
-            <label class="uk-form-label" for="form-stacked-text">分类名称</label>
-            <div class="uk-form-controls">
-              <input class="uk-input" id="form-stacked-text" type="text" v-model="category.name">
-            </div>
-        </div>
-        <div class="uk-margin">
-            <label class="uk-form-label" for="form-stacked-text">别名</label>
-            <div class="uk-form-controls">
-              <input class="uk-input" id="form-stacked-text" type="text" v-model="category.slug">
-            </div>
-        </div>
-        <div class="uk-margin">
-            <label class="uk-form-label" for="form-stacked-text">描述（可选）</label>
-            <div class="uk-form-controls">
-              <textarea class="uk-textarea" v-model="category.description"></textarea>
-            </div>
-        </div>
+          <div class="uk-margin">
+              <label class="uk-form-label" for="form-stacked-text">分类名称</label>
+              <div class="uk-form-controls">
+                <input class="uk-input" id="form-stacked-text" type="text" v-model="category.name">
+              </div>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label" for="form-stacked-text">别名</label>
+              <div class="uk-form-controls">
+                <input class="uk-input" id="form-stacked-text" type="text" v-model="category.slug">
+              </div>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label" for="form-stacked-text">描述（可选）</label>
+              <div class="uk-form-controls">
+                <textarea class="uk-textarea" v-model="category.description"></textarea>
+              </div>
+          </div>
         </form>
         <div slot="footer">
-          <p class="uk-text-right" v-if="idCopied === 0">
+          <p class="uk-text-right" v-if="!idCopied">
             <vk-button type="primary" @click="addCategory">发布话题</vk-button>
           </p>
           <p class="uk-text-right" v-else>
@@ -62,6 +62,7 @@ export default {
     async addCategory () {
       return this.$axios.$post('/categories', this.category)
       .then(response => {
+        this.$emit('refresh-event')
         this.$notify({
           title: '成功',
           message: '操作成功',
@@ -79,6 +80,7 @@ export default {
     async updateCategory () {
       return this.$axios.$patch(`/categories/${this.id}`, this.category)
       .then(response => {
+        this.$emit('refresh-event')
         this.$notify({
           title: '成功',
           message: '操作成功',
@@ -97,7 +99,9 @@ export default {
   watch: {
     async id (val) {
       this.idCopied = this.id
-      this.category = await this.$axios.$get(`/categories/${this.idCopied}`)
+      if (val !== 0) {
+        this.category = await this.$axios.$get(`/categories/${this.idCopied}`)
+      }
     }
   }
 }
