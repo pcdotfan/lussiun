@@ -63,6 +63,16 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    vendor: [],
+    extractCSS: true,
+    babel: {
+      plugins: [
+        ['component', {
+          libraryName: 'element-ui',
+          style: false
+        }]
+      ]
+    },
     /*
     ** Run ESLint on save
     */

@@ -25,7 +25,7 @@
 @card-default-box-shadow:                      @global-medium-box-shadow;
 @card-default-hover-box-shadow:                @global-large-box-shadow;
 
-@card-default-header-border-width:             1px;
+@card-default-header-border-width:             0px;
 @card-default-header-border:                   @global-border;
 
 @card-default-footer-border-width:             @global-border-width;
@@ -59,7 +59,9 @@
 }
 
 .hook-card-header() {
-
+    h1, h2, h3, h4, h5 {
+        margin: 0
+    }
 }
 
 .hook-card-footer() {

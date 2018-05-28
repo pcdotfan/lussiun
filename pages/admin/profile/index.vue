@@ -20,15 +20,6 @@
                       <input class="uk-input" type="text" v-model="user.nickname">
                     </div>
                   </div>
-                  <div>
-                    <label class="uk-form-label" for="form-stacked-text">公开显示为</label>
-                    <div class="uk-form-controls">
-                      <select class="uk-select">
-                          <option v-text="user.nickname"></option>
-                          <option v-text="user.username"></option>
-                      </select>
-                    </div>
-                  </div>
                 </vk-grid>
                 <div class="uk-margin">
                   <label class="uk-form-label" for="form-stacked-text">E-Mail</label>
