@@ -11,22 +11,39 @@ export async function show (context: Context) {
   context.body = topic
 }
 
-export async function destroy (context: Context) {
-  const { body } = context.request
-
+export async function update (context: Context) {
+  let { body } = context.request
   try {
-    if (!body.id) {
-      context.status = 400
-      context.body = { error: `无效的传入参数` }
-      return
-    }
-
-    const topicExisted = await context.service.topic.getById(body.id)
+    const topicExisted = await context.service.topic.getById(context.params.id)
 
     if (topicExisted) {
-      await context.service.topic.removeById(body.id)
+      await context.service.topic.update(context.params.id, body)
+
+      context.status = 200
+      context.body = { message: '更新成功' }
+    } else {
+      context.status = 406
+      context.body = { message: '找不到话题' }
     }
-    context.status = 200
+  } catch (error) {
+    context.status = 500
+    context.body = { error: error }
+  }
+}
+
+export async function destroy (context: Context) {
+  try {
+    const topicExisted = await context.service.topic.getById(context.params.id)
+
+    if (topicExisted) {
+      await context.service.topic.removeById(context.params.id)
+
+      context.status = 200
+      context.body = { message: '删除成功' }
+    } else {
+      context.status = 406
+      context.body = { message: '找不到话题' }
+    }
   } catch (error) {
     context.status = 500
     context.body = { error: error }

@@ -10,9 +10,6 @@ import { AppRoutes } from './routes'
 const path = require('path')
 const cors = require('@koa/cors')
 
-// create connection with database
-// note that its not active database connection
-// TypeORM creates you connection pull to uses connections from pull on your requests
 const secret = 'vy1C%iZ8W+`]X9#vQl}:/78ul:,CjXcV5{%b-W|_Nty$tGbDnaRGRpJ]e_MkR+O0'
 
 createConnection().then(async connection => {

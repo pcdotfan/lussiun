@@ -14,21 +14,16 @@ export async function show (context: Context) {
 export async function update (context: Context) {
   let { body } = context.request
   try {
-    if (!body.id) {
-      context.status = 400
-      context.body = { error: `无效的传入参数` }
-      return
-    }
-    const categoryExisted = await context.service.category.getById(body.id)
+    const categoryExisted = await context.service.category.getById(context.params.id)
 
     if (categoryExisted) {
-      await context.service.category.update(body.id, body)
+      await context.service.category.update(context.params.id, body)
 
       context.status = 200
       context.body = { message: '更新成功' }
     } else {
       context.status = 406
-      context.body = { message: '找不到文章' }
+      context.body = { message: '找不到分类' }
     }
   } catch (error) {
     context.status = 500
@@ -37,21 +32,18 @@ export async function update (context: Context) {
 }
 
 export async function destroy (context: Context) {
-  const { body } = context.request // 拿到传入的参数
-
   try {
-    if (!body.id) {
-      context.status = 400
-      context.body = { error: `无效的传入参数` }
-      return
-    }
-
-    const categoryExisted = await context.service.category.getById(body.id)
+    const categoryExisted = await context.service.category.getById(context.params.id)
 
     if (categoryExisted) {
-      await context.service.category.removeById(body.id)
+      await context.service.category.removeById(context.params.id)
+
+      context.status = 200
+      context.body = { message: '删除成功' }
+    } else {
+      context.status = 406
+      context.body = { message: '找不到分类' }
     }
-    context.status = 200
   } catch (error) {
     context.status = 500
     context.body = { error: error }

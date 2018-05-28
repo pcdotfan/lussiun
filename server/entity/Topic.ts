@@ -23,6 +23,11 @@ export class Topic extends BaseEntity {
   slug: string
 
   @Column({
+    default: 0
+  })
+  count: number
+
+  @Column({
     nullable: true
   })
   description: string

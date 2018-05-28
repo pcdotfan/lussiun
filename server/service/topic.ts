@@ -23,6 +23,10 @@ class TopicService {
     const newTopic = topicRepository.create(body)
     return topicRepository.save(newTopic)
   }
+  async update (id: number, body: Object) {
+    body = _.omit(body, ['id'])
+    return topicRepository.update(id, body)
+  }
 }
 
 module.exports = TopicService

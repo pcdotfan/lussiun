@@ -1,4 +1,4 @@
-import { index, store, destroy, show } from '../controller/admin/TopicsController'
+import { index, store, destroy, show, update } from '../controller/admin/TopicsController'
 
 /**
  * All application routes.
@@ -20,8 +20,13 @@ export default [
     action: show
   },
   {
-    path: '/topics/destroy',
-    method: 'post',
+    path: '/topics/:id',
+    method: 'patch',
+    action: update
+  },
+  {
+    path: '/topics/:id',
+    method: 'delete',
     action: destroy
   }
 ]
