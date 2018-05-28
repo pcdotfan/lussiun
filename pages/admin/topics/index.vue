@@ -19,7 +19,7 @@
                     <td>{{ topic.id }}</td>
                     <td>
                       <vk-iconnav>
-                        <vk-iconnav-item href="#" icon="file-edit"></vk-iconnav-item>
+                        <vk-iconnav-item @click="editTopic(topic.id)" icon="file-edit"></vk-iconnav-item>
                         <vk-iconnav-item @click="destoryTopic(topic.id)" icon="trash"></vk-iconnav-item>
                       </vk-iconnav>
                     </td>
@@ -29,52 +29,23 @@
             </div>
           </div>
           <div class="uk-width-2-5">
-            <vk-card padding="small">
-              <div slot="header">
-                <h4>创建新话题</h4>
-              </div>
-              <form class="uk-form-stacked">
-                <div class="uk-margin">
-                  <label class="uk-form-label" for="form-stacked-text">话题名称</label>
-                  <div class="uk-form-controls">
-                    <input class="uk-input" id="form-stacked-text" type="text" v-model="topic.name">
-                  </div>
-                </div>
-                <div class="uk-margin">
-                  <label class="uk-form-label" for="form-stacked-text">别名</label>
-                  <div class="uk-form-controls">
-                    <input class="uk-input" id="form-stacked-text" type="text" v-model="topic.slug">
-                  </div>
-                </div>
-                <div class="uk-margin">
-                  <label class="uk-form-label" for="form-stacked-text">描述（可选）</label>
-                  <div class="uk-form-controls">
-                    <textarea class="uk-textarea" v-model="topic.description"></textarea>
-                  </div>
-                </div>
-              </form>
-              <div slot="footer">
-                <p class="uk-text-right">
-                  <button type="submit" @click="addTopic()" class="uk-button uk-button-primary">发布话题</button>
-                </p>
-              </div>
-            </vk-card>
+            <topic-form :id="editId"></topic-form>
           </div>
         </vk-grid>
       </main>
 </template>
 <script>
+import TopicForm from '@/components/TopicForm'
 export default {
   name: 'TopicsIndex',
   layout: 'backend',
+  components: {
+    TopicForm
+  },
   data () {
     return {
       refetch: false,
-      topic: {
-        name: '',
-        slug: '',
-        description: ''
-      }
+      editId: 0
     }
   },
   asyncComputed: {
@@ -95,6 +66,9 @@ export default {
     })
   },
   methods: {
+    editTopic (id) {
+      this.editId = id
+    },
     async addTopic () {
       return this.$axios.$post('/topics', this.topic)
       .then(response => {

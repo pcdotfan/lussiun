@@ -2,36 +2,36 @@
 <div>
     <vk-card padding="small">
         <div slot="header">
-          <h4 v-if="idCopied === 0">创建新分类</h4>
-          <h4 v-else>编辑分类</h4>
+          <h4 v-if="idCopied === 0">创建新话题</h4>
+          <h4 v-else>编辑话题</h4>
         </div>
         <form class="uk-form-stacked">
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-stacked-text">分类名称</label>
+            <label class="uk-form-label" for="form-stacked-text">话题名称</label>
             <div class="uk-form-controls">
-              <input class="uk-input" id="form-stacked-text" type="text" v-model="category.name">
+              <input class="uk-input" id="form-stacked-text" type="text" v-model="topic.name">
             </div>
         </div>
         <div class="uk-margin">
             <label class="uk-form-label" for="form-stacked-text">别名</label>
             <div class="uk-form-controls">
-              <input class="uk-input" id="form-stacked-text" type="text" v-model="category.slug">
+              <input class="uk-input" id="form-stacked-text" type="text" v-model="topic.slug">
             </div>
         </div>
         <div class="uk-margin">
             <label class="uk-form-label" for="form-stacked-text">描述（可选）</label>
             <div class="uk-form-controls">
-              <textarea class="uk-textarea" v-model="category.description"></textarea>
+              <textarea class="uk-textarea" v-model="topic.description"></textarea>
             </div>
         </div>
         </form>
         <div slot="footer">
           <p class="uk-text-right" v-if="idCopied === 0">
-            <vk-button type="primary" @click="addCategory">发布话题</vk-button>
+            <vk-button type="primary" @click="addTopic">发布话题</vk-button>
           </p>
           <p class="uk-text-right" v-else>
             <vk-button type="secondary" @click="back">返回</vk-button>
-            <vk-button class="uk-margin-small-left" type="primary" @click="updateCategory">更新话题</vk-button>
+            <vk-button class="uk-margin-small-left" type="primary" @click="updateTopic">更新话题</vk-button>
           </p>
         </div>
     </vk-card>
@@ -39,7 +39,7 @@
 </template>
 <script>
 export default {
-  name: 'CategoryForm',
+  name: 'TopicForm',
   props: {
     id: {
       type: Number
@@ -47,20 +47,20 @@ export default {
   },
   data () {
     return {
-      category: {},
+      topic: {},
       idCopied: this.id
     }
   },
   async mounted () {
-    this.category = await this.$axios.$get(`/categories/${this.id}`)
+    this.topic = await this.$axios.$get(`/topics/${this.id}`)
   },
   methods: {
     back () {
       this.idCopied = 0
-      this.category = {}
+      this.topic = {}
     },
-    async addCategory () {
-      return this.$axios.$post('/categories', this.category)
+    async addTopic () {
+      return this.$axios.$post('/topics', this.topic)
       .then(response => {
         this.$notify({
           title: '成功',
@@ -76,8 +76,8 @@ export default {
         })
       })
     },
-    async updateCategory () {
-      return this.$axios.$patch(`/categories/${this.id}`, this.category)
+    async updateTopic () {
+      return this.$axios.$patch(`/topics/${this.id}`, this.topic)
       .then(response => {
         this.$notify({
           title: '成功',
@@ -97,7 +97,7 @@ export default {
   watch: {
     async id (val) {
       this.idCopied = this.id
-      this.category = await this.$axios.$get(`/categories/${this.idCopied}`)
+      this.topic = await this.$axios.$get(`/topics/${this.idCopied}`)
     }
   }
 }
