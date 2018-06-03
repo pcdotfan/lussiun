@@ -6,7 +6,7 @@
     "password": "",
     "database": "nest",
     "entities": [
-        "src/entity/**.entity{.ts,.js}"
+        "src/**/**.entity{.ts,.js}"
     ],
     "synchronize": true
 }
