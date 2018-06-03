@@ -23,9 +23,13 @@
     "@nestjs/core": "^5.0.0",
     "@nestjs/microservices": "^5.0.0",
     "@nestjs/testing": "^5.0.0",
+    "@nestjs/typeorm": "^5.0.0",
     "@nestjs/websockets": "^5.0.0",
+    "class-validator": "^0.8.5",
+    "mysql": "^2.15.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.0.0",
+    "typeorm": "^0.2.6",
     "typescript": "^2.8.0"
   },
   "devDependencies": {
