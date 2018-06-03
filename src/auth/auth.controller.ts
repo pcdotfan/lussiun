@@ -17,10 +17,10 @@ export class UsersController {
 
     @Get('user')
     async user(): Promise<object> {
-        const payload = await this.authService.getPayload();
+        // const payload = await this.authService.getPayload();
         return {
             user: {
-                id: payload.id,
+                // id: payload.id,
             },
         };
     }
