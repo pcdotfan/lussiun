@@ -3,7 +3,6 @@ export class CreateUserDto {
     @IsString()
     readonly username: string;
 
-    @IsString()
     readonly nickname: string;
 
     @IsEmail()

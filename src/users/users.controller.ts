@@ -1,4 +1,4 @@
-import { Injectable, Inject, Post, Body, Controller, UsePipes } from '@nestjs/common';
+import { Injectable, Inject, Post, Body, Controller, UsePipes, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -19,16 +19,17 @@ export class UsersController {
     @Post()
     @UsePipes(ValidationPipe)
     async create(@Body() createUserDto: CreateUserDto) {
-        createUserDto.password = await argon2.hash(createUserDto.password);
-        const userCreated = await this.usersService.create(createUserDto);
+        const userExisted =
+                await this.usersService.where({ username: createUserDto.username }) ||
+                await this.usersService.where({ email: createUserDto.email });
 
-        return {
-            message: 'Success!',
-            userCreated,
-        };
-    }
+        if (!userExisted) {
+            createUserDto.password = await argon2.hash(createUserDto.password);
+            const userCreated = await this.usersService.create(createUserDto);
 
-    async findOneById(id: number): Promise<User> {
-        return await this.userRepository.findOne({ id });
+            return userCreated;
+        }
+
+        throw new HttpException('已存在相同信息用户', HttpStatus.FORBIDDEN);
     }
 }

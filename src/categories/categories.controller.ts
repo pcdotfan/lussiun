@@ -1,11 +1,15 @@
 import { Controller, Get, Param, Patch, Post, Body } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { CategoriesService } from './categories.service';
-import { Category } from './interfaces/category.interface';
+import { Category } from './category.entity';
 
 @Controller('categories')
 export class CategoriesController {
-    constructor(private readonly categoriesService: CategoriesService) { }
+    constructor(
+        @InjectRepository(Category)
+        private readonly categoriesService: CategoriesService,
+    ) { }
 
     @Get()
     async findAll(): Promise<Category[]> {
