@@ -392,3 +392,4 @@ docker-compose.yml
 dist
 yarn.lock
 package-lock.json
+*.env
