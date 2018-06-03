@@ -1,41 +1,63 @@
 {
-  "name": "lussiun",
-  "version": "1.1.0",
-  "description": "Nuxt.js project",
-  "author": "PCDotFan <pc@edu.ax>",
-  "private": true,
+  "name": "nest-typescript-starter",
+  "version": "1.0.0",
+  "description": "Nest TypeScript starter repository",
+  "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon -w server -x ts-node ./server/index.ts",
-    "tsc": "tsc -p tsconfig.json",
-    "tsc:w": "tsc -p tsconfig.json -w"
+    "format": "prettier --write \"src/**/*.ts\"",
+    "start": "ts-node -r tsconfig-paths/register src/main.ts",
+    "start:dev": "nodemon",
+    "start:debug": "nodemon --config nodemon-debug.json",
+    "prestart:prod": "rimraf dist && tsc",
+    "start:prod": "node dist/main.js",
+    "start:hmr": "node dist/server",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "webpack": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "@koa/cors": "2",
-    "@types/jsonwebtoken": "^7.2.7",
-    "bcrypt": "^2.0.1",
-    "class-validator": "^0.8.5",
-    "cross-env": "^5.0.1",
-    "faker": "^4.1.0",
-    "gravatar": "^1.6.0",
-    "koa": "^2.5.0",
-    "koa-bodyparser": "^4.2.0",
-    "koa-jwt": "^3.3.1",
-    "koa-router": "^7.4.0",
-    "koa-service": "^1.0.1",
-    "lodash": "^4.17.10",
-    "mysql": "^2.15.0",
-    "nodemon": "^1.17.4",
-    "source-map-support": "^0.4.15",
-    "ts-node-dev": "^1.0.0-pre.21",
-    "tslint": "^5.10.0",
-    "tslint-config-standard": "^7.0.0",
-    "typeorm": "^0.2.0"
+    "@nestjs/common": "^5.0.0",
+    "@nestjs/core": "^5.0.0",
+    "@nestjs/microservices": "^5.0.0",
+    "@nestjs/testing": "^5.0.0",
+    "@nestjs/websockets": "^5.0.0",
+    "reflect-metadata": "^0.1.12",
+    "rxjs": "^6.0.0",
+    "typescript": "^2.8.0"
   },
   "devDependencies": {
-    "@types/koa": "^2.0.45",
-    "@types/koa-bodyparser": "^4.2.0",
-    "@types/koa-router": "^7.0.27",
-    "@types/node": "^9.6.5",
-    "typescript": "^2.8.1"
+    "@types/express": "^4.0.39",
+    "@types/jest": "^21.1.8",
+    "@types/node": "^9.3.0",
+    "@types/supertest": "^2.0.4",
+    "jest": "^21.2.1",
+    "nodemon": "^1.14.1",
+    "prettier": "^1.11.1",
+    "rimraf": "^2.6.2",
+    "supertest": "^3.0.0",
+    "ts-jest": "^21.2.4",
+    "ts-loader": "^4.1.0",
+    "ts-node": "^6.0.0",
+    "tsconfig-paths": "^3.3.1",
+    "tslint": "5.3.2",
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.13",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage"
   }
 }
