@@ -7,7 +7,6 @@ import {
     UpdateDateColumn,
     BaseEntity,
 } from 'typeorm';
-import { IsEmail, MinLength } from 'class-validator';
 import { Article } from '../articles/article.entity';
 
 @Entity()
@@ -23,11 +22,9 @@ export class User extends BaseEntity {
     username: string;
 
     @Column()
-    @IsEmail()
     email: string;
 
     @Column()
-    @MinLength(6)
     password: string;
 
     @Column('text', {

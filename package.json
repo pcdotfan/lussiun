@@ -26,6 +26,8 @@
     "@nestjs/testing": "^5.0.0",
     "@nestjs/typeorm": "^5.0.0",
     "@nestjs/websockets": "^5.0.0",
+    "argon2": "^0.19.3",
+    "class-transformer": "^0.1.9",
     "class-validator": "^0.8.5",
     "jsonwebtoken": "^8.2.2",
     "mysql": "^2.15.0",

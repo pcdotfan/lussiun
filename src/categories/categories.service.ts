@@ -25,4 +25,10 @@ export class CategoriesService {
     async findAll(): Promise<Category[]> {
         return await this.categoryRepository.find();
     }
+
+    async update(id: number, category): Promise<Category> {
+        // body = _.omit(body, ['id'])
+        // return await this.categoryRepository.update(id, category);
+        return;
+    }
 }

@@ -9,10 +9,13 @@ export class AuthService {
 
     async createToken(id: number) {
         const user: JwtPayload = { id };
-        return jwt.sign(user, 'secretKey', { expiresIn: 3600 });
+        return jwt.sign(
+            user,
+            'vy1C%iZ8W+`]X9#vQl}:/78ul:,CjXcV5{%b-W|_Nty$tGbDnaRGRpJ]e_MkR+O0',
+            { expiresIn: 3600 });
     }
 
-    async validateUser(token: any): Promise<any> {
-        return await this.usersService.findOneByToken();
+    async validateUser(payload: JwtPayload): Promise<any> {
+        return await this.usersService.findOneById(payload.id);
     }
 }

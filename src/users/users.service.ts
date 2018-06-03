@@ -10,6 +10,11 @@ export class UsersService {
         private readonly userRepository: Repository<User>,
     ) { }
 
+    async create(user: object): Promise<User> {
+        const newUser = await this.userRepository.create(user);
+        return this.userRepository.save(newUser);
+    }
+
     async findOneById(id: number): Promise<User> {
         return await this.userRepository.findOne({ id });
     }
@@ -22,7 +27,7 @@ export class UsersService {
         return await this.userRepository.find();
     }
 
-    async findOneByToken(): Promise<User> {
-        return await this.userRepository.findOne();
+    async update(id: number, object: object): Promise<any> {
+        return this.userRepository.update(id, object);
     }
 }
