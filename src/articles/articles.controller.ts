@@ -7,7 +7,7 @@ import { CategoriesService } from '../categories/categories.service';
 import { Article } from './article.entity';
 import { ValidationPipe } from '../validation.pipe';
 import * as _ from 'lodash';
-import * as gravatar from 'gravatar';
+// import * as gravatar from 'gravatar';
 
 @Controller('articles')
 export class ArticlesController {
@@ -29,7 +29,7 @@ export class ArticlesController {
                     await this.usersService.findOneById(article.userId),
                     await this.categoriesService.findOneById(article.categoryId),
                 ];
-                const avatar = gravatar.url(user.email);
+                // const avatar = gravatar.url(user.email);
                 article = _.assign(article, user, category);
             }),
         );

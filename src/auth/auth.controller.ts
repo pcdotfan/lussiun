@@ -1,17 +1,12 @@
 import { Injectable, Inject, Get, Body, Controller, UsePipes, UseGuards, Post, Req, HttpException, HttpStatus } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 
 @Injectable()
 @Controller('auth')
-export class UsersController {
+export class AuthController {
     constructor(
-        @InjectRepository(User)
-        private readonly userRepository: Repository<User>,
         private readonly usersService: UsersService,
         private readonly authService: AuthService,
     ) { }
@@ -27,7 +22,7 @@ export class UsersController {
             username: body.username,
             password: body.password,
         };
-        const token = this.authService.createToken(credentials, body.rememberMe);
+        const token = this.authService.createToken(credentials, body.remember);
         if (token) {
             return token;
         }
