@@ -2,6 +2,8 @@ import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
+import * as argon2 from 'argon2';
 
 @Injectable()
 export class UsersService {
@@ -10,7 +12,8 @@ export class UsersService {
         private readonly userRepository: Repository<User>,
     ) { }
 
-    async create(user: object): Promise<User> {
+    async create(user: CreateUserDto): Promise<User> {
+        user.password = await argon2.hash(user.password);
         const newUser = await this.userRepository.create(user);
         return this.userRepository.save(newUser);
     }
@@ -29,5 +32,15 @@ export class UsersService {
 
     async update(id: number, object: object): Promise<any> {
         return this.userRepository.update(id, object);
+    }
+
+    async changePassword(id: number, password: string): Promise<any> {
+        const userExisted = await this.findOneById(id);
+        if (userExisted) {
+            userExisted.password = await argon2.hash(userExisted.password);
+            await this.userRepository.save(userExisted);
+
+            return userExisted;
+        }
     }
 }

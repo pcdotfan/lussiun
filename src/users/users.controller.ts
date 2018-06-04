@@ -5,7 +5,6 @@ import { User } from './user.entity';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ValidationPipe } from '../validation.pipe';
-import * as argon2 from 'argon2';
 
 @Injectable()
 @Controller('users')
@@ -24,9 +23,7 @@ export class UsersController {
                 await this.usersService.where({ email: createUserDto.email });
 
         if (!userExisted) {
-            createUserDto.password = await argon2.hash(createUserDto.password);
             const userCreated = await this.usersService.create(createUserDto);
-
             return userCreated;
         }
 
