@@ -35,4 +35,8 @@ export class CategoriesService {
     async update(id: number, categoryDto: CategoryDto): Promise<any> {
         await this.categoryRepository.update(id, categoryDto);
     }
+
+    async destroy(id: number): Promise<any> {
+        await this.categoryRepository.delete(id);
+    }
 }

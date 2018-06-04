@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateArticleDto } from './dto/create-article.dto';
+import { ArticleDto } from './dto/article.dto';
 import { Article } from './article.entity';
 
 @Injectable()
@@ -27,14 +27,16 @@ export class ArticlesService {
         return await this.articleRepository.find();
     }
 
-    async create(article: CreateArticleDto): Promise<Article> {
-        const newArticle = await this.articleRepository.create(article);
+    async create(articleDto: ArticleDto): Promise<Article> {
+        const newArticle = await this.articleRepository.create(articleDto);
         return this.articleRepository.save(newArticle);
     }
 
-    async update(id: number, article): Promise<Article> {
-        // body = _.omit(body, ['id'])
-        // return await this.articleRepository.update(id, article);
-        return;
+    async update(id: number, articleDto: ArticleDto): Promise<any> {
+        await this.articleRepository.update(id, articleDto);
+    }
+
+    async destroy(id: number): Promise<any> {
+        await this.articleRepository.delete(id);
     }
 }

@@ -35,4 +35,8 @@ export class TopicsService {
     async update(id: number, topicDto: TopicDto): Promise<any> {
         await this.topicRepository.update(id, topicDto);
     }
+
+    async destroy(id: number): Promise<any> {
+        await this.topicRepository.delete(id);
+    }
 }

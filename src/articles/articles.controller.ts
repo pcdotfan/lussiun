@@ -1,18 +1,17 @@
-import { Controller, Get, Param, Patch, Post, Req, Body, UsePipes, HttpException, HttpStatus } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { CreateArticleDto } from './dto/create-article.dto';
+import { Controller, Get, Param, Patch, Post, Req, Body, UsePipes, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ArticleDto } from './dto/article.dto';
 import { ArticlesService } from './articles.service';
 import { UsersService } from '../users/users.service';
 import { CategoriesService } from '../categories/categories.service';
 import { Article } from './article.entity';
 import { ValidationPipe } from '../validation.pipe';
 import * as _ from 'lodash';
-// import * as gravatar from 'gravatar';
+// import gravatar from 'gravatar';
 
+@Injectable()
 @Controller('articles')
 export class ArticlesController {
     constructor(
-        @InjectRepository(Article)
         private readonly articlesService: ArticlesService,
         private readonly usersService: UsersService,
         private readonly categoriesService: CategoriesService,
@@ -25,11 +24,10 @@ export class ArticlesController {
         // 参考 egg-cnode 的写法，用 Promise.all 的方法让 Array.map 内部可异步
         await Promise.all(
             articles.map(async article => {
-                const [user, category] = [
-                    await this.usersService.findOneById(article.userId),
-                    await this.categoriesService.findOneById(article.categoryId),
-                ];
+                const user = await this.usersService.findOneById(article.userId);
+                const category = await this.categoriesService.findOneById(article.categoryId);
                 // const avatar = gravatar.url(user.email);
+                // user = _.assign(user, avatar);
                 article = _.assign(article, user, category);
             }),
         );
@@ -39,15 +37,15 @@ export class ArticlesController {
 
     @Post()
     @UsePipes(ValidationPipe)
-    async create(@Body() createArticleDto: CreateArticleDto) {
+    async create(@Body() articleDto: ArticleDto) {
         const articleExisted =
-            await this.articlesService.where({ slug: createArticleDto.slug });
+            await this.articlesService.where({ slug: articleDto.slug });
 
         if (!articleExisted) {
-            return await this.articlesService.create(createArticleDto);
+            return await this.articlesService.create(articleDto);
         }
 
-        throw new HttpException('已存在相同信息分类', HttpStatus.FORBIDDEN);
+        throw new HttpException('已存在相同别名的文章', HttpStatus.FORBIDDEN);
     }
 
     @Patch()

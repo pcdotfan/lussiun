@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Patch, Post, Body, UsePipes, HttpException, HttpStatus, Injectable, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Patch, Post, Body, UsePipes, HttpException, HttpStatus, Injectable, UseGuards, Delete } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoryDto } from './dto/category.dto';
@@ -38,6 +38,11 @@ export class CategoriesController {
 
     @Get(':id')
     async findOne(@Param('id') id) {
+        return await this.categoriesService.findOneById(id);
+    }
+
+    @Delete(':id')
+    async destory(@Param('id') id) {
         return await this.categoriesService.findOneById(id);
     }
 }

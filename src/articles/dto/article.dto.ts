@@ -1,5 +1,5 @@
 import { IsString, IsInt, MinLength, Min, Max } from 'class-validator';
-export class CreateArticleDto {
+export class ArticleDto {
     @IsString()
     readonly title: string;
 
