@@ -24,7 +24,7 @@ export class UsersService {
 
     async match(condition: { username: string, password: string }): Promise<User> {
         const user = await this.userRepository.findOne({ username: condition.username });
-        if (await argon2.verify(user.password, condition.password)) {
+        if (user && await argon2.verify(user.password, condition.password)) {
             return user;
         }
     }
@@ -38,7 +38,7 @@ export class UsersService {
     }
 
     async update(id: number, object: object): Promise<any> {
-        return this.userRepository.update(id, object);
+        return await this.userRepository.update(id, object);
     }
 
     async changePassword(id: number, password: string): Promise<any> {

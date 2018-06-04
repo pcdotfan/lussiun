@@ -2,6 +2,7 @@ import { Injectable, Inject, Get, Body, Controller, UsePipes, UseGuards, Post, R
 import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
+import * as _ from 'lodash';
 
 @Injectable()
 @Controller('auth')
@@ -15,6 +16,12 @@ export class AuthController {
     @UseGuards(AuthGuard('jwt'))
     async user(@Req() request): Promise<object> {
         return { user: { id: request.user.id } };
+    }
+
+    @Get('profile')
+    @UseGuards(AuthGuard('jwt'))
+    async profile(@Req() request): Promise<object> {
+        return _.pick(request.user, ['username', 'nickname', 'email', 'introduction']);
     }
 
     @Post('login')
@@ -45,6 +52,7 @@ export class AuthController {
     }
 
     @Get('logout')
+    @UseGuards(AuthGuard('jwt'))
     async logout(): Promise<object> {
         return {
             message: 'OK',
