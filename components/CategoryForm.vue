@@ -7,21 +7,21 @@
         </div>
         <form class="uk-form-stacked">
           <div class="uk-margin">
-              <label class="uk-form-label" for="form-stacked-text">分类名称</label>
+              <label class="uk-form-label" for="name">分类名称</label>
               <div class="uk-form-controls">
-                <input class="uk-input" id="form-stacked-text" type="text" v-model="category.name">
+                <input class="uk-input" name="name" type="text" v-model="category.name">
               </div>
           </div>
           <div class="uk-margin">
-              <label class="uk-form-label" for="form-stacked-text">别名</label>
+              <label class="uk-form-label" for="slug">别名</label>
               <div class="uk-form-controls">
-                <input class="uk-input" id="form-stacked-text" type="text" v-model="category.slug">
+                <input class="uk-input" name="slug" type="text" v-model="category.slug">
               </div>
           </div>
           <div class="uk-margin">
-              <label class="uk-form-label" for="form-stacked-text">描述（可选）</label>
+              <label class="uk-form-label" for="description">描述（可选）</label>
               <div class="uk-form-controls">
-                <textarea class="uk-textarea" v-model="category.description"></textarea>
+                <textarea class="uk-textarea" name="description" v-model="category.description"></textarea>
               </div>
           </div>
         </form>
@@ -47,12 +47,13 @@ export default {
   },
   data () {
     return {
-      category: {},
+      category: {
+        name: '',
+        slug: '',
+        description: ''
+      },
       idCopied: this.id
     }
-  },
-  async mounted () {
-    this.category = await this.$axios.$get(`/categories/${this.id}`)
   },
   methods: {
     back () {
@@ -72,7 +73,7 @@ export default {
         console.log(error)
         this.$notify({
           title: '失败',
-          message: '出现内部错误',
+          message: '已存在相同别名目录',
           type: 'warning'
         })
       })

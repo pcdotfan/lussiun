@@ -33,7 +33,7 @@
                       </td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small"><img class="uk-margin-small-right uk-preserve-width uk-border-circle" :src="article.user.avatar" width="40">{{ article.user.nickname }}</td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small" v-text="article.category.name"></td>
-                      <td class="uk-table-shrink uk-text-nowrap uk-text-small" v-text="updatedAt(article.updatedAt)"></td>
+                      <td class="uk-table-shrink uk-text-nowrap uk-text-small" v-text="article.updatedAtFormatted"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -54,13 +54,13 @@ export default {
   data () {
     return {
       status: 0,
+      refetch: false,
       selection: []
     }
   },
   methods: {
-    updatedAt (date) {
-      let currentDate = this.$moment(date)
-      return currentDate.format('YYYY-MM-DD')
+    refresh () {
+      this.refetch = !this.refetch
     },
     changeStatus (s) {
       this.status = s
@@ -70,11 +70,16 @@ export default {
     }
   },
   asyncComputed: {
-    articles () {
-      return this.$axios.$get(`/articles/?status=${this.status}`)
+    articles: {
+      get() {
+        return this.$axios.$get(`/articles/?status=${this.status}`)
+      },
+      watch () {
+        return this.refetch
+      }
     }
   },
-  mounted () {
+  async mounted () {
     this.$store.commit('changeHero', {
       title: '文章',
       description: '屈平词赋悬日月，楚王台谢空山丘。',

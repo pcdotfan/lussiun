@@ -27,6 +27,7 @@
     "uikit": "^3.0.0-rc.2",
     "vue-async-computed": "^3.3.1",
     "vue-avatar-cropper": "^0.0.27",
+    "vue-loader": "13.7.2",
     "vue-simplemde": "^0.4.8",
     "vuex-router-sync": "^5.0.0",
     "vuikit": "^0.8.4"

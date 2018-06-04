@@ -15,7 +15,7 @@
               <form class="uk-form-stacked">
                 <vk-grid gutter="small" class="uk-child-width-1-2">
                   <div>
-                    <label class="uk-form-label" for="form-stacked-text">昵称（必填）</label>
+                    <label class="uk-form-label" for="form-stacked-text">昵称</label>
                     <div class="uk-form-controls">
                       <input class="uk-input" type="text" v-model="user.nickname">
                     </div>
@@ -46,13 +46,13 @@
                 <div class="uk-margin">
                   <label class="uk-form-label" for="form-stacked-text">个人简介</label>
                   <div class="uk-form-controls">
-                    <textarea class="uk-textarea" type="text" placeholder="Some text..." v-model="user.introduction"></textarea>
+                    <textarea class="uk-textarea" type="text" v-model="user.introduction"></textarea>
                   </div>
                 </div>
               </form>
               <div slot="footer">
                 <p class="uk-text-right">
-                  <button class="uk-button uk-button-primary" type="submit" @click="updateProfile()">保存资料</button>
+                  <button class="uk-button uk-button-primary" type="submit" @click="updateProfile">保存资料</button>
                 </p>
               </div>
             </vk-card>
@@ -81,7 +81,7 @@
               </form>
               <div slot="footer">
                 <p class="uk-text-right">
-                  <button class="uk-button uk-button-danger" type="submit" @click="changePassword()">修改密码</button>
+                  <button class="uk-button uk-button-danger" type="submit" @click="changePassword">修改密码</button>
                 </p>
               </div>
             </vk-card>
@@ -112,7 +112,7 @@ export default {
     }
   },
   async mounted () {
-    this.user = await this.$axios.$get('/auth/user/basicinfo')
+    this.user = await this.$axios.$get('/auth/profile')
     this.$store.commit('changeHero', {
       title: '个人资料',
       description: '从此无心爱良夜，任他明月下西楼。'
@@ -120,15 +120,15 @@ export default {
   },
   methods: {
     async updateProfile () {
-      const user = Object.assign(this.user, { id: this.$auth.user.id })
-      await this.$axios.$post('/user/update', user)
+      await this.$axios.$patch(`/users/${this.auth.user.id}`, this.user)
         .then(response => {
           this.$notify({
             title: '成功',
             message: '操作成功',
             type: 'success'
           })
-        }).catch(error => {
+        })
+        .catch(error => {
           console.log(error)
           this.$notify({
             title: '失败',
@@ -146,7 +146,7 @@ export default {
         })
         return
       }
-      await this.$axios.$post('/auth/user/changepassword', { password: this.password })
+      await this.$axios.$post('/auth/changepassword', { password: this.password })
         .then(response => {
           this.$notify({
             title: '成功',

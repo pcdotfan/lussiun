@@ -45,6 +45,7 @@ module.exports = {
     browserBaseURL: 'http://localhost:8080'
   },
   auth: {
+    fetchUserOnLogin: false,
     strategies: {
       local: {
         endpoints: {

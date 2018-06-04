@@ -110,7 +110,7 @@ export default {
     }
   },
   async mounted () {
-    this.user = await this.$axios.$get('/auth/user/basicinfo')
+    this.user = await this.$axios.$get('/auth/profile')
   },
   computed: {
     hero () {

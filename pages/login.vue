@@ -2,7 +2,7 @@
     <div class="auth-page uk-height-viewport uk-flex uk-flex-center uk-flex-middle uk-text-center">
         <div class="authenticate-box">
             <auth-tip ref="alert"></auth-tip>
-            <form @keydown.enter="login" v-on:submit.prevent="onSubmit">
+            <form @keydown.enter="login" v-on:submit.prevent>
               <div class="uk-card uk-card-default">
                 <div class="uk-card-body">
                     <div class="auth-item">
@@ -12,7 +12,7 @@
                         <input class="uk-input uk-width-1-1" type="password" name="password" v-model="user.password" placeholder="密码">
                     </div>
                 </div>
-                <button class="uk-button uk-button-primary uk-button-large uk-width-1-1" @click="login">登录</button>
+                <button class="uk-button uk-button-primary uk-button-large uk-width-1-1" @keyup.enter="login"  @click="login">登录</button>
               </div>
               <ul class="uk-list uk-light uk-text-small">
                 <li>
