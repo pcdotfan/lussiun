@@ -22,8 +22,11 @@ export class UsersService {
         return await this.userRepository.findOne({ id });
     }
 
-    async match(condition: object): Promise<User> {
-        return await this.userRepository.findOne(condition);
+    async match(condition: { username: string, password: string }): Promise<User> {
+        const user = await this.userRepository.findOne({ username: condition.username });
+        if (await argon2.verify(user.password, condition.password)) {
+            return user;
+        }
     }
 
     async where(condition: object): Promise<User[]> {

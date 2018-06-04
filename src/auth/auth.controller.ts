@@ -12,20 +12,25 @@ export class AuthController {
     ) { }
 
     @Get('user')
+    @UseGuards(AuthGuard('jwt'))
     async user(@Req() request): Promise<object> {
-        return request.user;
+        return { user: { id: request.user.id } };
     }
 
     @Post('login')
-    async login(@Body() body): Promise<any> {
+    async login(@Body() body): Promise<object> {
         const credentials = {
             username: body.username,
             password: body.password,
         };
-        const token = this.authService.createToken(credentials, body.remember);
-        if (token) {
-            return token;
+        const userMatched = await this.usersService.match(credentials);
+
+        if (userMatched) {
+            return {
+                token: await this.authService.createToken(userMatched.id, body.remember),
+            };
         }
+
         throw new HttpException('信息不匹配', HttpStatus.FORBIDDEN);
     }
 
