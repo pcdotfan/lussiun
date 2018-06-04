@@ -38,9 +38,7 @@ export class UsersService {
         const userExisted = await this.findOneById(id);
         if (userExisted) {
             userExisted.password = await argon2.hash(userExisted.password);
-            await this.userRepository.save(userExisted);
-
-            return userExisted;
+            return await this.userRepository.save(userExisted);
         }
     }
 }

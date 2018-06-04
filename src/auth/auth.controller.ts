@@ -30,4 +30,11 @@ export class UsersController {
         }
         throw new HttpException('未找到用户', HttpStatus.FORBIDDEN);
     }
+
+    @Get('logout')
+    async logout(): Promise<object> {
+        return {
+            message: 'OK',
+        };
+    }
 }
