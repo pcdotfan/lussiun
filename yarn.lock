@@ -111,6 +111,10 @@
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
 
+"@types/gravatar@^1.4.28":
+  version "1.4.28"
+  resolved "http://registry.npm.taobao.org/@types/gravatar/download/@types/gravatar-1.4.28.tgz#a83527c354b3bce265ef489facfbed34971f9b16"
+
 "@types/jest@^21.1.8":
   version "21.1.10"
   resolved "http://registry.npm.taobao.org/@types/jest/download/@types/jest-21.1.10.tgz#dcacb5217ddf997a090cc822bba219b4b2fd7984"

@@ -22,6 +22,10 @@ export class UsersService {
         return await this.userRepository.findOne({ id });
     }
 
+    async match(condition: object): Promise<User> {
+        return await this.userRepository.findOne(condition);
+    }
+
     async where(condition: object): Promise<User[]> {
         return await this.userRepository.find(condition);
     }

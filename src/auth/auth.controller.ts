@@ -21,6 +21,19 @@ export class UsersController {
         return request.user;
     }
 
+    @Post('login')
+    async login(@Body() body): Promise<any> {
+        const credentials = {
+            username: body.username,
+            password: body.password,
+        };
+        const token = this.authService.createToken(credentials, body.rememberMe);
+        if (token) {
+            return token;
+        }
+        throw new HttpException('信息不匹配', HttpStatus.FORBIDDEN);
+    }
+
     @Post('changepassword')
     @UseGuards(AuthGuard('jwt'))
     async changePassword(@Req() request, @Body() body): Promise<object> {
