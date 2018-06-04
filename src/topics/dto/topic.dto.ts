@@ -1,5 +1,5 @@
 import { IsString, IsInt, MinLength } from 'class-validator';
-export class CreateTopicDto {
+export class TopicDto {
     @IsString()
     readonly name: string;
 

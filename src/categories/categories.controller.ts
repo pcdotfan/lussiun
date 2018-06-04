@@ -1,4 +1,5 @@
-import { Controller, Get, Param, Patch, Post, Body, UsePipes, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Controller, Get, Param, Patch, Post, Body, UsePipes, HttpException, HttpStatus, Injectable, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoryDto } from './dto/category.dto';
 import { CategoriesService } from './categories.service';
@@ -18,22 +19,25 @@ export class CategoriesController {
     }
 
     @Post()
+    @UseGuards(AuthGuard('jwt'))
     @UsePipes(ValidationPipe)
     async create(@Body() categoryDto: CategoryDto) {
         const categoryExisted = await this.categoriesService.where({ slug: categoryDto.slug });
-        if (categoryExisted === []) {
+        if (categoryExisted) {
             return await this.categoriesService.create(categoryDto);
         }
 
         throw new HttpException('已存在相同信息分类', HttpStatus.FORBIDDEN);
     }
 
-    @Patch()
-    update() {
-
+    @Patch(':id')
+    @UseGuards(AuthGuard('jwt'))
+    async update(@Param() id: number, @Body() categoryDto: CategoryDto): Promise<Category> {
+        return await this.categoriesService.update(id, categoryDto);
     }
 
     @Get(':id')
-    findOne(@Param('id') id) {
+    async findOne(@Param('id') id) {
+        return await this.categoriesService.findOneById(id);
     }
 }
