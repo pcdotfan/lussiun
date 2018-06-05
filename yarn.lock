@@ -1238,12 +1238,12 @@ caniuse-api@^2.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000847"
-  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000847.tgz#ff4072a5468809fec0ae9ac3b4035ef891e5b144"
+  version "1.0.30000848"
+  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000848.tgz#e149c981c72aa20439e3bc12c7cf8b3f7e1237c6"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000792, caniuse-lite@^1.0.30000805, caniuse-lite@^1.0.30000808, caniuse-lite@^1.0.30000844:
-  version "1.0.30000847"
-  resolved "http://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30000847.tgz#be77f439be29bbc57ae08004b1e470b653b1ec1d"
+  version "1.0.30000848"
+  resolved "http://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30000848.tgz#ec9c0a72ec8f9ef812e4f4b8628625af9c85ade0"
 
 caseless@~0.11.0:
   version "0.11.0"
@@ -2975,8 +2975,8 @@ has-values@^1.0.0:
     kind-of "^4.0.0"
 
 has@^1.0.1:
-  version "1.0.2"
-  resolved "http://registry.npm.taobao.org/has/download/has-1.0.2.tgz#1a64bfe4b52e67fb87b9822503d97c019fb6ba42"
+  version "1.0.3"
+  resolved "http://registry.npm.taobao.org/has/download/has-1.0.3.tgz#722d7cbfc1f6aa8241f16dd814e011e1f41e8796"
   dependencies:
     function-bind "^1.1.1"
 
@@ -6497,8 +6497,8 @@ uglifyjs-webpack-plugin@^1.1.8:
     worker-farm "^1.5.2"
 
 uikit@^3.0.0-rc.2:
-  version "3.0.0-rc.4"
-  resolved "http://registry.npm.taobao.org/uikit/download/uikit-3.0.0-rc.4.tgz#a2011adf35d195ddc6be3ac4e0674b2feda4a756"
+  version "3.0.0-rc.5"
+  resolved "http://registry.npm.taobao.org/uikit/download/uikit-3.0.0-rc.5.tgz#c95fdf703982b8d919ba2db0036cff9fb15098b2"
 
 union-value@^1.0.0:
   version "1.0.0"
@@ -6642,6 +6642,10 @@ validate-npm-package-license@^3.0.1:
 vary@~1.1.2:
   version "1.1.2"
   resolved "http://registry.npm.taobao.org/vary/download/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
+
+vee-validate@^2.1.0-beta.1:
+  version "2.1.0-beta.1"
+  resolved "http://registry.npm.taobao.org/vee-validate/download/vee-validate-2.1.0-beta.1.tgz#4909d74bb22df7f188217a7bd5384610bc2d757c"
 
 vendors@^1.0.0:
   version "1.0.2"

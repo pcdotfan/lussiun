@@ -96,21 +96,23 @@
 </template>
 
 <style lang="less">
-@import "../assets/less/uikit.theme.less";
+    @import "../assets/less/uikit.theme.less";
 </style>
 
 <script>
 import Gravatar from 'gravatar'
+import BusyOverlay from '@/components/BusyOverLay'
 export default {
   name: 'Backend',
   middleware: ['auth'],
+  components: {
+    BusyOverlay
+  },
   data () {
     return {
-      user: {}
     }
   },
   async mounted () {
-    this.user = await this.$axios.$get('/auth/profile')
   },
   computed: {
     hero () {
@@ -118,7 +120,16 @@ export default {
     }
   },
   asyncComputed: {
-    avatar () {
+    user: {
+      async get () {
+        return this.$axios.$get('/auth/profile')
+      },
+      default: {
+        nickname: '',
+        email: ''
+      }
+    },
+    async avatar () {
       return Gravatar.url(this.user.email, { s: '32' })
     }
   }

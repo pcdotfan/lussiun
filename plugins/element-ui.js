@@ -10,9 +10,9 @@ import {
   Checkbox,
   CheckboxButton,
   CheckboxGroup,
-  Select,
   Option,
   OptionGroup,
+  Select,
   Button,
   ButtonGroup,
   DatePicker,
@@ -33,6 +33,8 @@ Vue.use(Input)
 Vue.use(InputNumber)
 Vue.use(Radio)
 Vue.use(RadioGroup)
+Vue.use(Option)
+Vue.use(OptionGroup)
 Vue.use(RadioButton)
 Vue.use(Checkbox)
 Vue.use(CheckboxButton)

@@ -55,7 +55,13 @@ export default {
   layout: 'backend',
   data () {
     return {
-      article: {},
+      article: {
+        title: '',
+        slug: '',
+        content: '',
+        categoryId: '请选择',
+        status: 2
+      },
       topicsSelected: [],
       topics: [],
       statuses: [
@@ -85,7 +91,7 @@ export default {
   },
   methods: {
     async updateArticle () {
-      await this.$axios.$patch('/articles', this.article)
+      await this.$axios.$patch(`/articles/${this.article.id}`, this.article)
         .then(response => {
           this.$notify({
             title: '成功',

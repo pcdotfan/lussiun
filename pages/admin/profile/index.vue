@@ -15,44 +15,34 @@
               <form class="uk-form-stacked">
                 <vk-grid gutter="small" class="uk-child-width-1-2">
                   <div>
-                    <label class="uk-form-label" for="form-stacked-text">昵称</label>
+                    <label class="uk-form-label" for="nickname">昵称</label>
                     <div class="uk-form-controls">
-                      <input class="uk-input" type="text" v-model="user.nickname">
+                      <input class="uk-input" type="text" name="nickname" v-model="user.nickname">
+                    </div>
+                  </div>
+                  <div>
+                    <label class="uk-form-label" for="username">用户名</label>
+                    <div class="uk-form-controls">
+                      <input class="uk-input" type="text" name="username" :value="user.username" disabled>
                     </div>
                   </div>
                 </vk-grid>
                 <div class="uk-margin">
-                  <label class="uk-form-label" for="form-stacked-text">E-Mail</label>
+                  <label class="uk-form-label" for="email">E-Mail</label>
                   <div class="uk-form-controls">
-                    <input class="uk-input" type="email" v-model="user.email">
+                    <input class="uk-input" type="email" name="email" v-model="user.email">
                   </div>
                 </div>
-                <!--
-                <div class="uk-grid-small uk-child-width-1-2" uk-grid>
-                  <div>
-                    <label class="uk-form-label" for="form-stacked-text">微博用户名</label>
-                    <div class="uk-form-controls">
-                      <input class="uk-input" type="text">
-                    </div>
-                  </div>
-                  <div>
-                    <label class="uk-form-label" for="form-stacked-text">微博个人页面</label>
-                    <div class="uk-form-controls">
-                      <input class="uk-input" type="text">
-                    </div>
-                  </div>
-                </div>
-                -->
                 <div class="uk-margin">
-                  <label class="uk-form-label" for="form-stacked-text">个人简介</label>
+                  <label class="uk-form-label" for="introduction">个人简介</label>
                   <div class="uk-form-controls">
-                    <textarea class="uk-textarea" type="text" v-model="user.introduction"></textarea>
+                    <textarea class="uk-textarea" name="introduction" type="text" v-model="user.introduction"></textarea>
                   </div>
                 </div>
               </form>
               <div slot="footer">
                 <p class="uk-text-right">
-                  <button class="uk-button uk-button-primary" type="submit" @click="updateProfile">保存资料</button>
+                  <button class="uk-button uk-button-primary" @click="updateProfile">保存资料</button>
                 </p>
               </div>
             </vk-card>
@@ -81,7 +71,7 @@
               </form>
               <div slot="footer">
                 <p class="uk-text-right">
-                  <button class="uk-button uk-button-danger" type="submit" @click="changePassword">修改密码</button>
+                  <button class="uk-button uk-button-danger" @click="changePassword">修改密码</button>
                 </p>
               </div>
             </vk-card>
@@ -96,7 +86,12 @@ export default {
   layout: 'backend',
   data () {
     return {
-      user: {},
+      user: {
+        username: '',
+        introduction: '',
+        nickname: '',
+        email: ''
+      },
       password: '',
       password_confirmation: ''
     }
@@ -120,7 +115,7 @@ export default {
   },
   methods: {
     async updateProfile () {
-      await this.$axios.$patch(`/users/${this.auth.user.id}`, this.user)
+      return this.$axios.$patch(`/users/${this.auth.user.id}`, this.user)
         .then(response => {
           this.$notify({
             title: '成功',
@@ -128,8 +123,7 @@ export default {
             type: 'success'
           })
         })
-        .catch(error => {
-          console.log(error)
+        .catch(() => {
           this.$notify({
             title: '失败',
             message: '出现内部错误',
@@ -139,11 +133,7 @@ export default {
     },
     async changePassword () {
       if (this.password !== this.password_confirmation) {
-        this.$notify({
-          title: '失败',
-          message: '新密码与确认密码不一致',
-          type: 'warning'
-        })
+        this.$message.error('新密码与确认密码不一致')
         return
       }
       await this.$axios.$post('/auth/changepassword', { password: this.password })

@@ -1,6 +1,5 @@
 <template>
   <main class="uk-container uk-container-small uk-margin-top">
-
     <div class="article-new-edit">
         <vk-card>
           <div slot="header">
@@ -35,7 +34,7 @@
               </div>
               <div>
                 <label class="uk-form-label" for="categories">分类目录</label>
-                <el-select v-model="article.categoryId" placeholder="选择一个分类目录">
+                <el-select v-model="article.categoryId" name="categories" placeholder="选择一个分类目录">
                   <el-option
                     v-for="category in categories"
                     :key="category.id"
@@ -63,8 +62,8 @@ export default {
         status: 1,
         content: '',
         slug: '',
-        topics: [],
-        createdAt: ''
+        createdAt: '',
+        userId: this.$auth.user.id
       },
       statuses: [
         {
@@ -88,10 +87,7 @@ export default {
   },
   asyncComputed: {
     async categories () {
-      const categories = await this.$axios.$get('/categories')
-      this.article.category = categories[0].id
-
-      return categories
+      return this.$axios.$get('/categories')
     }
   },
   methods: {
@@ -113,7 +109,6 @@ export default {
     }
   },
   async mounted () {
-    // this.topics = await this.$axios.$get('/topics')
     this.$store.commit('changeHero', {
       title: '撰写文章',
       description: '词源倒流三江水，笔阵独扫千人军。',

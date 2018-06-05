@@ -33,7 +33,7 @@
                       </td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small"><img class="uk-margin-small-right uk-preserve-width uk-border-circle" :src="article.user.avatar" width="40">{{ article.user.nickname }}</td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small" v-text="article.category.name"></td>
-                      <td class="uk-table-shrink uk-text-nowrap uk-text-small" v-text="article.updatedAtFormatted"></td>
+                      <td class="uk-table-shrink uk-text-nowrap uk-text-small" v-text="getFormattedDate(article.updateAt)"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -48,6 +48,7 @@
     </main>
 </template>
 <script>
+const moment = require('moment')
 export default {
   name: 'ArticlesIndex',
   layout: 'backend',
@@ -67,11 +68,14 @@ export default {
     },
     isActive (s) {
       return s === this.status
+    },
+    getFormattedDate (date) {
+      return moment(date).format('YYYY-MM-DD')
     }
   },
   asyncComputed: {
     articles: {
-      get() {
+      get () {
         return this.$axios.$get(`/articles/?status=${this.status}`)
       },
       watch () {

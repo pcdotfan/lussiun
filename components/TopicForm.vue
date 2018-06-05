@@ -6,24 +6,24 @@
           <h4 v-else>编辑话题</h4>
         </div>
         <form class="uk-form-stacked">
-        <div class="uk-margin">
-            <label class="uk-form-label" for="form-stacked-text">话题名称</label>
-            <div class="uk-form-controls">
-              <input class="uk-input" id="form-stacked-text" type="text" v-model="topic.name">
-            </div>
-        </div>
-        <div class="uk-margin">
-            <label class="uk-form-label" for="form-stacked-text">别名</label>
-            <div class="uk-form-controls">
-              <input class="uk-input" id="form-stacked-text" type="text" v-model="topic.slug">
-            </div>
-        </div>
-        <div class="uk-margin">
-            <label class="uk-form-label" for="form-stacked-text">描述（可选）</label>
-            <div class="uk-form-controls">
-              <textarea class="uk-textarea" v-model="topic.description"></textarea>
-            </div>
-        </div>
+          <div class="uk-margin">
+              <label class="uk-form-label" for="name">话题名称</label>
+              <div class="uk-form-controls">
+                <input class="uk-input" name="name" type="text" v-model="topic.name">
+              </div>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label" for="slug">别名</label>
+              <div class="uk-form-controls">
+                <input class="uk-input" name="slug" type="text" v-model="topic.slug">
+              </div>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label" for="description">描述（可选）</label>
+              <div class="uk-form-controls">
+                <textarea class="uk-textarea" name="description" v-model="topic.description"></textarea>
+              </div>
+          </div>
         </form>
         <div slot="footer">
           <p class="uk-text-right" v-if="!idCopied">
@@ -50,9 +50,6 @@ export default {
       topic: {},
       idCopied: this.id
     }
-  },
-  async mounted () {
-    this.topic = await this.$axios.$get(`/topics/${this.id}`)
   },
   methods: {
     back () {
