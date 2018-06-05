@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Patch, Post, Req, Body, UsePipes, HttpException, HttpStatus, Injectable, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Patch, Post, Req, Body, UsePipes, HttpException, HttpStatus, Injectable, UseGuards, Delete } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ArticleDto } from './dto/article.dto';
 import { ArticlesService } from './articles.service';
@@ -39,7 +39,7 @@ export class ArticlesController {
     @Post()
     @UseGuards(AuthGuard('jwt'))
     @UsePipes(ValidationPipe)
-    async create(@Req() request, @Body() articleDto: ArticleDto) {
+    async create(@Req() request, @Body() articleDto: ArticleDto): Promise<Article> {
         const articleExisted =
             await this.articlesService.where({ slug: articleDto.slug });
 
@@ -50,19 +50,27 @@ export class ArticlesController {
         throw new HttpException('已存在相同别名的文章', HttpStatus.FORBIDDEN);
     }
 
-    @Patch()
-    update() {
-
+    @Patch(':id')
+    @UseGuards(AuthGuard('jwt'))
+    @UsePipes(ValidationPipe)
+    async update(@Param('id') id, @Body() articleDto: ArticleDto): Promise<object> {
+        return await this.articlesService.update(id, articleDto);
     }
 
     @Get('mock')
-    async mock() {
+    async mock(): Promise<string> {
         await this.articlesService.mock(20, 6, 2);
         return 'done';
     }
 
     @Get(':id')
-    findOne(@Param('id') id) {
+    async findOne(@Param('id') id): Promise<Article> {
+        return await this.articlesService.findOneById(id);
+    }
+
+    @Delete(':id')
+    async destory(@Param('id') id): Promise<any> {
+        return await this.articlesService.destroy(id);
     }
 
 }

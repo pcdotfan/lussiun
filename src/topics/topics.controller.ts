@@ -30,17 +30,17 @@ export class TopicsController {
 
     @Patch(':id')
     @UseGuards(AuthGuard('jwt'))
-    async update(@Param() id: number, @Body() topicDto: TopicDto): Promise<Topic> {
+    async update(@Param() id: number, @Body() topicDto: TopicDto): Promise<object> {
         return await this.topicsService.update(id, topicDto);
     }
 
     @Get(':id')
-    async findOne(@Param('id') id) {
+    async findOne(@Param('id') id): Promise<Topic> {
         return await this.topicsService.findOneById(id);
     }
 
     @Delete(':id')
-    async destory(@Param('id') id) {
-        return await this.topicsService.findOneById(id);
+    async destory(@Param('id') id): Promise<any> {
+        return await this.topicsService.destroy(id);
     }
 }
