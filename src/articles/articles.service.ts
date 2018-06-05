@@ -1,14 +1,19 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UsersService } from '../users/users.service';
+import { CategoriesService } from '../categories/categories.service';
 import { ArticleDto } from './dto/article.dto';
 import { Article } from './article.entity';
+import * as faker from 'faker';
 
 @Injectable()
 export class ArticlesService {
     constructor(
         @InjectRepository(Article)
         private readonly articleRepository: Repository<Article>,
+        private readonly usersService: UsersService,
+        private readonly categoriesService: CategoriesService,
     ) { }
 
     async findOneById(id: number): Promise<Article> {
@@ -38,5 +43,25 @@ export class ArticlesService {
 
     async destroy(id: number): Promise<any> {
         await this.articleRepository.delete(id);
+    }
+
+    async mock(count: number, userId: number, categoryId: number): Promise<any> {
+        for (let i = 0; i <= count; i++) {
+            const structure = {
+                title: faker.lorem.sentence(),
+                content: faker.lorem.paragraphs(),
+                status: this.getRandomInt(-1, 2),
+                categoryId,
+                slug: faker.lorem.word(),
+                userId,
+            };
+            const newArticle = this.create(structure);
+        }
+    }
+
+    getRandomInt(min, max): number {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
     }
 }

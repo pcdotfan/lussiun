@@ -1,4 +1,5 @@
 import { IsString, IsInt, MinLength, Min, Max } from 'class-validator';
+
 export class ArticleDto {
     @IsString()
     readonly title: string;
@@ -11,6 +12,8 @@ export class ArticleDto {
 
     @IsInt()
     readonly categoryId: number;
+
+    readonly userId: number;
 
     @IsInt()
     @Min(-1)

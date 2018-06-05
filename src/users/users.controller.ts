@@ -30,8 +30,9 @@ export class UsersController {
 
     @Patch(':id')
     @UseGuards(AuthGuard('jwt'))
-    async update(@Param() id: number, @Body() updateUserDto: UpdateUserDto): Promise<User> {
-        return await this.usersService.update(id, updateUserDto);
+    async update(@Param() id: number, @Body() updateUserDto: UpdateUserDto): Promise<any> {
+        await this.usersService.update(id, updateUserDto);
+        return;
     }
 
 }
