@@ -115,7 +115,7 @@ export default {
   },
   methods: {
     async updateProfile () {
-      return this.$axios.$patch(`/users/${this.auth.user.id}`, this.user)
+      return this.$axios.$patch(`/users/${this.$auth.user.id}`, this.user)
         .then(response => {
           this.$notify({
             title: '成功',

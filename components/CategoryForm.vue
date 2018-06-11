@@ -27,11 +27,11 @@
         </form>
         <div slot="footer">
           <p class="uk-text-right" v-if="!idCopied">
-            <vk-button type="primary" @click="addCategory">发布话题</vk-button>
+            <vk-button type="primary" @click="addCategory">发布分类</vk-button>
           </p>
           <p class="uk-text-right" v-else>
             <vk-button type="secondary" @click="back">返回</vk-button>
-            <vk-button class="uk-margin-small-left" type="primary" @click="updateCategory">更新话题</vk-button>
+            <vk-button class="uk-margin-small-left" type="primary" @click="updateCategory">更新分类</vk-button>
           </p>
         </div>
     </vk-card>

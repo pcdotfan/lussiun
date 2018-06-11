@@ -29,7 +29,7 @@ module.exports = {
     '@/plugins/vue-async-computed',
     '@/plugins/vuikit',
     { src: '@/plugins/element-ui', ssr: false },
-    { src: '@plugins/simplemde.js', ssr: false }
+    { src: '@/plugins/simplemde.js', ssr: false }
   ],
   router: {
     linkActiveClass: 'uk-active',
