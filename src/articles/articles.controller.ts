@@ -1,13 +1,21 @@
-import { Controller, Get, Param, Patch, Post, Req, Body, UsePipes, HttpException, HttpStatus, Injectable, UseGuards, Delete } from '@nestjs/common';
+import { Controller,
+    Get,
+    Param,
+    Patch,
+    Post,
+    Req,
+    Body, UsePipes, HttpException, HttpStatus, Injectable, UseGuards, Delete, UseInterceptors, FileInterceptor, UploadedFile } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ArticleDto } from './dto/article.dto';
 import { ArticlesService } from './articles.service';
 import { UsersService } from '../users/users.service';
 import { CategoriesService } from '../categories/categories.service';
+import { ConfigService } from '../config/config.service';
 import { Article } from './article.entity';
 import { ValidationPipe } from '../validation.pipe';
 import * as _ from 'lodash';
 import * as gravatar from 'gravatar';
+import * as Qiniu from 'node-qiniu-sdk';
 
 @Injectable()
 @Controller('articles')
@@ -16,6 +24,7 @@ export class ArticlesController {
         private readonly articlesService: ArticlesService,
         private readonly usersService: UsersService,
         private readonly categoriesService: CategoriesService,
+        private config: ConfigService,
     ) { }
 
     @Get()
@@ -71,6 +80,29 @@ export class ArticlesController {
     @Delete(':id')
     async destory(@Param('id') id): Promise<any> {
         return await this.articlesService.destroy(id);
+    }
+
+    @Post('upload')
+    // 暂时只允许图片上传
+    @UseInterceptors(FileInterceptor('file', {
+        limits: {
+            files: 1,
+            fileSize: 2 * 10 * 10 * 10 * 10 * 10 * 10 * 10, // 限制图片大小
+        },
+        fileFilter (req, file, callback) {
+            // 只允许上传jpg|png|jpeg|gif格式的文件
+            if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+                return callback(new Error('仅允许上传图片文件！'), false);
+            }
+            callback(null, true);
+        },
+    }))
+    async upload(@UploadedFile() image) {
+        const qiniuService = new Qiniu(this.config.get('QINIU_AK'), this.config.get('QINIU_SK'));
+        const bucket = this.config.get('QINIU_BUCKET');
+        const fileService = qiniuService.file(`${bucket}:${image.originalname}`);
+        fileService.zone = this.config.get('QINIU_ZONE');
+        return await fileService.upload({ stream: image.buffer });
     }
 
 }
