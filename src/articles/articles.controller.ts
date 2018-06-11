@@ -52,7 +52,7 @@ export class ArticlesController {
         const articleExisted =
             await this.articlesService.where({ slug: articleDto.slug });
 
-        if (!articleExisted) {
+        if (articleExisted === []) {
             return await this.articlesService.create(articleDto);
         }
 
@@ -67,8 +67,8 @@ export class ArticlesController {
     }
 
     @Get('mock')
-    async mock(): Promise<string> {
-        await this.articlesService.mock(20, 6, 2);
+    async mock(): Promise<any> {
+        // await this.articlesService.mock(20, 6, 2);
         return 'done';
     }
 
@@ -100,9 +100,12 @@ export class ArticlesController {
     async upload(@UploadedFile() image) {
         const qiniuService = new Qiniu(this.config.get('QINIU_AK'), this.config.get('QINIU_SK'));
         const bucket = this.config.get('QINIU_BUCKET');
+        const baseUrl = this.config.get('QINIU_URL');
         const fileService = qiniuService.file(`${bucket}:${image.originalname}`);
         fileService.zone = this.config.get('QINIU_ZONE');
-        return await fileService.upload({ stream: image.buffer });
+        let fileUploaded =  await fileService.upload({ stream: image.buffer });
+        const url = `${baseUrl}/${fileUploaded.key}`;
+        fileUploaded = _.assign(fileUploaded, { url });
+        return fileUploaded;
     }
-
 }

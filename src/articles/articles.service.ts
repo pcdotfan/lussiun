@@ -6,6 +6,7 @@ import { CategoriesService } from '../categories/categories.service';
 import { ArticleDto } from './dto/article.dto';
 import { Article } from './article.entity';
 import * as faker from 'faker';
+import * as _ from 'lodash';
 
 @Injectable()
 export class ArticlesService {
@@ -32,12 +33,12 @@ export class ArticlesService {
         return await this.articleRepository.find();
     }
 
-    async create(articleDto: ArticleDto): Promise<Article> {
+    async create(articleDto: ArticleDto): Promise< Article> {
         const newArticle = await this.articleRepository.create(articleDto);
         return this.articleRepository.save(newArticle);
     }
 
-    async update(id: number, articleDto: ArticleDto): Promise<any> {
+    async update(id: number, articleDto: ArticleDto): Promise < any> {
         await this.articleRepository.update(id, articleDto);
     }
 
@@ -45,16 +46,17 @@ export class ArticlesService {
         await this.articleRepository.delete(id);
     }
 
-    async mock(count: number, userId: number, categoryId: number): Promise<any> {
+    /*
+    async mock(count: number, userId: number, category: number): Promise<any> {
         for (let i = 0; i <= count; i++) {
             const structure = {
                 title: faker.lorem.sentence(),
                 content: faker.lorem.paragraphs(),
                 status: this.getRandomInt(-1, 2),
-                categoryId,
+                category,
                 slug: faker.lorem.word(),
                 userId,
-            };
+            }
             const newArticle = this.create(structure);
         }
     }
@@ -64,4 +66,5 @@ export class ArticlesService {
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min;
     }
+    */
 }
