@@ -16,7 +16,7 @@
                   <tr v-for="category in categories" :key="category.id">
                     <td v-text="category.name"></td>
                     <td v-text="category.slug"></td>
-                    <td>{{ category.id }}</td>
+                    <td v-text="category.count"></td>
                     <td>
                       <vk-iconnav>
                         <vk-iconnav-item @click="editCategory(category.id)" icon="file-edit"></vk-iconnav-item>

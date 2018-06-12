@@ -24,27 +24,11 @@
                             </div>
                             </a>
                         </router-link>
-                        <router-link tag="li" to="/admin/topics">
-                            <a>
-                            <div class="">
-                                话题
-                                <div class="uk-navbar-subtitle">Topics</div>
-                            </div>
-                            </a>
-                        </router-link>
                         <router-link tag="li" to="/admin/category">
                             <a>
                             <div class="">
                                 分类目录
                                 <div class="uk-navbar-subtitle">Category</div>
-                            </div>
-                            </a>
-                        </router-link>
-                        <router-link tag="li" to="/admin/settings">
-                            <a>
-                            <div class="">
-                                设置
-                                <div class="uk-navbar-subtitle">Settings</div>
                             </div>
                             </a>
                         </router-link>

@@ -23,7 +23,7 @@
               </div>
               <div>
                 <label class="uk-form-label" for="status">状态</label>
-                <el-select v-model="article.status" name="status" placeholder="选择文章状态">
+                <el-select v-model="article.status" v-validate="'required|min:-1|max:2'" data-vv-as="状态" name="status" placeholder="选择文章状态">
                   <el-option
                     v-for="status in statuses"
                     :key="status.id"
@@ -34,7 +34,7 @@
               </div>
               <div>
                 <label class="uk-form-label" for="categories">分类目录</label>
-                <el-select v-model="article.category" v-validate="'required'" data-vv-as="内容" name="categories" placeholder="选择一个分类目录">
+                <el-select v-model="article.categoryId" v-validate="'required'" data-vv-as="分类目录" name="categories" placeholder="选择一个分类目录">
                   <el-option
                     v-for="category in categories"
                     :key="category.id"
@@ -59,7 +59,7 @@ export default {
       topics: [],
       article: {
         title: '',
-        category: '请选择',
+        categoryId: '请选择',
         status: 1,
         content: '',
         slug: '',
@@ -110,7 +110,7 @@ export default {
         }).catch(e => {
           this.$notify({
             title: '失败',
-            message: e.data.message,
+            message: e.data.message || '内部服务器错误',
             type: 'warning'
           })
         })
