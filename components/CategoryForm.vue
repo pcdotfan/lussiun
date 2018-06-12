@@ -70,10 +70,9 @@ export default {
           type: 'success'
         })
       }).catch(e => {
-        console.log(e.data)
         this.$notify({
           title: '失败',
-          message: '已存在相同别名目录',
+          message: e.data.message,
           type: 'warning'
         })
       })
@@ -87,11 +86,10 @@ export default {
           message: '操作成功',
           type: 'success'
         })
-      }).catch(error => {
-        console.log(error)
+      }).catch(e => {
         this.$notify({
           title: '失败',
-          message: '出现内部错误',
+          message: e.data.message,
           type: 'warning'
         })
       })

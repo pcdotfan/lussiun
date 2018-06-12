@@ -100,10 +100,10 @@ export default {
             message: '操作成功',
             type: 'success'
           })
-        }).catch((e) => {
+        }).catch(e => {
           this.$notify({
             title: '失败',
-            message: '已存在相同别名文章',
+            message: e.data.message,
             type: 'warning'
           })
         })

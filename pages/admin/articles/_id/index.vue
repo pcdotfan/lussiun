@@ -98,10 +98,10 @@ export default {
             message: '操作成功',
             type: 'success'
           })
-        }).catch(() => {
+        }).catch(e => {
           this.$notify({
             title: '失败',
-            message: '出现内部错误',
+            message: e.data.message,
             type: 'warning'
           })
         })

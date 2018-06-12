@@ -113,16 +113,24 @@ export default {
       preview.className = `editor-preview ${className}`
       wrapper.appendChild(preview)
     },
+    getFileExtension (str) {
+      return str.split('.').pop()
+    },
     async uploadImage (simplemde, file) {
       let param = new FormData()
       param.append('file', file, file.name)
       return this.$axios.post('/articles/upload', param)
         .then(response => {
           // todo: error
-          console.log(response.data)
           let url = `![](${response.data.url})`  // 拼接成markdown语法
           let content = simplemde.getValue()
           simplemde.setValue(content + '\n' + url)  // 和编辑框之前的内容进行拼接
+        })
+        .catch(e => {
+          this.$message({
+            type: 'warning',
+            message: e.data.message
+          })
         })
         // 服务端返回的格式是{state: Boolean, data: String}
         // state为false时，data就是返回的错误信息

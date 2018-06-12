@@ -25,6 +25,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '@/plugins/axios',
     { src: '@/plugins/vuex-router-sync', ssr: false },
     '@/plugins/vue-async-computed',
     '@/plugins/vuikit',
