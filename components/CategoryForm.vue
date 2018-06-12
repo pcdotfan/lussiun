@@ -69,8 +69,8 @@ export default {
           message: '操作成功',
           type: 'success'
         })
-      }).catch(error => {
-        console.log(error)
+      }).catch(e => {
+        console.log(e.data)
         this.$notify({
           title: '失败',
           message: '已存在相同别名目录',

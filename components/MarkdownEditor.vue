@@ -87,6 +87,24 @@ export default {
       this.simplemde.codemirror.on('change', () => {
         this.$emit('input', this.simplemde.value())
       })
+      this.simplemde.codemirror.on('paste', (editor, e) => { // 粘贴图片的触发函数
+        if (!(e.clipboardData && e.clipboardData.items)) {
+          // 弹窗说明，此浏览器不支持此操作
+          return
+        }
+        try {
+          let data = e.clipboardData.items[0]
+          console.log(data)
+          if (data.kind === 'file' && data.getAsFile().type.indexOf('image') !== -1) {
+            this.uploadImage(this.simplemde.codemirror, data.getAsFile())
+          }
+        } catch (e) {
+          this.$message({
+            type: 'error',
+            message: '粘贴图片格式错误'
+          })
+        }
+      })
     },
     addPreviewClass (className) {
       const wrapper = this.simplemde.codemirror.getWrapperElement()
@@ -94,6 +112,22 @@ export default {
       wrapper.nextSibling.className += ` ${className}`
       preview.className = `editor-preview ${className}`
       wrapper.appendChild(preview)
+    },
+    async uploadImage (simplemde, file) {
+      let param = new FormData()
+      param.append('file', file, file.name)
+      return this.$axios.post('/articles/upload', param)
+        .then(response => {
+          // todo: error
+          console.log(response.data)
+          let url = `![](${response.data.url})`  // 拼接成markdown语法
+          let content = simplemde.getValue()
+          simplemde.setValue(content + '\n' + url)  // 和编辑框之前的内容进行拼接
+        })
+        // 服务端返回的格式是{state: Boolean, data: String}
+        // state为false时，data就是返回的错误信息
+        // state为true时，data是图片上传后url地址，这个地址是针对网站的绝对路径。如下：
+        // /static/upload/2cfd6a50-3d30-11e8-b351-0d25ce9162a3.png
     }
   },
   destroyed () {

@@ -34,7 +34,7 @@
               </div>
               <div>
                 <label class="uk-form-label" for="categories">分类目录</label>
-                <el-select v-model="article.categoryId" name="categories" placeholder="选择一个分类目录">
+                <el-select v-model="article.category" name="categories" placeholder="选择一个分类目录">
                   <el-option
                     v-for="category in categories"
                     :key="category.id"
@@ -50,6 +50,7 @@
   </main>
 </template>
 <script>
+const _ = require('lodash')
 export default {
   name: 'New',
   layout: 'backend',
@@ -58,7 +59,7 @@ export default {
       topics: [],
       article: {
         title: '',
-        categoryId: '请选择',
+        category: '请选择',
         status: 1,
         content: '',
         slug: '',
@@ -92,17 +93,17 @@ export default {
   },
   methods: {
     async createArticle () {
-      await this.$axios.$post('/articles', this.article)
+      await this.$axios.$post('/articles', _.assign(this.article, { user: this.$auth.user.id }))
         .then(response => {
           this.$notify({
             title: '成功',
             message: '操作成功',
             type: 'success'
           })
-        }).catch(() => {
+        }).catch((e) => {
           this.$notify({
             title: '失败',
-            message: '出现内部错误',
+            message: '已存在相同别名文章',
             type: 'warning'
           })
         })
