@@ -39,6 +39,9 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth',
+    ['nuxt-validate', {
+      lang: 'zh_CN'
+    }],
     ['@nuxtjs/moment', ['zh-cn']]
   ],
   axios: {

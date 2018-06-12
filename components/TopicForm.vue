@@ -9,13 +9,13 @@
           <div class="uk-margin">
               <label class="uk-form-label" for="name">话题名称</label>
               <div class="uk-form-controls">
-                <input class="uk-input" name="name" type="text" v-model="topic.name">
+                <input class="uk-input" name="name" v-validate="'required'" type="text" v-model="topic.name">
               </div>
           </div>
           <div class="uk-margin">
               <label class="uk-form-label" for="slug">别名</label>
               <div class="uk-form-controls">
-                <input class="uk-input" name="slug" type="text" v-model="topic.slug">
+                <input class="uk-input" name="slug" v-validate="'required|alpha_dash'" type="text" v-model="topic.slug">
               </div>
           </div>
           <div class="uk-margin">
@@ -57,6 +57,13 @@ export default {
       this.topic = {}
     },
     async addTopic () {
+      if (this.errors.items.length !== 0) {
+        this.$message({
+          message: this.errors.items[0].msg,
+          type: 'warning'
+        })
+        return
+      }
       return this.$axios.$post('/topics', this.topic)
       .then(response => {
         this.$emit('refresh-event')
@@ -74,6 +81,13 @@ export default {
       })
     },
     async updateTopic () {
+      if (this.errors.items.length !== 0) {
+        this.$message({
+          message: this.errors.items[0].msg,
+          type: 'warning'
+        })
+        return
+      }
       return this.$axios.$patch(`/topics/${this.id}`, this.topic)
       .then(response => {
         this.$emit('refresh-event')

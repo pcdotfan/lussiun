@@ -4322,6 +4322,12 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/number-is-nan/download/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
+nuxt-validate@^0.1.1:
+  version "0.1.1"
+  resolved "http://registry.npm.taobao.org/nuxt-validate/download/nuxt-validate-0.1.1.tgz#55d827783b2f9f51c81aeaa2f2e28474fddee8f4"
+  dependencies:
+    vee-validate "^2.0.4"
+
 nuxt@^1.4.1:
   version "1.4.1"
   resolved "http://registry.npm.taobao.org/nuxt/download/nuxt-1.4.1.tgz#78d268c2787b372d835511784a6af2a02ad4c5f3"
@@ -6692,6 +6698,10 @@ validate-npm-package-license@^3.0.1:
 vary@~1.1.2:
   version "1.1.2"
   resolved "http://registry.npm.taobao.org/vary/download/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
+
+vee-validate@^2.0.4:
+  version "2.0.9"
+  resolved "http://registry.npm.taobao.org/vee-validate/download/vee-validate-2.0.9.tgz#948a96572d9e2369d5cb217a84269ecf6c1f9a11"
 
 vee-validate@^2.1.0-beta.1:
   version "2.1.0-beta.1"

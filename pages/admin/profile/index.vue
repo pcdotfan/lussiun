@@ -17,7 +17,7 @@
                   <div>
                     <label class="uk-form-label" for="nickname">昵称</label>
                     <div class="uk-form-controls">
-                      <input class="uk-input" type="text" name="nickname" v-model="user.nickname">
+                      <input class="uk-input" type="text" v-validate="'required'" name="nickname" v-model="user.nickname">
                     </div>
                   </div>
                   <div>
@@ -30,7 +30,7 @@
                 <div class="uk-margin">
                   <label class="uk-form-label" for="email">E-Mail</label>
                   <div class="uk-form-controls">
-                    <input class="uk-input" type="email" name="email" v-model="user.email">
+                    <input class="uk-input" type="email" v-validate="'required|email'" name="email" v-model="user.email">
                   </div>
                 </div>
                 <div class="uk-margin">
@@ -115,6 +115,13 @@ export default {
   },
   methods: {
     async updateProfile () {
+      if (this.errors.items.length !== 0) {
+        this.$message({
+          message: this.errors.items[0].msg,
+          type: 'warning'
+        })
+        return
+      }
       return this.$axios.$patch(`/users/${this.$auth.user.id}`, this.user)
         .then(response => {
           this.$notify({

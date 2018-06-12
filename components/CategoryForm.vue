@@ -9,13 +9,13 @@
           <div class="uk-margin">
               <label class="uk-form-label" for="name">分类名称</label>
               <div class="uk-form-controls">
-                <input class="uk-input" name="name" type="text" v-model="category.name">
+                <input class="uk-input" v-validate="'required'" name="name" type="text" v-model="category.name">
               </div>
           </div>
           <div class="uk-margin">
               <label class="uk-form-label" for="slug">别名</label>
               <div class="uk-form-controls">
-                <input class="uk-input" name="slug" type="text" v-model="category.slug">
+                <input class="uk-input" v-validate="'required|alpha_dash'" name="slug" type="text" v-model="category.slug">
               </div>
           </div>
           <div class="uk-margin">
@@ -61,6 +61,13 @@ export default {
       this.category = {}
     },
     async addCategory () {
+      if (this.errors.items.length !== 0) {
+        this.$message({
+          message: this.errors.items[0].msg,
+          type: 'warning'
+        })
+        return
+      }
       return this.$axios.$post('/categories', this.category)
       .then(response => {
         this.$emit('refresh-event')
@@ -78,6 +85,13 @@ export default {
       })
     },
     async updateCategory () {
+      if (this.errors.items.length !== 0) {
+        this.$message({
+          message: this.errors.items[0].msg,
+          type: 'warning'
+        })
+        return
+      }
       return this.$axios.$patch(`/categories/${this.id}`, this.category)
       .then(response => {
         this.$emit('refresh-event')

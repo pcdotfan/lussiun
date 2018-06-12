@@ -23,6 +23,7 @@
     "moment": "^2.22.1",
     "node-sass": "^4.9.0",
     "nuxt": "^1.4.1",
+    "nuxt-validate": "^0.1.1",
     "sass-loader": "^7.0.1",
     "simplemde": "^1.11.2",
     "source-map-support": "^0.4.15",
