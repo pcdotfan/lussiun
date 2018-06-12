@@ -6,12 +6,11 @@ import {
     ManyToOne,
     CreateDateColumn,
     UpdateDateColumn,
-    JoinTable,
+    JoinColumn,
     RelationId,
     BaseEntity,
 } from 'typeorm';
 import { Category } from '../categories/category.entity';
-import { Topic } from '../topics/topic.entity';
 import { User } from '../users/user.entity';
 
 @Entity()
@@ -34,19 +33,16 @@ export class Article extends BaseEntity {
     @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: Date;
 
-    @ManyToOne(type => Category, category => category.articles)
-    category: Category;
-
-    @RelationId((article: Article) => article.category)
+    @Column()
     categoryId: number;
+
+    @ManyToOne(type => Category)
+    @JoinColumn({ name: 'categoryId' })
+    category: Category;
 
     @ManyToOne(type => User, user => user.articles)
     user: User;
 
     @RelationId((article: Article) => article.user)
     userId: number;
-
-    @ManyToMany(type => Topic, topics => topics.articles)
-    topics: Topic[];
-
 }

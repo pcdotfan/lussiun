@@ -1,5 +1,4 @@
-import { IsString, IsInt, MinLength, Min, Max } from 'class-validator';
-import { Category } from '../../categories/category.entity';
+import { IsString, IsInt, Min, Max } from 'class-validator';
 import { User } from '../../users/user.entity';
 
 export class ArticleDto {
@@ -12,7 +11,7 @@ export class ArticleDto {
     @IsString()
     readonly content: string;
 
-    readonly category: Category;
+    readonly categoryId: number;
 
     readonly user: User;
 

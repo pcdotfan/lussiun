@@ -40,11 +40,11 @@ export class CategoriesService {
         // 统计文章总量
         const currentCategory = await this.findOneById(id);
         if (increment) {
-            const count = currentCategory.count++;
-            return this.categoryRepository.update(id, { count });
+            currentCategory.count++;
+            return await currentCategory.save();
         }
-        const count = currentCategory.count--;
-        return this.categoryRepository.update(id, { count });
+        currentCategory.count--;
+        return await currentCategory.save();
     }
 
     async destroy(id: number): Promise<any> {

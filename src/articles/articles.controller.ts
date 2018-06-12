@@ -53,6 +53,7 @@ export class ArticlesController {
             await this.articlesService.where({ slug: articleDto.slug });
 
         if (articleExisted.length === 0) {
+            await this.categoriesService.countControl(articleDto.categoryId, true);
             return await this.articlesService.create(articleDto);
         }
 
@@ -63,6 +64,11 @@ export class ArticlesController {
     @UseGuards(AuthGuard('jwt'))
     @UsePipes(ValidationPipe)
     async update(@Param('id') id, @Body() articleDto: ArticleDto): Promise<object> {
+        const article = await this.articlesService.findOneById(id);
+        if (article.categoryId !== articleDto.categoryId) {
+            await this.categoriesService.countControl(article.categoryId, false);
+            await this.categoriesService.countControl(articleDto.categoryId, true);
+        }
         return await this.articlesService.update(id, articleDto);
     }
 
@@ -78,6 +84,8 @@ export class ArticlesController {
 
     @Delete(':id')
     async destory(@Param('id') id): Promise<any> {
+        const article = await this.articlesService.findOneById(id);
+        await this.categoriesService.countControl(article.categoryId, false);
         return await this.articlesService.destroy(id);
     }
 
