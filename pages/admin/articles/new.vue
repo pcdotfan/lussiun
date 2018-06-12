@@ -3,10 +3,10 @@
     <div class="article-new-edit">
         <vk-card>
           <div slot="header">
-            <input class="title uk-input uk-width-1-1 uk-form-large" placeholder="输入标题..." v-model="article.title">
+            <input class="title uk-input uk-width-1-1 uk-form-large" v-validate="'required'" data-vv-as="标题" placeholder="输入标题..." v-model="article.title">
           </div>
           <div>
-            <markdown-editor name="article-new" v-model="article.content"></markdown-editor>
+            <markdown-editor name="article-new" v-validate="'required'" data-vv-as="内容" v-model="article.content"></markdown-editor>
           </div>
           <div slot="footer">
             <p class="uk-text-right">
@@ -19,7 +19,7 @@
             <vk-grid class="uk-child-width-1-3" divided>
               <div>
                 <label class="uk-form-label" for="slug">别名</label>
-                <input class="uk-input" type="text" name="slug" v-model="article.slug">
+                <input class="uk-input" type="text" v-validate="'required|alpha_dash'" data-vv-as="别名" name="slug" v-model="article.slug">
               </div>
               <div>
                 <label class="uk-form-label" for="status">状态</label>
@@ -34,7 +34,7 @@
               </div>
               <div>
                 <label class="uk-form-label" for="categories">分类目录</label>
-                <el-select v-model="article.category" name="categories" placeholder="选择一个分类目录">
+                <el-select v-model="article.category" v-validate="'required'" data-vv-as="内容" name="categories" placeholder="选择一个分类目录">
                   <el-option
                     v-for="category in categories"
                     :key="category.id"
@@ -93,7 +93,14 @@ export default {
   },
   methods: {
     async createArticle () {
-      await this.$axios.$post('/articles', _.assign(this.article, { user: this.$auth.user.id }))
+      if (this.errors.items.length !== 0) {
+        this.$message({
+          message: this.errors.items[0].msg,
+          type: 'warning'
+        })
+        return
+      }
+      return this.$axios.$post('/articles', _.assign(this.article, { user: this.$auth.user.id }))
         .then(response => {
           this.$notify({
             title: '成功',

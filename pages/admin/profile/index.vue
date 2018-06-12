@@ -17,7 +17,7 @@
                   <div>
                     <label class="uk-form-label" for="nickname">昵称</label>
                     <div class="uk-form-controls">
-                      <input class="uk-input" type="text" v-validate="'required'" name="nickname" v-model="user.nickname">
+                      <input class="uk-input" type="text" data-vv-as="昵称" v-validate="'required'" name="nickname" v-model="user.nickname">
                     </div>
                   </div>
                   <div>
@@ -30,7 +30,7 @@
                 <div class="uk-margin">
                   <label class="uk-form-label" for="email">E-Mail</label>
                   <div class="uk-form-controls">
-                    <input class="uk-input" type="email" v-validate="'required|email'" name="email" v-model="user.email">
+                    <input class="uk-input" type="email" data-vv-as="E-Mail" v-validate="'required|email'" name="email" v-model="user.email">
                   </div>
                 </div>
                 <div class="uk-margin">

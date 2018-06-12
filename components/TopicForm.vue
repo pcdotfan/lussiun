@@ -9,13 +9,13 @@
           <div class="uk-margin">
               <label class="uk-form-label" for="name">话题名称</label>
               <div class="uk-form-controls">
-                <input class="uk-input" name="name" v-validate="'required'" type="text" v-model="topic.name">
+                <input class="uk-input" name="name" v-validate="'required'" data-vv-as="话题名称" type="text" v-model="topic.name">
               </div>
           </div>
           <div class="uk-margin">
               <label class="uk-form-label" for="slug">别名</label>
               <div class="uk-form-controls">
-                <input class="uk-input" name="slug" v-validate="'required|alpha_dash'" type="text" v-model="topic.slug">
+                <input class="uk-input" name="slug" v-validate="'required|alpha_dash'" data-vv-as="别名" type="text" v-model="topic.slug">
               </div>
           </div>
           <div class="uk-margin">

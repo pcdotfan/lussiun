@@ -91,7 +91,14 @@ export default {
   },
   methods: {
     async updateArticle () {
-      await this.$axios.$patch(`/articles/${this.article.id}`, this.article)
+      if (this.errors.items.length !== 0) {
+        this.$message({
+          message: this.errors.items[0].msg,
+          type: 'warning'
+        })
+        return
+      }
+      return this.$axios.$patch(`/articles/${this.article.id}`, this.article)
         .then(response => {
           this.$notify({
             title: '成功',
