@@ -3,6 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import * as _ from 'lodash';
+import { CreateUserDto } from 'users/dto/create-user.dto';
 
 @Injectable()
 @Controller('auth')
@@ -22,6 +23,17 @@ export class AuthController {
     @UseGuards(AuthGuard('jwt'))
     async profile(@Req() request): Promise<object> {
         return _.pick(request.user, ['username', 'nickname', 'email', 'introduction']);
+    }
+
+    @Post('register') // 测试用
+    async register(@Body() createUserDto: CreateUserDto): Promise<object> {
+        const userMatched = await this.usersService.match(createUserDto);
+
+        if (!userMatched) {
+            return await this.usersService.create(createUserDto);
+        }
+
+        throw new HttpException('已存在相同用户', HttpStatus.FORBIDDEN);
     }
 
     @Post('login')

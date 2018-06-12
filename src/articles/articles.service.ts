@@ -33,7 +33,7 @@ export class ArticlesService {
         return await this.articleRepository.find();
     }
 
-    async create(articleDto: ArticleDto): Promise< Article> {
+    async create(articleDto: ArticleDto): Promise<Article> {
         const newArticle = await this.articleRepository.create(articleDto);
         return this.articleRepository.save(newArticle);
     }
@@ -43,6 +43,8 @@ export class ArticlesService {
     }
 
     async destroy(id: number): Promise<any> {
+        const articleDeleted = await this.findOneById(id);
+        await this.categoriesService.countControl(articleDeleted.categoryId, false);
         await this.articleRepository.delete(id);
     }
 

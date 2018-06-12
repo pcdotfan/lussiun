@@ -48,11 +48,11 @@ export class ArticlesController {
     @Post()
     @UseGuards(AuthGuard('jwt'))
     @UsePipes(ValidationPipe)
-    async create(@Req() request, @Body() articleDto: ArticleDto): Promise<Article> {
+    async create(@Body() articleDto: ArticleDto): Promise<Article> {
         const articleExisted =
             await this.articlesService.where({ slug: articleDto.slug });
 
-        if (articleExisted === []) {
+        if (articleExisted.length === 0) {
             return await this.articlesService.create(articleDto);
         }
 
@@ -68,8 +68,7 @@ export class ArticlesController {
 
     @Get('mock')
     async mock(): Promise<any> {
-        // await this.articlesService.mock(20, 6, 2);
-        return 'done';
+        return await this.articlesService.where({ slug: 'asdas' });
     }
 
     @Get(':id')

@@ -36,6 +36,17 @@ export class CategoriesService {
         await this.categoryRepository.update(id, categoryDto);
     }
 
+    async countControl(id: number, increment: boolean): Promise<any> {
+        // 统计文章总量
+        const currentCategory = await this.findOneById(id);
+        if (increment) {
+            const count = currentCategory.count++;
+            return this.categoryRepository.update(id, { count });
+        }
+        const count = currentCategory.count--;
+        return this.categoryRepository.update(id, { count });
+    }
+
     async destroy(id: number): Promise<any> {
         await this.categoryRepository.delete(id);
     }

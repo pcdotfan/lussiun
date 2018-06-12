@@ -23,7 +23,7 @@ export class CategoriesController {
     @UsePipes(ValidationPipe)
     async create(@Body() categoryDto: CategoryDto) {
         const categoryExisted = await this.categoriesService.where({ slug: categoryDto.slug });
-        if (categoryExisted) {
+        if (categoryExisted.length === 0) {
             return await this.categoriesService.create(categoryDto);
         }
 
