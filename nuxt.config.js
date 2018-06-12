@@ -28,8 +28,8 @@ module.exports = {
     { src: '@/plugins/vuex-router-sync', ssr: false },
     '@/plugins/vue-async-computed',
     '@/plugins/vuikit',
-    { src: '@/plugins/element-ui', ssr: false },
-    { src: '@/plugins/simplemde.js', ssr: false }
+    { src: '@/plugins/vue-simplemde', ssr: false },
+    { src: '@/plugins/element-ui', ssr: false }
   ],
   router: {
     linkActiveClass: 'uk-active',

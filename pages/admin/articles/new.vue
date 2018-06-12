@@ -6,7 +6,7 @@
             <input class="title uk-input uk-width-1-1 uk-form-large" placeholder="输入标题..." v-model="article.title">
           </div>
           <div>
-            <markdown-editor v-model="article.content"></markdown-editor>
+            <markdown-editor name="article-new" v-model="article.content"></markdown-editor>
           </div>
           <div slot="footer">
             <p class="uk-text-right">
