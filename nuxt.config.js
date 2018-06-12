@@ -42,7 +42,7 @@ module.exports = {
     ['nuxt-validate', {
       lang: 'zh_CN'
     }],
-    ['@nuxtjs/moment', ['zh-cn']]
+    ['@nuxtjs/moment', { locales: ['zh-cn'], plugin: false }]
   ],
   axios: {
     baseURL: 'http://localhost:8080',

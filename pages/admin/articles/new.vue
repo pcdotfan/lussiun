@@ -6,7 +6,7 @@
             <input class="title uk-input uk-width-1-1 uk-form-large" v-validate="'required'" data-vv-as="标题" placeholder="输入标题..." v-model="article.title">
           </div>
           <div>
-            <markdown-editor name="article-new" v-validate="'required'" data-vv-as="内容" v-model="article.content"></markdown-editor>
+            <markdown-editor :name="getDraftCode" v-validate="'required'" data-vv-as="内容" v-model="article.content"></markdown-editor>
           </div>
           <div slot="footer">
             <p class="uk-text-right">
@@ -91,6 +91,11 @@ export default {
       return this.$axios.$get('/categories')
     }
   },
+  computed: {
+    getDraftCode () {
+      return 'article-' + this.$store.state.draft
+    }
+  },
   methods: {
     async createArticle () {
       if (this.errors.items.length !== 0) {
@@ -102,15 +107,17 @@ export default {
       }
       return this.$axios.$post('/articles', _.assign(this.article, { user: this.$auth.user.id }))
         .then(response => {
+          this.$store.commit('updateDraft')
           this.$notify({
             title: '成功',
             message: '操作成功',
             type: 'success'
           })
         }).catch(e => {
+          console.log(e)
           this.$notify({
             title: '失败',
-            message: e.data.message || '内部服务器错误',
+            message: e.data.message ? e.data.message : '内部服务器错误',
             type: 'warning'
           })
         })
