@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
+    "@nuxtjs/moment": "^1.0.0",
     "@vuikit/icons": "^0.8.1",
     "@vuikit/theme": "^0.8.0",
     "eslint-config-standard": "^11.0.0",
@@ -21,8 +22,11 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
+    "excerpt-html": "^1.2.0",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
+    "markdown-it": "^8.4.1",
+    "moment": "^2.22.2",
     "nuxt": "^1.0.0",
     "uikit": "^3.0.0-rc.2",
     "vuikit": "^0.8.4"
