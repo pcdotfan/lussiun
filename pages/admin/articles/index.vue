@@ -16,7 +16,7 @@
                 <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
                   <thead>
                     <tr>
-                      <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox"></th>
+                      <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox" v-model="selectAll"></th>
                       <th>标题</th>
                       <th>作者</th>
                       <th>分类目录</th>
@@ -26,7 +26,7 @@
                   <tbody>
                     <tr v-for="article in articles" :key="article.id">
                       <td>
-                        <input class="uk-checkbox" type="checkbox">
+                        <input class="uk-checkbox" v-model="selected" :value="article.id" type="checkbox">
                       </td>
                       <td>
                         <router-link :to="{ name: 'admin-articles-id', params: { id: article.id } }">{{ article.title }}</router-link>
@@ -39,7 +39,7 @@
                 </table>
                 <div class="uk-card-footer">
                   <p class="uk-text-right">
-                    <button class="uk-button uk-button-danger">删除</button>
+                    <button class="uk-button uk-button-danger" @click="destroySelected">删除</button>
                   </p>
                 </div>
               </div>
@@ -56,7 +56,8 @@ export default {
     return {
       status: 0,
       refetch: false,
-      selection: []
+      selected: [],
+      articles: []
     }
   },
   methods: {
@@ -71,6 +72,56 @@ export default {
     },
     getFormattedDate (date) {
       return moment(date).format('YYYY-MM-DD')
+    },
+    async destroySelected () {
+      this.$confirm('此操作将永久删除所选中的所有文章, 是否继续?', '警告', {
+        type: 'warning'
+      })
+      .then(() => {
+        // 待完善
+        Promise.all(
+          this.selected.map(async selection => {
+            await this.$axios.$delete(`/articles/${selection}`)
+            .catch(error => {
+              this.$message({
+                message: error.message,
+                type: 'warning'
+              })
+            })
+          })
+        )
+        .then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+        })
+        this.refetch = !this.refetch
+      })
+      .catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    }
+  },
+  computed: {
+    selectAll: {
+      get () {
+        return (this.articles && this.articles.length !== 0) ? this.selected.length === this.articles.length : false
+      },
+      set (value) {
+        let selected = []
+        // 全选时
+        if (value) {
+          this.articles.map(article => {
+            selected.push(article.id)
+            return article
+          })
+        }
+        this.selected = selected
+      }
     }
   },
   asyncComputed: {
