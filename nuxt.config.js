@@ -1,7 +1,9 @@
 const pkg = require('./package')
 
 module.exports = {
-  mode: 'spa',
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3333'
+  },
 
   /*
   ** Headers of the page
@@ -27,7 +29,6 @@ module.exports = {
     { src: '~assets/less/uikit.theme.less', lang: 'less' }
   ],
 
-
   /*
   ** Plugins to load before mounting the App
   */
@@ -46,7 +47,8 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
-    // See https://github.com/nuxt-community/axios-module#options
+    baseURL: 'http://localhost:8080',
+    browserBaseURL: 'http://localhost:8080'
   },
 
   /*
@@ -56,7 +58,7 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) {
+    extend (config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
