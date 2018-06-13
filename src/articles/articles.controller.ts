@@ -38,6 +38,7 @@ export class ArticlesController {
                 const category = await this.categoriesService.findOneById(article.categoryId);
                 const avatar = gravatar.url(user.email);
                 user = _.assign(user, { avatar });
+                user = _.omit(Object(user), ['password', 'createdAt', 'updatedAt']);
                 article = _.assign(article, { user }, { category });
             }),
         );

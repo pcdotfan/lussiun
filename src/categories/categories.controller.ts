@@ -1,9 +1,12 @@
 import { Controller, Get, Param, Patch, Post, Body, UsePipes, HttpException, HttpStatus, Injectable, UseGuards, Delete } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { InjectRepository } from '@nestjs/typeorm';
 import { CategoryDto } from './dto/category.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CategoriesService } from './categories.service';
+import { ArticlesService } from '../articles/articles.service';
 import { Category } from './category.entity';
+import { Article } from '../articles/article.entity';
 import { ValidationPipe } from '../validation.pipe';
 
 @Injectable()
@@ -11,6 +14,8 @@ import { ValidationPipe } from '../validation.pipe';
 export class CategoriesController {
     constructor(
         private readonly categoriesService: CategoriesService,
+        @InjectRepository(Article)
+        private readonly articleRepository: Repository<Article>,
     ) { }
 
     @Get()
@@ -43,6 +48,10 @@ export class CategoriesController {
 
     @Delete(':id')
     async destory(@Param('id') id) {
-        return await this.categoriesService.destroy(id);
+        const articles = await this.articleRepository.find({ categoryId: id });
+        if (articles.length === 0) {
+            return await this.categoriesService.destroy(id);
+        }
+        throw new HttpException('分类目录内仍有文章，请删除后再试', HttpStatus.FORBIDDEN);
     }
 }
