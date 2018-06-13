@@ -13,7 +13,7 @@ export class ArticleDto {
 
     readonly categoryId: number;
 
-    readonly user: User;
+    userId: number;
 
     @IsInt()
     @Min(-1)

@@ -48,11 +48,12 @@ export class ArticlesController {
     @Post()
     @UseGuards(AuthGuard('jwt'))
     @UsePipes(ValidationPipe)
-    async create(@Body() articleDto: ArticleDto): Promise<Article> {
+    async create(@Body() articleDto: ArticleDto, @Req() request): Promise<Article> {
         const articleExisted =
             await this.articlesService.where({ slug: articleDto.slug });
 
         if (articleExisted.length === 0) {
+            articleDto.userId = request.user.id;
             await this.categoriesService.countControl(articleDto.categoryId, true);
             return await this.articlesService.create(articleDto);
         }

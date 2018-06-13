@@ -40,9 +40,10 @@ export class Article extends BaseEntity {
     @JoinColumn({ name: 'categoryId' })
     category: Category;
 
-    @ManyToOne(type => User, user => user.articles)
-    user: User;
-
-    @RelationId((article: Article) => article.user)
+    @Column()
     userId: number;
+
+    @ManyToOne(type => User)
+    @JoinColumn({ name: 'userId' })
+    user: User;
 }
