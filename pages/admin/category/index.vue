@@ -76,7 +76,8 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(() => {
+      })
+      .then(() => {
         this.$axios.$delete(`/categories/${id}`).then(response => {
           this.$message({
             type: 'success',
@@ -84,14 +85,15 @@ export default {
           })
           this.refetch = !this.refetch
           console.log(response)
-        }).catch(error => {
-          console.log(error)
+        })
+        .catch(e => {
           this.$message({
-            message: '出现内部错误',
+            message: e.data.message,
             type: 'warning'
           })
         })
-      }).catch(() => {
+      })
+      .catch(() => {
         this.$message({
           type: 'info',
           message: '已取消删除'

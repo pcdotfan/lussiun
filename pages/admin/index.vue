@@ -9,9 +9,7 @@
                   <ul class="uk-list">
                     <li v-for="article in recentArticles" :key="article.id">
                       <span v-text="dateFormatted(article.updatedAt)"></span>
-                      <a href="http://typecho.org/archives/135/" target="_blank">
-                        {{ article.title }}
-                      </a>
+                       <router-link :to="{ name: 'admin-articles-id', params: { id: article.id } }">{{ article.title }}</router-link>
                     </li>
                   </ul>
                 </vk-card>
