@@ -43,6 +43,6 @@ export class CategoriesController {
 
     @Delete(':id')
     async destory(@Param('id') id) {
-        return await this.categoriesService.findOneById(id);
+        return await this.categoriesService.destroy(id);
     }
 }

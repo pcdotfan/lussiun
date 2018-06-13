@@ -362,12 +362,12 @@ ajv@^5.1.0:
     json-schema-traverse "^0.3.0"
 
 ajv@^6.1.0:
-  version "6.5.0"
-  resolved "http://registry.npm.taobao.org/ajv/download/ajv-6.5.0.tgz#4c8affdf80887d8f132c9c52ab8a2dc4d0b7b24c"
+  version "6.5.1"
+  resolved "http://registry.npm.taobao.org/ajv/download/ajv-6.5.1.tgz#88ebc1263c7133937d108b80c5572e64e1d9322d"
   dependencies:
     fast-deep-equal "^2.0.1"
     fast-json-stable-stringify "^2.0.0"
-    json-schema-traverse "^0.3.0"
+    json-schema-traverse "^0.4.1"
     uri-js "^4.2.1"
 
 align-text@^0.1.1, align-text@^0.1.3:
@@ -1829,14 +1829,14 @@ collection-visit@^1.0.0:
     object-visit "^1.0.0"
 
 color-convert@^1.9.0:
-  version "1.9.1"
-  resolved "http://registry.npm.taobao.org/color-convert/download/color-convert-1.9.1.tgz#c1261107aeb2f294ebffec9ed9ecad529a6097ed"
+  version "1.9.2"
+  resolved "http://registry.npm.taobao.org/color-convert/download/color-convert-1.9.2.tgz#49881b8fba67df12a96bdf3f56c0aab9e7913147"
   dependencies:
-    color-name "^1.1.1"
+    color-name "1.1.1"
 
-color-name@^1.1.1:
-  version "1.1.3"
-  resolved "http://registry.npm.taobao.org/color-name/download/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
+color-name@1.1.1:
+  version "1.1.1"
+  resolved "http://registry.npm.taobao.org/color-name/download/color-name-1.1.1.tgz#4b1415304cf50028ea81643643bd82ea05803689"
 
 colors@1.0.3:
   version "1.0.3"
@@ -1861,8 +1861,8 @@ commondir@^1.0.1:
   resolved "http://registry.npm.taobao.org/commondir/download/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
 
 compare-versions@^3.1.0:
-  version "3.2.1"
-  resolved "http://registry.npm.taobao.org/compare-versions/download/compare-versions-3.2.1.tgz#a49eb7689d4caaf0b6db5220173fd279614000f7"
+  version "3.3.0"
+  resolved "http://registry.npm.taobao.org/compare-versions/download/compare-versions-3.3.0.tgz#af93ea705a96943f622ab309578b9b90586f39c3"
 
 component-bind@1.0.0:
   version "1.0.0"
@@ -2464,8 +2464,8 @@ escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   resolved "http://registry.npm.taobao.org/escape-string-regexp/download/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
 
 escodegen@^1.6.1:
-  version "1.9.1"
-  resolved "http://registry.npm.taobao.org/escodegen/download/escodegen-1.9.1.tgz#dbae17ef96c8e4bedb1356f4504fa4cc2f7cb7e2"
+  version "1.10.0"
+  resolved "http://registry.npm.taobao.org/escodegen/download/escodegen-1.10.0.tgz#f647395de22519fbd0d928ffcf1d17e0dec2603e"
   dependencies:
     esprima "^3.1.3"
     estraverse "^4.2.0"
@@ -3234,8 +3234,8 @@ hash-base@^3.0.0:
     safe-buffer "^5.0.1"
 
 hash.js@^1.0.0, hash.js@^1.0.3:
-  version "1.1.3"
-  resolved "http://registry.npm.taobao.org/hash.js/download/hash.js-1.1.3.tgz#340dedbe6290187151c1ea1d777a3448935df846"
+  version "1.1.4"
+  resolved "http://registry.npm.taobao.org/hash.js/download/hash.js-1.1.4.tgz#8b50e1f35d51bd01e5ed9ece4dbe3549ccfa0a3c"
   dependencies:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.0"
@@ -4135,6 +4135,10 @@ json-schema-traverse@^0.3.0:
   version "0.3.1"
   resolved "http://registry.npm.taobao.org/json-schema-traverse/download/json-schema-traverse-0.3.1.tgz#349a6d44c53a51de89b40805c5d5e59b417d3340"
 
+json-schema-traverse@^0.4.1:
+  version "0.4.1"
+  resolved "http://registry.npm.taobao.org/json-schema-traverse/download/json-schema-traverse-0.4.1.tgz#69f6a87d9513ab8bb8fe63bdb0979c448e684660"
+
 json-schema@0.2.3:
   version "0.2.3"
   resolved "http://registry.npm.taobao.org/json-schema/download/json-schema-0.2.3.tgz#b480c892e59a2f05954ce727bd3f2a4e882f9e13"
@@ -4168,8 +4172,8 @@ jsonify@~0.0.0:
   resolved "http://registry.npm.taobao.org/jsonify/download/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
 
 jsonwebtoken@^8.2.0, jsonwebtoken@^8.2.2:
-  version "8.2.2"
-  resolved "http://registry.npm.taobao.org/jsonwebtoken/download/jsonwebtoken-8.2.2.tgz#76d7993fda79660d71bd0f933109e1f133734b20"
+  version "8.3.0"
+  resolved "http://registry.npm.taobao.org/jsonwebtoken/download/jsonwebtoken-8.3.0.tgz#056c90eee9a65ed6e6c72ddb0a1d325109aaf643"
   dependencies:
     jws "^3.1.5"
     lodash.includes "^4.3.0"
@@ -4180,7 +4184,6 @@ jsonwebtoken@^8.2.0, jsonwebtoken@^8.2.2:
     lodash.isstring "^4.0.1"
     lodash.once "^4.0.0"
     ms "^2.1.1"
-    xtend "^4.0.1"
 
 jsprim@^1.2.2:
   version "1.4.1"
@@ -4873,9 +4876,9 @@ node-pre-gyp@^0.10.0:
     semver "^5.3.0"
     tar "^4"
 
-"node-qiniu-sdk@git+https://github.com/PCDotFan/node-qiniu-sdk":
-  version "1.0.9"
-  resolved "git+https://github.com/PCDotFan/node-qiniu-sdk#03f428c28dd3a29fadfad4daeaff676961536911"
+node-qiniu-sdk@^1.1.0:
+  version "1.1.2"
+  resolved "http://registry.npm.taobao.org/node-qiniu-sdk/download/node-qiniu-sdk-1.1.2.tgz#4bb63930eec6f9e9ebbaf56c3852f6c93259fccc"
   dependencies:
     debug "^3.1.0"
     delegates "^1.0.0"
@@ -5480,8 +5483,8 @@ pseudomap@^1.0.2:
   resolved "http://registry.npm.taobao.org/pseudomap/download/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
 
 psl@^1.1.24:
-  version "1.1.27"
-  resolved "http://registry.npm.taobao.org/psl/download/psl-1.1.27.tgz#2b2c77019db86855170d903532400bf71ee085b6"
+  version "1.1.28"
+  resolved "http://registry.npm.taobao.org/psl/download/psl-1.1.28.tgz#4fb6ceb08a1e2214d4fd4de0ca22dae13740bc7b"
 
 pstree.remy@^1.1.0:
   version "1.1.0"
@@ -5854,9 +5857,9 @@ request@^2.79.0:
     tunnel-agent "^0.6.0"
     uuid "^3.1.0"
 
-"request@https://github.com/SunGg12138/request.git":
+"request@git+https://github.com/SunGg12138/request.git":
   version "2.85.1"
-  resolved "https://github.com/SunGg12138/request.git#72dfedc83ba22bab05d94a648d548060308010a1"
+  resolved "git+https://github.com/SunGg12138/request.git#72dfedc83ba22bab05d94a648d548060308010a1"
   dependencies:
     aws-sign2 "~0.7.0"
     aws4 "^1.6.0"
@@ -5990,8 +5993,8 @@ rxjs@^5.5.2:
     symbol-observable "1.0.1"
 
 rxjs@^6.0.0, rxjs@^6.1.0:
-  version "6.2.0"
-  resolved "http://registry.npm.taobao.org/rxjs/download/rxjs-6.2.0.tgz#e024d0e180b72756a83c2aaea8f25423751ba978"
+  version "6.2.1"
+  resolved "http://registry.npm.taobao.org/rxjs/download/rxjs-6.2.1.tgz#246cebec189a6cbc143a3ef9f62d6f4c91813ca1"
   dependencies:
     tslib "^1.9.0"
 
@@ -6757,8 +6760,8 @@ ts-loader@^4.1.0:
     semver "^5.0.1"
 
 ts-node@^6.0.0:
-  version "6.1.0"
-  resolved "http://registry.npm.taobao.org/ts-node/download/ts-node-6.1.0.tgz#a2c37a11fdb58e60eca887a1269b025cf4d2f8b8"
+  version "6.1.1"
+  resolved "http://registry.npm.taobao.org/ts-node/download/ts-node-6.1.1.tgz#19607140acb06150441fcdb61be11f73f7b6657e"
   dependencies:
     arrify "^1.0.0"
     diff "^3.1.0"
@@ -6769,8 +6772,8 @@ ts-node@^6.0.0:
     yn "^2.0.0"
 
 tsconfig-paths@^3.3.1:
-  version "3.3.2"
-  resolved "http://registry.npm.taobao.org/tsconfig-paths/download/tsconfig-paths-3.3.2.tgz#bb48b845e221a44387be0f9968ee6c37c2a37c4d"
+  version "3.4.0"
+  resolved "http://registry.npm.taobao.org/tsconfig-paths/download/tsconfig-paths-3.4.0.tgz#d19fe80c5b245f99d17363471971eab54e65a8a7"
   dependencies:
     deepmerge "^2.0.1"
     minimist "^1.2.0"
@@ -7349,7 +7352,7 @@ xmlhttprequest-ssl@~1.5.4:
   version "1.5.5"
   resolved "http://registry.npm.taobao.org/xmlhttprequest-ssl/download/xmlhttprequest-ssl-1.5.5.tgz#c2876b06168aadc40e57d97e81191ac8f4398b3e"
 
-xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.0, xtend@~4.0.1:
+xtend@^4.0.0, xtend@~4.0.0, xtend@~4.0.1:
   version "4.0.1"
   resolved "http://registry.npm.taobao.org/xtend/download/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
 

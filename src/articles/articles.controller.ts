@@ -108,8 +108,7 @@ export class ArticlesController {
         const qiniuService = new Qiniu(this.config.get('QINIU_AK'), this.config.get('QINIU_SK'));
         const bucket = this.config.get('QINIU_BUCKET');
         const baseUrl = this.config.get('QINIU_URL');
-        const fileService = qiniuService.file(`${bucket}:${image.originalname}`);
-        fileService.zone = this.config.get('QINIU_ZONE');
+        const fileService = qiniuService.file(`${bucket}:${image.originalname}`).tabZone(this.config.get('QINIU_ZONE'));
         let fileUploaded =  await fileService.upload({ stream: image.buffer });
         const url = `${baseUrl}/${fileUploaded.key}`;
         fileUploaded = _.assign(fileUploaded, { url });
