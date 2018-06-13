@@ -84,9 +84,9 @@ $--fill-base: $--color-white !default;
 /* Font
 -------------------------- */
 $--font-path: 'fonts' !default;
-$--font-size-base: 14px !default;
-$--font-size-small: 13px !default;
-$--font-size-large: 18px !default;
+$--font-size-base: 0.875rem;
+$--font-size-small: 0.8rem;
+$--font-size-large: 1.125rem;
 $--font-color-disabled-base: #bbb !default;
 $--font-weight-primary: 500 !default;
 $--font-line-height-primary: 24px !default;
@@ -384,7 +384,7 @@ $--group-title-width: 66px !default;
 /* Tab
 -------------------------- */
 $--tab-font-size: $--font-size-base !default;
-$--tab-border-line: 1px solid #e4e4e4 !default;
+$--tab-border-line: 1px solid rgba(77, 82, 89, 0.1);
 $--tab-header-color-active: $--color-text-secondary !default;
 $--tab-header-color-hover: $--color-text-regular !default;
 $--tab-header-color: $--color-text-regular !default;
@@ -619,7 +619,7 @@ $--datepicker-off-color: $--color-text-placeholder !default;
 $--datepicker-header-color: $--color-text-regular !default;
 $--datepicker-icon-color: $--color-text-primary !default;
 $--datepicker-border-color: transparent;
-$--datepicker-inner-border-color: #e4e4e4 !default;
+$--datepicker-inner-border-color: rgba(77, 82, 89, 0.1);
 $--datepicker-inrange-color: $--border-color-extra-light !default;
 $--datepicker-inrange-hover-color: $--border-color-extra-light !default;
 $--datepicker-active-color: $--color-primary !default;
@@ -714,6 +714,7 @@ $--breakpoints-spec: (
   'xl-only' : (min-width: $--xl),
 );
 
+$--msgbox-border-radius: 0;
 
 @import "~element-ui/packages/theme-chalk/src/base.scss";
 // @import "~element-ui/packages/theme-chalk/src/pagination.scss";

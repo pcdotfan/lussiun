@@ -5,7 +5,7 @@ Vue.use(Vuex)
 const moment = require('moment')
 const store = () => new Vuex.Store({
   state: {
-    draft: 0,
+    draftCode: moment().format('x'),
     hero: {
       title: '控制面板',
       description: 'Some insights and statistics',
@@ -17,7 +17,8 @@ const store = () => new Vuex.Store({
       state.hero = hero
     },
     updateDraft (state) {
-      state.draft = moment().format('x')
+      // this.$cookies.set('draft-code', moment().format('x'))
+      // state.draftCode = this.$cookies.get('draft-code')
     }
   }
 })

@@ -1238,12 +1238,12 @@ caniuse-api@^2.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000851"
-  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000851.tgz#8a0d3ca4dde72068560acc98bacf75a359e8d3e3"
+  version "1.0.30000852"
+  resolved "http://registry.npm.taobao.org/caniuse-db/download/caniuse-db-1.0.30000852.tgz#c37a706048f8d81f87946a7c13f39ed636876659"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000792, caniuse-lite@^1.0.30000805, caniuse-lite@^1.0.30000808, caniuse-lite@^1.0.30000844:
-  version "1.0.30000851"
-  resolved "http://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30000851.tgz#3b498aebf9f92cf6cff4ab54d13b557c0b590533"
+  version "1.0.30000852"
+  resolved "http://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30000852.tgz#8b7510cec030cac7842e52beca2bf292af65f935"
 
 caseless@~0.11.0:
   version "0.11.0"
@@ -1595,6 +1595,18 @@ convert-source-map@^1.5.1:
 cookie-signature@1.0.6:
   version "1.0.6"
   resolved "http://registry.npm.taobao.org/cookie-signature/download/cookie-signature-1.0.6.tgz#e303a882b342cc3ee8ca513a79999734dab3ae2c"
+
+cookie-universal-nuxt@^2.0.3:
+  version "2.0.3"
+  resolved "http://registry.npm.taobao.org/cookie-universal-nuxt/download/cookie-universal-nuxt-2.0.3.tgz#9499fba81e2cbb6b8b5194c1dbc44cf5e31171d7"
+  dependencies:
+    cookie-universal "^2.0.3"
+
+cookie-universal@^2.0.3:
+  version "2.0.3"
+  resolved "http://registry.npm.taobao.org/cookie-universal/download/cookie-universal-2.0.3.tgz#da64b8837030081a6ca106aa536317c8612b8019"
+  dependencies:
+    cookie "^0.3.1"
 
 cookie@0.3.1, cookie@^0.3.1:
   version "0.3.1"

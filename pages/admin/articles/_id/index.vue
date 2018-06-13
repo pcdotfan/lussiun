@@ -43,6 +43,18 @@
                   </el-option>
                 </el-select>
               </div>
+              <div>
+                <label class="uk-form-label" for="updatedAt">更新时间</label>
+                <el-date-picker
+                  v-model="updatedAt"
+                  type="datetime"
+                  placeholder="选择日期时间">
+                </el-date-picker>
+              </div>
+              <div>
+                <label class="uk-form-label" for="categories">杂项</label>
+                <label><input class="uk-checkbox uk-margin-small-right" type="checkbox" checked>开启评论</label>
+              </div>
             </vk-grid>
           </vk-card>
         </section>
@@ -50,6 +62,7 @@
   </main>
 </template>
 <script>
+// const moment = require('moment')
 export default {
   name: 'New',
   layout: 'backend',
@@ -62,6 +75,7 @@ export default {
         categoryId: '请选择',
         status: 2
       },
+      updatedAt: new Date(),
       statuses: [
         {
           id: -1,

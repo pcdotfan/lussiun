@@ -34,7 +34,7 @@
               </div>
               <div>
                 <label class="uk-form-label" for="categories">分类目录</label>
-                <el-select v-model="article.categoryId" v-validate="'required'" data-vv-as="分类目录" name="categories" placeholder="选择一个分类目录">
+                <el-select v-model="article.categoryId" v-validate="'required|numeric'" data-vv-as="分类目录" name="categories" placeholder="选择一个分类目录">
                   <el-option
                     v-for="category in categories"
                     :key="category.id"
@@ -51,19 +51,19 @@
 </template>
 <script>
 const _ = require('lodash')
+const moment = require('moment')
 export default {
   name: 'New',
   layout: 'backend',
   data () {
     return {
-      topics: [],
       article: {
         title: '',
         categoryId: '请选择',
         status: 1,
         content: '',
         slug: '',
-        createdAt: '',
+        createdAt: moment(),
         userId: this.$auth.user.id
       },
       statuses: [
@@ -93,7 +93,7 @@ export default {
   },
   computed: {
     getDraftCode () {
-      return 'article-' + this.$store.state.draft
+      return 'article-' + this.$store.state.draftCode
     }
   },
   methods: {
@@ -105,9 +105,9 @@ export default {
         })
         return
       }
-      return this.$axios.$post('/articles', _.assign(this.article, { user: this.$auth.user.id }))
+      return this.$axios.$post('/articles', _.assign(this.article))
         .then(response => {
-          this.$store.commit('updateDraft')
+          this.$store.commit('updateDraftCode')
           this.$notify({
             title: '成功',
             message: '操作成功',
