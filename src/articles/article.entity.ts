@@ -27,6 +27,11 @@ export class Article extends BaseEntity {
     // -1：已删除 0: 草稿; 1: 待审核 2: 已发布
     @Column({ type: 'tinyint' }) status: number;
 
+    @Column({
+        default: 0,
+    })
+    commentCount: number;
+
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
 

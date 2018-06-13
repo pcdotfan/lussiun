@@ -42,6 +42,17 @@ export class ArticlesService {
         await this.articleRepository.update(id, articleDto);
     }
 
+    async countControl(id: number, increment: boolean): Promise<any> {
+        // 统计文章总量
+        const currentArticle = await this.findOneById(id);
+        if (increment) {
+            currentArticle.commentCount++;
+            return await currentArticle.save();
+        }
+        currentArticle.commentCount--;
+        return await currentArticle.save();
+    }
+
     async destroy(id: number): Promise<any> {
         const articleDeleted = await this.findOneById(id);
         await this.categoriesService.countControl(articleDeleted.categoryId, false);
