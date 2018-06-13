@@ -26,14 +26,14 @@ module.exports = {
   loading: { color: '#2889ED' },
 
   css: [
-    { src: '~assets/less/uikit.theme.less', lang: 'less' }
+    { src: '~assets/style.scss', lang: 'scss' },
+    { src: 'font-awesome/css/font-awesome.min.css', lang: 'css' }
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/vuikit.js'
   ],
 
   /*

@@ -1,74 +1,92 @@
 <template>
-  <div>
-  <div class="container">
+<div>
     <header>
-      <div class="site-info">
-        <h1 class="title">PCDotFan</h1>
-        <h2 class="subtitle">To be a Life &amp; Code Artisan.</h2>
+      <a href="/" class="logo">
+          <img src="/_cache/thumbnails/7/375a43a16479738d7504273c2184383_240_240_true_86.png">
+      </a>
+      <div class="description">
+          <h1>PCDotFan</h1>
+          <h2>To be a Life &amp; Code Artisan.</h2>
+          <nav>
+              <div class="bitcron_nav_container">
+                  <div class="bitcron_nav">
+                      <div class="mixed_site_nav_wrap site_nav_wrap">
+                          <ul class="mixed_site_nav site_nav sm sm-base">
+                              <li>
+                                  <a id="db8d7c6bc6ed911e885290242ac110004" href="/" class="selected active current nav__item">首页</a>
+                              </li>
+                              <li>
+                                  <a id="db8d7d8006ed911e885290242ac110004" href="/archive" class=" nav__item">归档</a>
+                              </li>
+                              <li>
+                                  <a id="db8d7e5de6ed911e885290242ac110004" href="/feed" class=" nav__item">订阅</a>
+                              </li>
+                          </ul>
+                          <div class="clear clear_nav_inline_end"></div>
+                      </div>
+                  </div>
+                  <div class="clear clear_nav_end"></div>
+              </div>
+          </nav>
       </div>
-    </header>
-    <nuxt/>
+  </header>
+  <div class="wrapper">
+    <main>
+        <article-list></article-list>
+        <section class="list-pager">
+            <a href="/page/2" class="next">下一页
+                <i class="fa fa-angle-right"></i>
+            </a>
+            <div class="clear"></div>
+        </section>
+    </main>
   </div>
   <aside>
-    <aside>
-      <vk-grid gutter="small">
-        <div class="uk-width-2-3">
+    <div class="aside-left sidebar">
         <h3>最新文章</h3>
-        <ul class="list uk-list">
-          <vk-grid gutter="small" class="uk-child-width-1-2">
-          <li><a href="/post/code/ydkjs-async-and-concurrency">你不知道的 JavaScript - 异步和并发</a>
-<span>21度</span>
-          </li>
-          <li><a href="/post/code/ydkjs-this">你不知道的 JavaScript - This</a>
-<span>26度</span>
-          </li>
-          <li><a href="/post/code/ydkjs-hoisting">你不知道的 JavaScript - 提升</a>
-<span>22度</span>
-          </li>
-          <li><a href="/post/code/ydkjs-scope">你不知道的 JavaScript - 作用域 / 左右值引用 / 词法作用域</a>
-<span>45度</span>
-          </li>
-        </vk-grid>
-
+        <ul>
+            <li>
+                <a href="/post/code/laravel-socialite-practice">Laravel Socialite 实践</a>
+                <span>95度</span>
+            </li>
         </ul>
-
-      </div>
-
-      <div class="uk-width-1-3">
+        <div class="clear"></div>
+    </div>
+    <div class="aside-right sidebar">
         <h3>分门别类</h3>
+        <ul>
+            <li>
+                <a href="/category/code">Code</a>
+                <span>14篇</span>
 
-        <ul class="list uk-list">
-          <li><a href="/category/code">Code</a>
-<span>14篇</span>
-
-          </li>
-
-          <li><a href="/category/writing">Writing</a>
-<span>7篇</span>
-
-          </li>
+            </li>
         </ul>
-      </div>
-      </vk-grid>
-    </aside>
+    </div>
   </aside>
   <footer>
-      <span>© 2018 PCDotFan - <a href="/feed">21 posts crafted</a>
+    <span>© 2018 PCDotFan -
+        <a href="/feed">21 posts crafted</a>
     </span>
-    <span>♥ <a href="https://blog.shuiba.co/bitcron-theme-hello">Hello</a>
+    <span>♥
+        <a href="https://blog.shuiba.co/bitcron-theme-hello">Hello</a>
     </span>
-
-          <div class="powered_by"><span>Proudly published with</span>
-    <a href="https://bitcron.com" target="_blank">Bitcron</a>
-
-          </div>
-
-          <div class="footer_slogan"><img src="/template/svg/slogan.svg">
-
-          </div>
-    </footer>
-    <div class="totop">
-      <a href="#" uk-totop uk-scroll></a>
+    <div class="powered_by">
+        <span>Proudly published with </span>
+        <a href="https://bitcron.com" target="_blank">Lussiun</a>
     </div>
-  </div>
+    <div class="footer_slogan">
+        <img src="~assets/images/slogan.svg">
+    </div>
+</footer>
+</div>
 </template>
+
+<script>
+import ArticleList from '@/components/ArticleList'
+export default {
+  name: 'Default',
+  components: {
+    ArticleList
+  }
+}
+</script>
