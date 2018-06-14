@@ -93,7 +93,7 @@ export default {
   },
   computed: {
     getDraftCode () {
-      return 'article-' + this.$store.state.draftCode
+      return 'article-' + localStorage.getItem('draftCode')
     }
   },
   methods: {
@@ -107,7 +107,7 @@ export default {
       }
       return this.$axios.$post('/articles', _.assign(this.article))
         .then(response => {
-          this.$store.commit('updateDraftCode')
+          this.$store.commit('cleanDraft')
           this.$notify({
             title: '成功',
             message: '操作成功',

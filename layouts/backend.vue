@@ -96,7 +96,8 @@ export default {
     return {
     }
   },
-  async mounted () {
+  mounted () {
+    this.$store.commit('setDraft')
   },
   computed: {
     hero () {

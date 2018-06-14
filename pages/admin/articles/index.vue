@@ -39,10 +39,14 @@
                 </table>
                 <div class="uk-card-footer">
                   <p class="uk-text-right">
-                    <button class="uk-button uk-button-danger" @click="destroySelected">删除</button>
+                    <button class="uk-button uk-button-danger" @click="destroy">删除</button>
                   </p>
                 </div>
               </div>
+              <ul class="uk-pagination">
+                  <li v-show="page - 1 !== 0"><a @click="prev" class="uk-flex uk-flex-middle"><vk-icon class="uk-margin-small-right" icon="chevron-left"></vk-icon> 上一页</a></li>
+                  <li v-show="nextAvailable" class="uk-margin-auto-left"><a @click="next" class="uk-flex uk-flex-middle">下一页 <vk-icon class="uk-margin-small-left" icon="chevron-right"></vk-icon></a></li>
+              </ul>
             </div>
         </vk-grid>
     </main>
@@ -56,6 +60,8 @@ export default {
     return {
       status: 0,
       refetch: false,
+      page: 1,
+      nextAvailable: true,
       selected: [],
       articles: []
     }
@@ -66,6 +72,7 @@ export default {
     },
     changeStatus (s) {
       this.status = s
+      this.page = 1
     },
     isActive (s) {
       return s === this.status
@@ -73,7 +80,14 @@ export default {
     getFormattedDate (date) {
       return moment(date).format('YYYY-MM-DD')
     },
-    async destroySelected () {
+    prev () {
+      this.page--
+    },
+    next () {
+      const nextArticles = this.$axios.$get(`/articles/?status=${this.status}&page=${this.page + 1}`)
+      if (nextArticles.length !== 0) { this.page++ }
+    },
+    async destroy () {
       this.$confirm('此操作将永久删除所选中的所有文章, 是否继续?', '警告', {
         type: 'warning'
       })
@@ -127,7 +141,7 @@ export default {
   asyncComputed: {
     articles: {
       get () {
-        return this.$axios.$get(`/articles/?status=${this.status}`)
+        return this.$axios.$get(`/articles/?status=${this.status}&page=${this.page}`)
       },
       watch () {
         return this.refetch
