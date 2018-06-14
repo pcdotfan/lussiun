@@ -43,12 +43,12 @@ export class Article extends BaseEntity {
 
     @ManyToOne(type => Category)
     @JoinColumn({ name: 'categoryId' })
-    category: Category;
+    category: Promise<Category>;
 
     @Column()
     userId: number;
 
     @ManyToOne(type => User)
     @JoinColumn({ name: 'userId' })
-    user: User;
+    user: Promise<User>;
 }

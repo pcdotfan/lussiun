@@ -44,12 +44,12 @@ export class ArticlesController {
                 cat Number 分类（id）
                 limit Number 每一页的文章数量
         */
-        const page = request.query.page || 1;
-        const categoryId = request.query.cat || undefined;
-        const limit = request.query.limit || 10;
-        const status = request.user ? (request.query.status || 2) : 2;
+        const page: number = request.query.page || 1;
+        const categoryId: number | undefined = request.query.cat || undefined;
+        const limit: number = request.query.limit || 10;
+        const status: number = request.user ? (request.query.status || 2) : 2;
         let articles = [];
-        const conditions = {
+        const conditions: object = {
            categoryId,
            status,
         };
@@ -58,8 +58,8 @@ export class ArticlesController {
         await Promise.all(
             // 参考 egg-cnode 的写法，用 Promise.all 的方法让 Array.map 内部可异步
             articles.map(async article => {
-                let user = await this.usersService.findOneById(article.userId);
-                const category = await this.categoriesService.findOneById(article.categoryId);
+                let user = await article.user;
+                const category = await article.category;
                 const avatar = gravatar.url(user.email);
                 user = _.assign(user, { avatar });
                 user = _.omit(Object(user), ['password', 'createdAt', 'updatedAt']);
@@ -133,13 +133,13 @@ export class ArticlesController {
     }))
     async upload(@UploadedFile() image): Promise<object> {
         const qiniuService = new Qiniu(this.config.get('QINIU_AK'), this.config.get('QINIU_SK'));
-        const bucket = this.config.get('QINIU_BUCKET');
-        const baseUrl = this.config.get('QINIU_URL');
+        const bucket: string = this.config.get('QINIU_BUCKET');
+        const baseUrl: string = this.config.get('QINIU_URL');
 
         const fileService = qiniuService.file(`${bucket}:${image.originalname}`).tabZone(this.config.get('QINIU_ZONE'));
         let fileUploaded =  await fileService.upload({ stream: image.buffer });
 
-        const url = `${baseUrl}/${fileUploaded.key}`;
+        const url: string = `${baseUrl}/${fileUploaded.key}`;
         fileUploaded = _.assign(fileUploaded, { url });
         return fileUploaded;
     }

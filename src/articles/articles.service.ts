@@ -13,7 +13,6 @@ export class ArticlesService {
     constructor(
         @InjectRepository(Article)
         private readonly articleRepository: Repository<Article>,
-        private readonly usersService: UsersService,
         private readonly categoriesService: CategoriesService,
     ) { }
 
@@ -36,6 +35,7 @@ export class ArticlesService {
 
     async create(articleDto: ArticleDto): Promise<Article> {
         const newArticle = await this.articleRepository.create(articleDto);
+        await this.categoriesService.countControl(articleDto.categoryId, true);
         return this.articleRepository.save(newArticle);
     }
 

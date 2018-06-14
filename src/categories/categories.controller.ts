@@ -4,7 +4,6 @@ import { CategoryDto } from './dto/category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CategoriesService } from './categories.service';
-import { ArticlesService } from '../articles/articles.service';
 import { Category } from './category.entity';
 import { Article } from '../articles/article.entity';
 import { ValidationPipe } from '../validation.pipe';
