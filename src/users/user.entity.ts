@@ -39,5 +39,5 @@ export class User extends BaseEntity {
     updatedAt: Date;
 
     @OneToMany(type => Article, article => article.user)
-    articles: Article[];
+    articles: Promise<Article[]>;
 }

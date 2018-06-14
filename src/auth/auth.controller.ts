@@ -13,6 +13,17 @@ export class AuthController {
         private readonly authService: AuthService,
     ) { }
 
+    @Get('auth')
+    @UseGuards(AuthGuard('jwt', {
+        callback: (err, user, info) => {
+            // 即使用户不存在也同样不 抛出错误
+            return user;
+        },
+    }))
+    async gen(@Req() request) {
+        return request.user;
+    }
+
     @Get('user')
     @UseGuards(AuthGuard('jwt'))
     async user(@Req() request): Promise<object> {
@@ -63,7 +74,7 @@ export class AuthController {
         throw new HttpException('未找到用户', HttpStatus.FORBIDDEN);
     }
 
-    @Get('logout')
+    @Post('logout')
     @UseGuards(AuthGuard('jwt'))
     async logout(): Promise<object> {
         return {

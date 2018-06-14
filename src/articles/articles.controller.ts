@@ -28,11 +28,35 @@ export class ArticlesController {
     ) { }
 
     @Get()
+    @UseGuards(AuthGuard('jwt', {
+        callback: (err, user, info) => {
+            // 即使用户不存在也同样不抛出错误
+            return user;
+        },
+    }))
     async findAll(@Req() request): Promise<Article[]> {
-        const articles = await this.articlesService.where({ status: request.query.status });
+        /*
+            登录用户：开放 status 作为参数
+            未登录用户：status === 2
 
-        // 参考 egg-cnode 的写法，用 Promise.all 的方法让 Array.map 内部可异步
+            query:
+                page Number 页数
+                cat Number 分类（id）
+                limit Number 每一页的文章数量
+        */
+        const page = request.query.page || 1;
+        const categoryId = request.query.cat || undefined;
+        const limit = request.query.limit || 10;
+        const status = request.user ? (request.query.status || 2) : 2;
+        let articles = [];
+        const conditions = {
+           categoryId,
+           status,
+        };
+
+        articles = await this.articlesService.where(conditions, (page - 1) * limit, limit);
         await Promise.all(
+            // 参考 egg-cnode 的写法，用 Promise.all 的方法让 Array.map 内部可异步
             articles.map(async article => {
                 let user = await this.usersService.findOneById(article.userId);
                 const category = await this.categoriesService.findOneById(article.categoryId);
@@ -75,8 +99,9 @@ export class ArticlesController {
     }
 
     @Get('mock')
-    async mock(): Promise<any> {
-        return await this.articlesService.where({ slug: 'asdas' });
+    async mock(): Promise<string> {
+        await this.articlesService.mock(20, 1);
+        return 'done';
     }
 
     @Get(':id')
@@ -85,7 +110,7 @@ export class ArticlesController {
     }
 
     @Delete(':id')
-    async destory(@Param('id') id): Promise<any> {
+    async destory(@Param('id') id): Promise<object> {
         const article = await this.articlesService.findOneById(id);
         await this.categoriesService.countControl(article.categoryId, false);
         return await this.articlesService.destroy(id);
@@ -96,7 +121,7 @@ export class ArticlesController {
     @UseInterceptors(FileInterceptor('file', {
         limits: {
             files: 1,
-            fileSize: 2 * 10 * 10 * 10 * 10 * 10 * 10 * 10, // 限制图片大小
+            fileSize: 2 * 10 * 10 * 10 * 10 * 10 * 10 * 10, // 限制图片大小 2MB
         },
         fileFilter (req, file, callback) {
             // 只允许上传jpg|png|jpeg|gif格式的文件
@@ -106,12 +131,14 @@ export class ArticlesController {
             callback(null, true);
         },
     }))
-    async upload(@UploadedFile() image) {
+    async upload(@UploadedFile() image): Promise<object> {
         const qiniuService = new Qiniu(this.config.get('QINIU_AK'), this.config.get('QINIU_SK'));
         const bucket = this.config.get('QINIU_BUCKET');
         const baseUrl = this.config.get('QINIU_URL');
+
         const fileService = qiniuService.file(`${bucket}:${image.originalname}`).tabZone(this.config.get('QINIU_ZONE'));
         let fileUploaded =  await fileService.upload({ stream: image.buffer });
+
         const url = `${baseUrl}/${fileUploaded.key}`;
         fileUploaded = _.assign(fileUploaded, { url });
         return fileUploaded;

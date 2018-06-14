@@ -25,8 +25,9 @@ export class ArticlesService {
         return await this.articleRepository.findOne({ slug });
     }
 
-    async where(condition: object): Promise<Article[]> {
-        return await this.articleRepository.find(condition);
+    async where(where: object, skip: number = 0, take: number = 59999): Promise<Article[]> {
+        where = _.omitBy(where, _.isUndefined);
+        return await this.articleRepository.find({ where, take, skip });
     }
 
     async findAll(): Promise<Article[]> {
@@ -59,17 +60,16 @@ export class ArticlesService {
         await this.articleRepository.delete(id);
     }
 
-    /*
-    async mock(count: number, userId: number, category: number): Promise<any> {
+    async mock(count: number, userId: number): Promise<any> {
         for (let i = 0; i <= count; i++) {
             const structure = {
                 title: faker.lorem.sentence(),
                 content: faker.lorem.paragraphs(),
                 status: this.getRandomInt(-1, 2),
-                category,
+                categoryId: this.getRandomInt(5, 7),
                 slug: faker.lorem.word(),
                 userId,
-            }
+            };
             const newArticle = this.create(structure);
         }
     }
@@ -79,5 +79,5 @@ export class ArticlesService {
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min;
     }
-    */
+
 }
