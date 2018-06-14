@@ -88,7 +88,7 @@ export default {
       if (nextArticles.length !== 0) { this.page++ }
     },
     async destroy () {
-      this.$confirm('此操作将永久删除所选中的所有文章, 是否继续?', '警告', {
+      this.$confirm('此操作将永久删除所选中的所有文章, 是否继续？', '警告', {
         type: 'warning'
       })
       .then(() => {
@@ -97,26 +97,17 @@ export default {
           this.selected.map(async selection => {
             await this.$axios.$delete(`/articles/${selection}`)
             .catch(error => {
-              this.$message({
-                message: error.message,
-                type: 'warning'
-              })
+              this.$message.warning(error.message)
             })
           })
         )
         .then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          })
+          this.$message.success('操作成功')
         })
         this.refetch = !this.refetch
       })
       .catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
+        this.$message.info('已取消操作')
       })
     }
   },

@@ -99,27 +99,17 @@ export default {
   methods: {
     async createArticle () {
       if (this.errors.items.length !== 0) {
-        this.$message({
-          message: this.errors.items[0].msg,
-          type: 'warning'
-        })
-        return
+        return this.$message.warning(this.errors.items[0].msg)
       }
       return this.$axios.$post('/articles', _.assign(this.article))
         .then(response => {
           this.$store.commit('cleanDraft')
-          this.$notify({
+          this.$notify.success({
             title: '成功',
-            message: '操作成功',
-            type: 'success'
+            message: '操作成功'
           })
         }).catch(e => {
-          console.log(e)
-          this.$notify({
-            title: '失败',
-            message: e.data.message ? e.data.message : '内部服务器错误',
-            type: 'warning'
-          })
+          this.$notify.warning(e.data.message)
         })
     }
   },

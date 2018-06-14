@@ -116,26 +116,14 @@ export default {
   methods: {
     async updateProfile () {
       if (this.errors.items.length !== 0) {
-        this.$message({
-          message: this.errors.items[0].msg,
-          type: 'warning'
-        })
-        return
+        return this.$message.warning(this.errors.items[0].msg)
       }
       return this.$axios.$patch(`/users/${this.$auth.user.id}`, this.user)
         .then(response => {
-          this.$notify({
-            title: '成功',
-            message: '操作成功',
-            type: 'success'
-          })
+          this.$notify.success('操作成功')
         })
-        .catch(() => {
-          this.$notify({
-            title: '失败',
-            message: '出现内部错误',
-            type: 'warning'
-          })
+        .catch(e => {
+          this.$message.warning(e.data.message)
         })
     },
     async changePassword () {
@@ -145,18 +133,9 @@ export default {
       }
       await this.$axios.$post('/auth/changepassword', { password: this.password })
         .then(response => {
-          this.$notify({
-            title: '成功',
-            message: '操作成功',
-            type: 'success'
-          })
-        }).catch(error => {
-          console.log(error)
-          this.$notify({
-            title: '失败',
-            message: '出现内部错误',
-            type: 'warning'
-          })
+          this.$notify.success('操作成功')
+        }).catch(e => {
+          this.$notify.warning(e.data.message)
         })
     }
   }

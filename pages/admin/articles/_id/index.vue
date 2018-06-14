@@ -104,24 +104,18 @@ export default {
   methods: {
     async updateArticle () {
       if (this.errors.items.length !== 0) {
-        this.$message({
-          message: this.errors.items[0].msg,
-          type: 'warning'
-        })
-        return
+        return this.$message.warning(this.errors.items[0].msg)
       }
       return this.$axios.$patch(`/articles/${this.article.id}`, this.article)
         .then(response => {
-          this.$notify({
+          this.$notify.success({
             title: '成功',
-            message: '操作成功',
-            type: 'success'
+            message: '操作成功'
           })
         }).catch(e => {
-          this.$notify({
+          this.$notify.warning({
             title: '失败',
-            message: e.data.message || '内部服务器错误',
-            type: 'warning'
+            message: e.data.message || '内部服务器错误'
           })
         })
     }

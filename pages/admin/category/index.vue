@@ -72,32 +72,21 @@ export default {
       this.editId = id
     },
     async destoryCategory (id) {
-      this.$confirm('此操作将永久删除该目录以及目录下所有文章, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm('此操作不可逆, 是否继续？', '警告', {
         type: 'warning'
       })
       .then(() => {
-        this.$axios.$delete(`/categories/${id}`).then(response => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          })
+        this.$axios.$delete(`/categories/${id}`)
+        .then(response => {
+          this.$message.success('操作成功')
           this.refetch = !this.refetch
-          console.log(response)
         })
         .catch(e => {
-          this.$message({
-            message: e.data.message,
-            type: 'warning'
-          })
+          this.$message.warning(e.data.message)
         })
       })
       .catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
+        this.$message.info('已取消删除')
       })
     }
   }
