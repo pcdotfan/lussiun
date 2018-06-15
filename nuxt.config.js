@@ -10,7 +10,7 @@ module.exports = {
   */
   head: {
     title: 'PCDotFan',
-    description: 'To be an life&code artisan',
+    description: 'To be an life & code artisan',
     logo: 'https://pcdotfan.com/_cache/thumbnails/7/375a43a16479738d7504273c2184383_240_240_true_86.png',
     meta: [
       { charset: 'utf-8' },

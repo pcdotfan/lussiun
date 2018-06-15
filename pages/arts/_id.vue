@@ -1,6 +1,6 @@
 <template>
 <article class="content">
-    <h1>解决 Yarn  / NPM 从 GitHub 下载 Node-SASS 导致安装速度过慢的问题</h1>
+    <h1 v-text="article.title"></h1>
     <div class="meta">
         <span class="item">
             <i class="fa fa-calendar-o"></i>
@@ -12,7 +12,7 @@
         </span>
         <span class="item">
             <i class="fa fa-comment-o"></i>
-            <a href="/post/writing/2018-04-19-23-50-51#comments">{{ article.commentCount }} Comment(s)</a>
+            <a href="/post/writing/2018-04-19-23-50-51#comments">{{ article.commentCount }} 评</a>
         </span>
     </div>
     <div class="post" v-html="getRendered(article.content)">

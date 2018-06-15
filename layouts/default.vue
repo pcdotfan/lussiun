@@ -39,9 +39,8 @@
     <div class="aside-left sidebar">
         <h3>最新文章</h3>
         <ul>
-            <li>
-                <a href="/post/code/laravel-socialite-practice">Laravel Socialite 实践</a>
-                <span>95度</span>
+            <li :key="article.id" v-for="article in recentArticles">
+                <router-link :to="'/arts/' + article.id" v-text="article.title"></router-link>
             </li>
         </ul>
         <div class="clear"></div>
@@ -83,11 +82,15 @@ export default {
     return {
       title: this.$nuxt.$options.head.title,
       logo: this.$nuxt.$options.head.logo,
-      description: this.$nuxt.$options.head.description
+      description: this.$nuxt.$options.head.description,
+      recentArticles: []
     }
   },
   components: {
     ArticleList
+  },
+  async mounted () {
+    this.recentArticles = (await this.$axios.get('/articles')).data
   }
 }
 </script>
