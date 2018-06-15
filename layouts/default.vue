@@ -2,11 +2,11 @@
 <div>
     <header>
       <a href="/" class="logo">
-          <img src="/_cache/thumbnails/7/375a43a16479738d7504273c2184383_240_240_true_86.png">
+          <img :src="logo">
       </a>
       <div class="description">
-          <h1>PCDotFan</h1>
-          <h2>To be a Life &amp; Code Artisan.</h2>
+          <h1 v-text="title"></h1>
+          <h2 v-text="description"></h2>
           <nav>
               <div class="bitcron_nav_container">
                   <div class="bitcron_nav">
@@ -32,13 +32,7 @@
   </header>
   <div class="wrapper">
     <main>
-        <article-list></article-list>
-        <section class="list-pager">
-            <a href="/page/2" class="next">下一页
-                <i class="fa fa-angle-right"></i>
-            </a>
-            <div class="clear"></div>
-        </section>
+        <nuxt />
     </main>
   </div>
   <aside>
@@ -64,7 +58,7 @@
     </div>
   </aside>
   <footer>
-    <span>© 2018 PCDotFan -
+    <span>© 2018 {{ title }} -
         <a href="/feed">21 posts crafted</a>
     </span>
     <span>♥
@@ -85,6 +79,13 @@
 import ArticleList from '@/components/ArticleList'
 export default {
   name: 'Default',
+  data () {
+    return {
+      title: this.$nuxt.$options.head.title,
+      logo: this.$nuxt.$options.head.logo,
+      description: this.$nuxt.$options.head.description
+    }
+  },
   components: {
     ArticleList
   }

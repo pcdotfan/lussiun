@@ -92,6 +92,10 @@ body {
     text-align: justify;
     word-wrap: break-word;
 }
+header {
+    max-width: 820px;
+    margin: 0 auto;
+}
 .wrapper {
     max-width: 820px;
     background: #ffffff;
@@ -347,7 +351,7 @@ main section.content, article {
             margin: 0 0.3em;
         }
         .item {
-            &:nth-child(1) {
+            i {
                 margin-right: 5px;
             }
             margin-right: 10px;
@@ -742,7 +746,7 @@ aside {
 }
 
 .article-list {
-    padding: 0 20px;
+    padding: 10px 20px;
     margin: 0 30px;
 }
 

@@ -34,9 +34,9 @@ const MarkdownIt = require('markdown-it')
 const md = new MarkdownIt()
 export default {
   name: 'ArticleList',
+  props: ['articles'],
   data () {
     return {
-      articles: []
     }
   },
   methods: {
@@ -45,8 +45,6 @@ export default {
     }
   },
   async mounted () {
-    this.articles = await this.$axios.get('/articles/?status=2')
-    this.articles = this.articles.data
   }
 }
 </script>
