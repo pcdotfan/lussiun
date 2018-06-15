@@ -61,7 +61,7 @@ export class AuthController {
             };
         }
 
-        throw new HttpException('信息不匹配', HttpStatus.FORBIDDEN);
+        throw new HttpException('用户名或密码错误', HttpStatus.FORBIDDEN);
     }
 
     @Post('changepassword')

@@ -62,7 +62,7 @@ export class ArticlesController {
                 const category = await article.category;
                 const avatar = gravatar.url(user.email);
                 user = _.assign(user, { avatar });
-                user = _.omit(Object(user), ['password', 'createdAt', 'updatedAt']);
+                user = _.omit(user, ['password', 'createdAt', 'updatedAt']);
                 article = _.assign(article, { user }, { category });
             }),
         );
@@ -79,7 +79,6 @@ export class ArticlesController {
 
         if (articleExisted.length === 0) {
             articleDto.userId = request.user.id;
-            await this.categoriesService.countControl(articleDto.categoryId, true);
             return await this.articlesService.create(articleDto);
         }
 
@@ -131,6 +130,7 @@ export class ArticlesController {
             callback(null, true);
         },
     }))
+
     async upload(@UploadedFile() image): Promise<object> {
         const qiniuService = new Qiniu(this.config.get('QINIU_AK'), this.config.get('QINIU_SK'));
         const bucket: string = this.config.get('QINIU_BUCKET');
