@@ -2,12 +2,9 @@
     <div>
       <article-list :articles="articles"></article-list>
       <div class="list-pager">
-          <router-link :to="{ path: `/page/${page--}` }" v-if="--page !== 0" class="prev">
-              <i class="fa fa-angle-left"></i> 上一页
-          </router-link>
-          <a href="/page/2" class="next">
+          <router-link :to="{ path: `/page/2` }" v-if="nextAvailable" class="next">
               下一页 <i class="fa fa-angle-right"></i>
-          </a>
+          </router-link>
           <div class="clear"></div>
       </div>
     </div>
@@ -22,11 +19,16 @@ export default {
   },
   data () {
     return {
-      articles: []
+      articles: [],
+      nextAvailable: false
     }
   },
   async mounted () {
     this.articles = (await this.$axios.get('/articles')).data
+    const nextArticles = await this.$axios.$get(`/articles/?page=2`)
+    if (nextArticles.length !== 0) {
+      this.nextAvailable = true
+    }
   }
 }
 </script>

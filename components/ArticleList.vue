@@ -2,26 +2,21 @@
     <section class="article-list">
         <article v-for="article in articles" :key="article.id">
             <h2>
-                <a href="/post/code/ydkjs-this" v-text="article.title"></a>
+                <router-link :to="'/arts/' + article.id" v-text="article.title"></router-link>
             </h2>
             <div class="excerpt"><p v-html="getExcerpt(article.content)"></p></div>
-            <div class="meta uk-article-meta">
+            <div class="meta">
               <span class="item">
                   <i class="fa fa-calendar-o"></i>
-                  <time datetime="2018-04-19">2018.04.19</time>
+                  <time :datetime="getDate(article.updatedAt)" v-text="getDate(article.updatedAt)"></time>
               </span>
               <span class="item">
                   <i class="fa fa-code"></i>
-                  <a href="/category/writing">Writing</a>
-              </span>
-
-              <span class="item">
-                  <i class="fa fa-battery-three-quarters"></i>
-                  <span>39度</span>
+                  <a href="/category/writing" v-text="article.__category__.name"></a>
               </span>
               <span class="item">
                   <i class="fa fa-comment-o"></i>
-                  <a href="/post/writing/2018-04-19-23-50-51#comments">0评</a>
+                  <a href="/post/writing/2018-04-19-23-50-51#comments">{{ article.commentCount }} Comment(s)</a>
               </span>
             </div>
         </article>
@@ -31,6 +26,7 @@
 <script>
 const excerptHtml = require('excerpt-html')
 const MarkdownIt = require('markdown-it')
+const moment = require('moment')
 const md = new MarkdownIt()
 export default {
   name: 'ArticleList',
@@ -42,6 +38,9 @@ export default {
   methods: {
     getExcerpt (str) {
       return excerptHtml(md.render(str))
+    },
+    getDate (date) {
+      return moment(date).format('YYYY.MM.DD')
     }
   },
   async mounted () {

@@ -1,9 +1,9 @@
 <template>
 <div>
     <header>
-      <a href="/" class="logo">
+      <router-link to="/" class="logo">
           <img :src="logo">
-      </a>
+      </router-link>
       <div class="description">
           <h1 v-text="title"></h1>
           <h2 v-text="description"></h2>
