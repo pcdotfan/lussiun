@@ -19,7 +19,6 @@
                       <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox" v-model="selectAll"></th>
                       <th>标题</th>
                       <th>作者</th>
-                      <th>分类目录</th>
                       <th>发布时间</th>
                     </tr>
                   </thead>
@@ -32,7 +31,6 @@
                         <router-link :to="{ name: 'admin-articles-id', params: { id: article.id } }">{{ article.title }}</router-link>
                       </td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small"><img class="uk-margin-small-right uk-preserve-width uk-border-circle" :src="article.__user__.avatar" width="40">{{ article.__user__.nickname }}</td>
-                      <td class="uk-table-shrink uk-text-nowrap uk-text-small"><router-link :to="{ name:'admin-articles-cat-id', params:{ id: article.categoryId } }" v-text="article.__category__.name"></router-link></td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small" v-text="getFormattedDate(article.updateAt)"></td>
                     </tr>
                   </tbody>
@@ -58,6 +56,7 @@ export default {
   layout: 'backend',
   data () {
     return {
+      category: {},
       status: 0,
       refetch: false,
       page: 1,
@@ -85,7 +84,7 @@ export default {
     },
     async next () {
       this.page++
-      const nextArticles = await this.$axios.$get(`/articles/?status=${this.status}&page=${this.page + 1}`)
+      const nextArticles = await this.$axios.$get(`/articles/?status=${this.status}&page=${this.page + 1}&cat=${this.$route.params.id}`)
       if (nextArticles.length === 0) {
         this.nextAvailable = false
       }
@@ -135,7 +134,7 @@ export default {
   asyncComputed: {
     articles: {
       get () {
-        return this.$axios.$get(`/articles/?status=${this.status}&page=${this.page}`)
+        return this.$axios.$get(`/articles/?status=${this.status}&page=${this.page}&cat=${this.$route.params.id}`)
       },
       watch () {
         return this.refetch
@@ -143,11 +142,12 @@ export default {
     }
   },
   async mounted () {
+    this.category = (await this.$axios.get(`/categories/${this.$route.params.id}`)).data
     this.$store.commit('changeHero', {
-      title: '文章',
-      description: '屈平词赋悬日月，楚王台谢空山丘。',
+      title: this.category.name,
+      description: this.category.description,
       navbarItems: [
-        { title: '文章列表', path: '/admin/articles' },
+        { title: '文章列表', path: `/admin/articles/cat/${this.$route.params.id}` },
         { title: '撰写文章', path: '/admin/articles/new' }
       ]
     })
