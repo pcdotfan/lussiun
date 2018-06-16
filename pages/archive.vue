@@ -1,10 +1,10 @@
 <template>
 <article class="content">
-    <h2>文章归档</h2>
+    <h1>文章归档</h1>
     <div class="meta">
         共有...篇文章
     </div>
-    <h3>2018</h3>
+    <h2>2018</h2>
     <ul class="archived-posts">
         <li>
             <time datetime="2018-04-19">04.19</time>
