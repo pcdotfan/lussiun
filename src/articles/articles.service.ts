@@ -65,7 +65,7 @@ export class ArticlesService {
             const structure = {
                 title: faker.lorem.sentence(),
                 content: faker.lorem.paragraphs(),
-                status: this.getRandomInt(-1, 2),
+                status: 2,
                 categoryId: this.getRandomInt(5, 7),
                 slug: faker.lorem.word(),
                 userId,

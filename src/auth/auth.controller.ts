@@ -13,17 +13,6 @@ export class AuthController {
         private readonly authService: AuthService,
     ) { }
 
-    @Get('auth')
-    @UseGuards(AuthGuard('jwt', {
-        callback: (err, user, info) => {
-            // 即使用户不存在也同样不 抛出错误
-            return user;
-        },
-    }))
-    async gen(@Req() request) {
-        return request.user;
-    }
-
     @Get('user')
     @UseGuards(AuthGuard('jwt'))
     async user(@Req() request): Promise<object> {

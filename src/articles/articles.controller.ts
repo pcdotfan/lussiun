@@ -105,16 +105,24 @@ export class ArticlesController {
 
     @Get(':id')
     async findOne(@Param('id') id): Promise<Article> {
-        return await this.articlesService.findOneById(id);
+        let article = await this.articlesService.findOneById(id);
+        let user = await article.user;
+        const category = await article.category;
+        const avatar = gravatar.url(user.email);
+        user = _.assign(user, { avatar });
+        user = _.omit(Object(user), ['password', 'createdAt', 'updatedAt']);
+        article = _.assign(article, { user }, { category });
+
+        return article;
     }
 
     @Delete(':id')
     async destory(@Param('id') id): Promise<object> {
         const article = await this.articlesService.findOneById(id);
-        await this.categoriesService.countControl(article.categoryId, false);
         return await this.articlesService.destroy(id);
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Post('upload')
     // 暂时只允许图片上传
     @UseInterceptors(FileInterceptor('file', {
@@ -130,7 +138,6 @@ export class ArticlesController {
             callback(null, true);
         },
     }))
-
     async upload(@UploadedFile() image): Promise<object> {
         const qiniuService = new Qiniu(this.config.get('QINIU_AK'), this.config.get('QINIU_SK'));
         const bucket: string = this.config.get('QINIU_BUCKET');
