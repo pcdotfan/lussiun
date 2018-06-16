@@ -12,7 +12,7 @@
               </span>
               <span class="item">
                   <i class="fa fa-code"></i>
-                  <a href="/category/writing" v-text="article.__category__.name"></a>
+                  <router-link :to="'/category/' + article.categoryId" v-text="article.__category__.name"></router-link>
               </span>
               <span class="item">
                   <i class="fa fa-comment-o"></i>
