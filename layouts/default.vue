@@ -79,9 +79,9 @@ export default {
   name: 'Default',
   data () {
     return {
-      title: this.$nuxt.$options.head.title,
-      logo: this.$nuxt.$options.head.logo,
-      description: this.$nuxt.$options.head.description,
+      title: this.$nuxt.$options.head.site.title,
+      logo: this.$nuxt.$options.head.site.logo,
+      description: this.$nuxt.$options.head.site.description,
       recentArticles: [],
       categories: []
     }

@@ -40,9 +40,15 @@ export default {
   data () {
     return {
       article: {
+        title: '',
         __category__: {}
       },
       id: 0
+    }
+  },
+  head () {
+    return {
+      title: this.article.title + ' | ' + this.$nuxt.$options.head.site.title
     }
   },
   methods: {
