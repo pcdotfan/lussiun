@@ -5,13 +5,18 @@ module.exports = {
     baseUrl: process.env.BASE_URL || 'http://localhost:3333'
   },
 
+  site: {
+    title: 'PCDotFan',
+    description: 'To be an life & code artisan',
+    logo: 'https://pcdotfan.com/_cache/thumbnails/7/375a43a16479738d7504273c2184383_240_240_true_86.png'
+  },
+
   /*
   ** Headers of the page
   */
   head: {
     title: 'PCDotFan',
     description: 'To be an life & code artisan',
-    logo: 'https://pcdotfan.com/_cache/thumbnails/7/375a43a16479738d7504273c2184383_240_240_true_86.png',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

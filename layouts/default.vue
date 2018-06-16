@@ -48,10 +48,9 @@
     <div class="aside-right sidebar">
         <h3>分门别类</h3>
         <ul>
-            <li>
-                <a href="/category/code">Code</a>
-                <span>14篇</span>
-
+            <li v-for="category in categories" :key="category.id">
+                <router-link :to="'/categories/' + category.id" v-text="category.name"></router-link>
+                <span v-text="category.count + '篇'"></span>
             </li>
         </ul>
     </div>
@@ -83,7 +82,8 @@ export default {
       title: this.$nuxt.$options.head.title,
       logo: this.$nuxt.$options.head.logo,
       description: this.$nuxt.$options.head.description,
-      recentArticles: []
+      recentArticles: [],
+      categories: []
     }
   },
   components: {
@@ -91,6 +91,7 @@ export default {
   },
   async mounted () {
     this.recentArticles = (await this.$axios.get('/articles')).data
+    this.categories = (await this.$axios.get('/categories')).data
   }
 }
 </script>
