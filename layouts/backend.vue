@@ -24,11 +24,19 @@
                             </div>
                             </a>
                         </router-link>
-                        <router-link tag="li" to="/admin/category">
+                        <router-link tag="li" to="/admin/categories">
                             <a>
                             <div class="">
                                 分类目录
-                                <div class="uk-navbar-subtitle">Category</div>
+                                <div class="uk-navbar-subtitle">Categories</div>
+                            </div>
+                            </a>
+                        </router-link>
+                        <router-link tag="li" to="/admin/comments">
+                            <a>
+                            <div class="">
+                                评论
+                                <div class="uk-navbar-subtitle">Comments</div>
                             </div>
                             </a>
                         </router-link>

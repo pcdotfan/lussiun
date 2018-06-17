@@ -2,7 +2,7 @@
     <div class="auth-page uk-height-viewport uk-flex uk-flex-center uk-flex-middle uk-text-center">
         <div class="authenticate-box">
             <auth-tip ref="alert"></auth-tip>
-            <form @keydown.enter="login" v-on:submit.prevent>
+            <form @keydown.enter="login" v-on:submit.prevent="login">
               <div class="uk-card uk-card-default">
                 <div class="uk-card-body">
                     <div class="auth-item">

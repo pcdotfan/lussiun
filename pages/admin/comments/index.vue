@@ -4,9 +4,8 @@
             <div class="uk-width-1-4@m uk-width-1-1">
               <vk-card padding="small" class="overview-sidebar">
                   <vk-nav>
-                      <li @click="changeStatus(2)" :class="{ 'uk-active': isActive(2) }"><a><vk-icon class="uk-margin-right" icon="pencil"></vk-icon> 已发布</a></li>
-                      <li @click="changeStatus(1)" :class="{ 'uk-active': isActive(1) }"><a><vk-icon class="uk-margin-right" icon="future"></vk-icon> 待审核</a></li>
-                      <li @click="changeStatus(0)" :class="{ 'uk-active': isActive(0) }"><a ><vk-icon class="uk-margin-right" icon="hashtag"></vk-icon> 草稿</a></li>
+                      <li @click="changeStatus(1)" :class="{ 'uk-active': isActive(1) }"><a><vk-icon class="uk-margin-right" icon="future"></vk-icon> 已发布</a></li>
+                      <li @click="changeStatus(0)" :class="{ 'uk-active': isActive(0) }"><a ><vk-icon class="uk-margin-right" icon="hashtag"></vk-icon> 待审核</a></li>
                       <li @click="changeStatus(-1)" :class="{ 'uk-active': isActive(-1) }"><a><vk-icon class="uk-margin-right" icon="trash"></vk-icon> 回收站</a></li>
                   </vk-nav>
               </vk-card>
@@ -17,10 +16,8 @@
                   <thead>
                     <tr>
                       <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox" v-model="selectAll"></th>
-                      <th>标题</th>
                       <th>作者</th>
-                      <th>分类目录</th>
-                      <th>发布时间</th>
+                      <th>内容</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -28,12 +25,23 @@
                       <td>
                         <input class="uk-checkbox" v-model="selected" :value="article.id" type="checkbox">
                       </td>
+                      <td class="uk-table-shrink uk-text-nowrap uk-text-small" style="min-width: 200px">
+                        <vk-grid class="uk-flex-middle" gutter="collapse">
+                          <div class="uk-width-auto">
+                            <img class="uk-margin-small-right uk-preserve-width uk-border-circle" :src="article.__user__.avatar" width="50">
+                          </div>
+                          <div class="uk-width-expand">
+                            <p class="comment-user"><a>wwy701</a></p>
+                            <div class="comment-meta">
+                              <p>467055732@qq.com</p>
+                              <p>127.0.0.1</p>
+                            </div>
+                          </div>
+                        </vk-grid>
+                      </td>
                       <td>
                         <router-link :to="{ name: 'admin-articles-id', params: { id: article.id } }">{{ article.title }}</router-link>
                       </td>
-                      <td class="uk-table-shrink uk-text-nowrap uk-text-small"><img class="uk-margin-small-right uk-preserve-width uk-border-circle" :src="article.__user__.avatar" width="46">{{ article.__user__.nickname }}</td>
-                      <td class="uk-table-shrink uk-text-nowrap uk-text-small"><router-link :to="{ name:'admin-articles-cat-id', params:{ id: article.categoryId } }" v-text="article.__category__.name"></router-link></td>
-                      <td class="uk-table-shrink uk-text-nowrap uk-text-small" v-text="getFormattedDate(article.updateAt)"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -51,6 +59,17 @@
         </vk-grid>
     </main>
 </template>
+
+<style scoped>
+  .comment-user {
+    margin-bottom: 15px;
+  }
+  .comment-meta p {
+    font-size: 13px;
+    margin: 3px 0;
+  }
+</style>
+
 <script>
 const moment = require('moment')
 export default {
@@ -144,12 +163,9 @@ export default {
   },
   async mounted () {
     this.$store.commit('changeHero', {
-      title: '文章',
+      title: '评论',
       description: '屈平词赋悬日月，楚王台谢空山丘。',
-      navbarItems: [
-        { title: '文章列表', path: '/admin/articles' },
-        { title: '撰写文章', path: '/admin/articles/new' }
-      ]
+      navbarItems: []
     })
   }
 }

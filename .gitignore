@@ -17,3 +17,5 @@ yarn.lock
 database/development.sqlite
 
 *.lock
+
+dist/
