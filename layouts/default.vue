@@ -57,14 +57,13 @@
   </aside>
   <footer>
     <span>© 2018 {{ title }} -
-        <a href="/feed">21 posts crafted</a>
     </span>
-    <span>♥
-        <a href="https://blog.shuiba.co/bitcron-theme-hello">Hello</a>
+    <span> ♥
+        <a href="https://blog.shuiba.co/bitcron-theme-hello">Hello Redesigned</a>
     </span>
     <div class="powered_by">
         <span>Proudly published with </span>
-        <a href="https://bitcron.com" target="_blank">Lussiun</a>
+        <a href="https://github.com/pcdotfan/lussiun" target="_blank">Lussiun</a>
     </div>
     <div class="footer_slogan">
         <img src="~assets/images/slogan.svg">
