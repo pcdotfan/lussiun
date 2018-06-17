@@ -49,7 +49,7 @@
         <h3>分门别类</h3>
         <ul>
             <li v-for="category in categories" :key="category.id">
-                <router-link :to="'/categories/' + category.id" v-text="category.name"></router-link>
+                <router-link :to="'/category/' + category.id" v-text="category.name"></router-link>
                 <span v-text="category.count + '篇'"></span>
             </li>
         </ul>

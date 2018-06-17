@@ -4,9 +4,7 @@
         <div class="comments_wrapper">
         <div class="comments_block_title">发表评论</div>
         <div class="new_comment_form_container">
-            <form id="new_comment_form" method="post" action="/service/comment/new">
-                <input name="path" type="hidden" value="code/downloading-node-sass-from-github-is-too-slow.md">
-                <input id="reply_to_id" name="reply" type="hidden" value="">
+            <div id="new_comment_form">
                 <div class="comment_trigger" v-show="!isTriggered">
                     <div class="avatar">
                         <img src="~assets/images/visitor.png">
@@ -14,26 +12,26 @@
                     <div class="trigger_title">撰写评论</div>
                 </div>
                 <div class="new_comment">
-                    <textarea name="content" rows="2" class="textarea_box" @focus="triggerContent"></textarea>
+                    <textarea name="content" rows="2" class="textarea_box" v-model="comment.content"  @focus="triggerContent"></textarea>
                     <span class="comment_error"></span>
                 </div>
                 <div class="comment_triggered" v-show="isTriggered" :class="{ 'fade-in': isTriggered }">
                     <div class="input_body">
                         <ul class="ident">
                             <li>
-                                <input type="text" v-model="commentor.nickname" name="nickname" placeholder="昵称">
+                                <input type="text" v-model="comment.name" name="nickname" placeholder="昵称">
                             </li>
                             <li>
-                                <input type="email" v-model="commentor.email" name="email" placeholder="邮箱">
+                                <input type="email" v-model="comment.email" name="email" placeholder="邮箱">
                             </li>
                             <li>
-                                <input type="text" v-model="commentor.site" name="site" placeholder="网站">
+                                <input type="text" v-model="comment.website" name="site" placeholder="网站">
                             </li>
                         </ul>
-                        <input type="submit" value="提交评论" class="comment_submit_button c_button">
+                        <input @click="submitComment" value="提交评论" class="comment_submit_button c_button">
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
         <ul class="comments">
         </ul>
@@ -64,12 +62,16 @@
 <script>
 export default {
   name: 'CommentSection',
+  props: ['article', 'parent'],
   data () {
     return {
-      commentor: {
-        nickname: '',
+      comment: {
+        articleId: this.article,
+        parentId: this.parent || undefined,
+        name: '',
         email: '',
-        site: ''
+        website: '',
+        content: ''
       },
       isTriggered: false
     }
@@ -77,6 +79,11 @@ export default {
   methods: {
     triggerContent () {
       this.isTriggered = true
+    },
+    async submitComment () {
+      return this.$axios.post('/comments', this.comment).then(response => {
+        console.log(response.data)
+      })
     }
   }
 }
