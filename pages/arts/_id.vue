@@ -23,7 +23,7 @@
       <a href="/post/writing/2018-04-19-23-50-51" class="pre">2018-04-19 23-50-51</a>
       <a href="/post/writing/put-the-best-yourself-into-the-situation-someone-when-needs-you-most" class="next">??</a>
     </section>
-    <comment-section></comment-section>
+    <comment-section :article="id"></comment-section>
   </div>
 </template>
 
@@ -43,7 +43,7 @@ export default {
         title: '',
         __category__: {}
       },
-      id: 0
+      id: Number(this.$route.params.id)
     }
   },
   head () {
@@ -60,7 +60,6 @@ export default {
     }
   },
   async mounted () {
-    this.id = Number(this.$route.params.id)
     this.article = (await this.$axios.get(`/articles/${this.id}`)).data
   }
 }

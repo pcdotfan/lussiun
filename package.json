@@ -6,9 +6,9 @@
   "private": true,
   "scripts": {
     "nuxt": "PORT=3333 nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
+    "build": "PORT=3333 nuxt build",
+    "start": "PORT=3333 nuxt start",
+    "generate": "PORT=3333 nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
   },
@@ -25,6 +25,7 @@
     "eslint-plugin-standard": "^3.1.0",
     "excerpt-html": "^1.2.0",
     "font-awesome": "^4.7.0",
+    "gravatar": "^1.6.0",
     "markdown-it": "^8.4.1",
     "moment": "^2.22.2",
     "node-sass": "^4.9.0",

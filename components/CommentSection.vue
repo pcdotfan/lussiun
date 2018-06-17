@@ -12,20 +12,20 @@
                     <div class="trigger_title">撰写评论</div>
                 </div>
                 <div class="new_comment">
-                    <textarea name="content" rows="2" class="textarea_box" v-model="comment.content"  @focus="triggerContent"></textarea>
+                    <textarea name="content" rows="2" class="textarea_box" v-model="newComment.content"  @focus="triggerContent"></textarea>
                     <span class="comment_error"></span>
                 </div>
                 <div class="comment_triggered" v-show="isTriggered" :class="{ 'fade-in': isTriggered }">
                     <div class="input_body">
                         <ul class="ident">
                             <li>
-                                <input type="text" v-model="comment.name" name="nickname" placeholder="昵称">
+                                <input type="text" v-model="newComment.name" name="nickname" placeholder="昵称">
                             </li>
                             <li>
-                                <input type="email" v-model="comment.email" name="email" placeholder="邮箱">
+                                <input type="email" v-model="newComment.email" name="email" placeholder="邮箱">
                             </li>
                             <li>
-                                <input type="text" v-model="comment.website" name="site" placeholder="网站">
+                                <input type="text" v-model="newComment.website" name="site" placeholder="网站">
                             </li>
                         </ul>
                         <input @click="submitComment" value="提交评论" class="comment_submit_button c_button">
@@ -34,6 +34,21 @@
             </div>
         </div>
         <ul class="comments">
+            <li v-for="(comment, index) in comments" :key="comment.id"  class="comment">
+                <div class="comment_wrapper">
+                    <div class="author">
+                    <div class="avatar">
+                        <img :src="avatarFromGravatar[index]" width="40">
+                    </div>
+                    <div class="author-name">
+                        <a :href="comment.website" rel="external nofollow"><b v-text="comment.name"></b></a>
+                        <a href="javascript:void(0)" onclick="reply_comment('psa', 'c92efa9c8d0f8301307fe3e26f229d67')" class="reply">reply</a>
+                    </div>
+                    <div class="author-date"><small>2018-06-17 14:47:16</small></div>
+                    </div>
+                    <div class="comment_content"><div class="p_part"><p v-text="comment.content"></p></div></div>
+                </div>
+            </li>
         </ul>
         </div>
     </div>
@@ -60,12 +75,13 @@
 </style>
 
 <script>
+const gravatar = require('gravatar')
 export default {
   name: 'CommentSection',
-  props: ['article', 'parent'],
+  props: ['article'],
   data () {
     return {
-      comment: {
+      newComment: {
         articleId: this.article,
         parentId: this.parent || undefined,
         name: '',
@@ -73,7 +89,15 @@ export default {
         website: '',
         content: ''
       },
+      comments: [],
       isTriggered: false
+    }
+  },
+  computed: {
+    avatarFromGravatar () {
+      return this.comments.map(comment => {
+        return gravatar.url(comment.email)
+      })
     }
   },
   methods: {
@@ -85,6 +109,10 @@ export default {
         console.log(response.data)
       })
     }
+  },
+  async mounted () {
+    console.log(`/comments/?article=${this.article}`)
+    this.comments = (await this.$axios.get(`/comments/?article=${this.article}`)).data
   }
 }
 </script>
