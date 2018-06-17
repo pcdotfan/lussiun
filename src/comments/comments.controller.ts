@@ -30,7 +30,7 @@ export class CommentsController {
     @Post()
     @UsePipes(ValidationPipe)
     async create(@Req() request, @Body() commentDto: CommentDto) {
-        commentDto.ip = request.ip as string;
+        commentDto.ip = request.ip;
         commentDto.type = 1;
         return await this.commentsService.create(commentDto);
     }

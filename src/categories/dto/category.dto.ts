@@ -1,4 +1,4 @@
-import { IsString, IsInt, MinLength } from 'class-validator';
+import { IsString } from 'class-validator';
 export class CategoryDto {
     @IsString()
     readonly name: string;

@@ -8,7 +8,6 @@ import { Controller,
 import { AuthGuard } from '@nestjs/passport';
 import { ArticleDto } from './dto/article.dto';
 import { ArticlesService } from './articles.service';
-import { UsersService } from '../users/users.service';
 import { CategoriesService } from '../categories/categories.service';
 import { ConfigService } from '../config/config.service';
 import { Article } from './article.entity';
@@ -22,7 +21,6 @@ import * as Qiniu from 'node-qiniu-sdk';
 export class ArticlesController {
     constructor(
         private readonly articlesService: ArticlesService,
-        private readonly usersService: UsersService,
         private readonly categoriesService: CategoriesService,
         private config: ConfigService,
     ) { }

@@ -2,13 +2,11 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     Column,
-    ManyToMany,
     OneToMany,
     ManyToOne,
     CreateDateColumn,
     UpdateDateColumn,
     JoinColumn,
-    RelationId,
     BaseEntity,
 } from 'typeorm';
 import { Category } from '../categories/category.entity';

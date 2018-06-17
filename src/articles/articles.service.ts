@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UsersService } from '../users/users.service';
 import { CategoriesService } from '../categories/categories.service';
 import { ArticleDto } from './dto/article.dto';
 import { Article } from './article.entity';
