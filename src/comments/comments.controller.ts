@@ -20,7 +20,10 @@ export class CommentsController {
     ) { }
 
     @Get()
-    async findAll(): Promise<Comment[]> {
+    async findAll(@Req() request): Promise<Comment[]> {
+        if (request.query.article) {
+            return await this.commentsService.where({ articleId: request.query.article });
+        }
         return await this.commentsService.findAll();
     }
 
@@ -28,6 +31,7 @@ export class CommentsController {
     @UsePipes(ValidationPipe)
     async create(@Req() request, @Body() commentDto: CommentDto) {
         commentDto.ip = request.ip as string;
+        commentDto.type = 1;
         return await this.commentsService.create(commentDto);
     }
 
