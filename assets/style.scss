@@ -646,7 +646,6 @@ section#comments {
     margin: 0;
 }
 .comments .comments .comment {
-    padding: 0!important;
     background-color: inherit!important;
     margin: 0!important;
     border-radius: 0!important;
@@ -729,7 +728,7 @@ section#comments {
           .comments .comments .sub_comments {
             padding-left: 20px; }
             .comments .comments .comment {
-              padding: 24px 20px;
+              padding: 6px 0;
               background-color: #fff;
               border: 1px solid rgba(150, 150, 150, 0.18);
               margin: 30px 0 0;
@@ -762,6 +761,7 @@ section#comments {
                     .comments .comments .comment .author small {
                       margin-left: 48px; }
               .comments .comments .comment p {
+                  font-size: 14px;
                 margin: 0.2em 0; }
                 .comments .comments .comment a {
                   border-bottom: none; }

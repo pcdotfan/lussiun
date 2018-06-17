@@ -13,7 +13,7 @@
                       <div class="mixed_site_nav_wrap site_nav_wrap">
                           <ul class="mixed_site_nav site_nav sm sm-base">
                               <li>
-                                  <a id="db8d7c6bc6ed911e885290242ac110004" href="/" class="selected active current nav__item">首页</a>
+                                  <router-link to="/" class="selected active current nav__item">首页</router-link>
                               </li>
                               <li>
                                   <a id="db8d7d8006ed911e885290242ac110004" href="/archive" class=" nav__item">归档</a>

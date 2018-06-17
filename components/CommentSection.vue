@@ -44,7 +44,7 @@
                         <a :href="comment.website" rel="external nofollow"><b v-text="comment.name"></b></a>
                         <a href="javascript:void(0)" onclick="reply_comment('psa', 'c92efa9c8d0f8301307fe3e26f229d67')" class="reply">reply</a>
                     </div>
-                    <div class="author-date"><small>2018-06-17 14:47:16</small></div>
+                    <div class="author-date"><small v-text="createdAt[index]"></small></div>
                     </div>
                     <div class="comment_content"><div class="p_part"><p v-text="comment.content"></p></div></div>
                 </div>
@@ -76,6 +76,8 @@
 
 <script>
 const gravatar = require('gravatar')
+const moment = require('moment')
+
 export default {
   name: 'CommentSection',
   props: ['article'],
@@ -98,6 +100,11 @@ export default {
       return this.comments.map(comment => {
         return gravatar.url(comment.email)
       })
+    },
+    createdAt () {
+      return this.comments.map(comment => {
+        return moment(comment.createdAt).format('YYYY-MM-DD h:mm a')
+      })
     }
   },
   methods: {
@@ -111,7 +118,6 @@ export default {
     }
   },
   async mounted () {
-    console.log(`/comments/?article=${this.article}`)
     this.comments = (await this.$axios.get(`/comments/?article=${this.article}`)).data
   }
 }

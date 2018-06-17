@@ -19,10 +19,6 @@
       <div class="post" v-html="getRendered(article.content)">
       </div>
     </article>
-    <section class="pager">
-      <a href="/post/writing/2018-04-19-23-50-51" class="pre">2018-04-19 23-50-51</a>
-      <a href="/post/writing/put-the-best-yourself-into-the-situation-someone-when-needs-you-most" class="next">??</a>
-    </section>
     <comment-section :article="id"></comment-section>
   </div>
 </template>
