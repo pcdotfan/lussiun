@@ -3,6 +3,7 @@ import {
     PrimaryGeneratedColumn,
     Column,
     ManyToMany,
+    OneToMany,
     ManyToOne,
     CreateDateColumn,
     UpdateDateColumn,
@@ -12,6 +13,7 @@ import {
 } from 'typeorm';
 import { Category } from '../categories/category.entity';
 import { User } from '../users/user.entity';
+import { Comment } from '../comments/comment.entity';
 
 @Entity()
 export class Article extends BaseEntity {
@@ -44,6 +46,9 @@ export class Article extends BaseEntity {
     @ManyToOne(type => Category)
     @JoinColumn({ name: 'categoryId' })
     category: Promise<Category>;
+
+    @OneToMany(type => Comment, comment => comment.article)
+    comments: Promise<Comment[]>;
 
     @Column()
     userId: number;

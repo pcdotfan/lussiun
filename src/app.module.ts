@@ -5,12 +5,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoriesModule } from './categories/categories.module';
 import { UsersModule } from './users/users.module';
 import { ArticlesModule } from './articles/articles.module';
+import { CommentsModule } from './comments/comments.module';
 import { ConfigModule } from './config/config.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot(),
     CategoriesModule,
+    CommentsModule,
     UsersModule,
     ConfigModule,
     ArticlesModule,

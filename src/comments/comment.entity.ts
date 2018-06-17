@@ -40,6 +40,17 @@ export class Comment extends BaseEntity {
     @Column()
     website: string;
 
+    @Column()
+    content: string;
+
+    @Column()
+    ip: string;
+
+    @Column({
+        default: 0,
+    })
+    type: number; // -1: SPAM; 0: Waiting Moderation; 1: published
+
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
 

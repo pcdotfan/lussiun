@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Patch, Post, Body, UsePipes, HttpException, HttpStatus, Injectable, UseGuards, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Patch, Post, Body, UsePipes, Req, HttpException, HttpStatus, Injectable, UseGuards, Delete } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CommentDto } from './dto/comment.dto';
 import { CommentsService } from './comments.service';
@@ -25,9 +25,9 @@ export class CommentsController {
     }
 
     @Post()
-    @UseGuards(AuthGuard('jwt'))
     @UsePipes(ValidationPipe)
-    async create(@Body() commentDto: CommentDto) {
+    async create(@Req() request, @Body() commentDto: CommentDto) {
+        commentDto.ip = request.ip as string;
         return await this.commentsService.create(commentDto);
     }
 
@@ -43,6 +43,7 @@ export class CommentsController {
     }
 
     @Delete(':id')
+    @UseGuards(AuthGuard('jwt'))
     async destory(@Param('id') id) {
         return await this.commentsService.destroy(id);
     }
