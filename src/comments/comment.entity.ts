@@ -32,7 +32,7 @@ export class Comment extends BaseEntity {
 
     @ManyToOne(type => Article)
     @JoinColumn({ name: 'articleId' })
-    article: Article;
+    article: Promise<Article>;
 
     @Column()
     email: string;

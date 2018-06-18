@@ -4,6 +4,8 @@ import { CommentDto } from './dto/comment.dto';
 import { CommentsService } from './comments.service';
 import { Comment } from './comment.entity';
 import { ValidationPipe } from '../validation.pipe';
+import * as _ from 'lodash';
+import * as gravatar from 'gravatar';
 
 /*
     增：登录 / 未登录
@@ -20,11 +22,35 @@ export class CommentsController {
     ) { }
 
     @Get()
+    @UseGuards(AuthGuard('jwt', {
+        callback: (err, user, info) => {
+            // 即使用户不存在也同样不抛出错误
+            return user;
+        },
+    }))
     async findAll(@Req() request): Promise<Comment[]> {
-        if (request.query.article) {
-            return await this.commentsService.where({ articleId: request.query.article });
-        }
-        return await this.commentsService.findAll();
+        const page: number = request.query.page || 1;
+        const articleId: number | undefined = request.query.article || undefined;
+        const limit: number = request.query.limit || 10;
+        const type: number = request.user ? (request.query.type || 1) : 1;
+        let comments = [];
+        const conditions: object = {
+            articleId,
+            type,
+        };
+
+        comments = await this.commentsService.where(conditions, (page - 1) * limit, limit);
+        await Promise.all(
+            // 参考 egg-cnode 的写法，用 Promise.all 的方法让 Array.map 内部可异步
+            comments.map(async comment => {
+                let article = await comment.article;
+                const avatar = gravatar.url(comment.email);
+                article = _.pick(article, ['title']);
+                return  _.assign(comment, { avatar }, { article });
+            }),
+        );
+
+        return comments;
     }
 
     @Post()
@@ -35,7 +61,7 @@ export class CommentsController {
         return await this.commentsService.create(commentDto);
     }
 
-    @Patch(':id')
+    // 暂时不允许更改 @Patch(':id')
     @UseGuards(AuthGuard('jwt'))
     async update(@Param() id: number, @Body() commentDto: CommentDto): Promise<Comment> {
         return await this.commentsService.update(id, commentDto);

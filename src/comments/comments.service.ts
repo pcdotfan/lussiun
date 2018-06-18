@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CommentDto } from './dto/comment.dto';
 import { Comment } from './comment.entity';
+import * as _ from 'lodash';
 
 @Injectable()
 export class CommentsService {
@@ -19,10 +20,10 @@ export class CommentsService {
         return await this.where({ articleId: id });
     }
 
-    async where(condition: object): Promise<Comment[]> {
-        return await this.commentRepository.find(condition);
+    async where(where: object, skip: number = 0, take: number = 59999): Promise<Comment[]> {
+        where = _.omitBy(where, _.isUndefined);
+        return await this.commentRepository.find({ where, take, skip });
     }
-
     async findAll(): Promise<Comment[]> {
         return await this.commentRepository.find();
     }
