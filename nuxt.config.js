@@ -54,8 +54,8 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
-    baseURL: 'http://localhost:8080',
-    browserBaseURL: 'http://localhost:8080'
+    baseURL: 'https://admin.oqo.moe/api',
+    browserBaseURL: 'https://admin.oqo.moe/api'
   },
 
   /*
