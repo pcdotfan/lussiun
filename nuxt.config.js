@@ -46,8 +46,8 @@ module.exports = {
     ['@nuxtjs/moment', { locales: ['zh-cn'], plugin: false }]
   ],
   axios: {
-    baseURL: 'http://localhost:8080',
-    browserBaseURL: 'http://localhost:8080'
+    baseURL: 'https://admin.oqo.moe/api',
+    browserBaseURL: 'https://admin.oqo.moe/api'
   },
   auth: {
     fetchUserOnLogin: false,
