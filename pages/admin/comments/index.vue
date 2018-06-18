@@ -4,44 +4,46 @@
             <div class="uk-width-1-4@m uk-width-1-1">
               <vk-card padding="small" class="overview-sidebar">
                   <vk-nav>
-                      <li @click="changeStatus(1)" :class="{ 'uk-active': isActive(1) }"><a><vk-icon class="uk-margin-right" icon="future"></vk-icon> 已发布</a></li>
-                      <li @click="changeStatus(0)" :class="{ 'uk-active': isActive(0) }"><a ><vk-icon class="uk-margin-right" icon="hashtag"></vk-icon> 待审核</a></li>
-                      <li @click="changeStatus(-1)" :class="{ 'uk-active': isActive(-1) }"><a><vk-icon class="uk-margin-right" icon="trash"></vk-icon> 回收站</a></li>
+                      <li @click="changeType(1)" :class="{ 'uk-active': isActive(1) }"><a><vk-icon class="uk-margin-right" icon="future"></vk-icon> 已发布</a></li>
+                      <li @click="changeType(0)" :class="{ 'uk-active': isActive(0) }"><a ><vk-icon class="uk-margin-right" icon="hashtag"></vk-icon> 待审核</a></li>
+                      <li @click="changeType(-1)" :class="{ 'uk-active': isActive(-1) }"><a><vk-icon class="uk-margin-right" icon="trash"></vk-icon> 回收站</a></li>
                   </vk-nav>
               </vk-card>
             </div>
             <div class="uk-width-3-4@m uk-width-1-1">
-              <div class="articles-list uk-card uk-card-default uk-card-small">
+              <div class="comments-list uk-card uk-card-default uk-card-small">
                 <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
                   <thead>
                     <tr>
                       <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox" v-model="selectAll"></th>
                       <th>作者</th>
                       <th>内容</th>
+                      <th>发布时间</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="article in articles" :key="article.id">
+                    <tr v-for="comment in comments" :key="comment.id">
                       <td>
-                        <input class="uk-checkbox" v-model="selected" :value="article.id" type="checkbox">
+                        <input class="uk-checkbox" v-model="selected" :value="comment.id" type="checkbox">
                       </td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small" style="min-width: 200px">
                         <vk-grid class="uk-flex-middle" gutter="collapse">
                           <div class="uk-width-auto">
-                            <img class="uk-margin-small-right uk-preserve-width uk-border-circle" :src="article.__user__.avatar" width="50">
+                            <img class="uk-margin-small-right uk-preserve-width uk-border-circle" :src="comment.avatar" width="50">
                           </div>
                           <div class="uk-width-expand">
-                            <p class="comment-user"><a>wwy701</a></p>
+                            <p class="comment-user"><a v-text="comment.name"></a></p>
                             <div class="comment-meta">
-                              <p>467055732@qq.com</p>
-                              <p>127.0.0.1</p>
+                              <p v-text="comment.email"></p>
+                              <p v-text="comment.ip"></p>
                             </div>
                           </div>
                         </vk-grid>
                       </td>
                       <td>
-                        <router-link :to="{ name: 'admin-articles-id', params: { id: article.id } }">{{ article.title }}</router-link>
+                        <router-link :to="{ name: 'admin-articles-id', params: { id: comment.articleId } }">{{ comment.content }}</router-link>
                       </td>
+                      <td class="uk-table-shrink uk-text-nowrap uk-text-small" v-text="getFormattedDate(comment.updateAt)"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -62,9 +64,11 @@
 
 <style scoped>
   .comment-user {
+    font-weight: bold;
     margin-bottom: 15px;
   }
   .comment-meta p {
+    color: #999;
     font-size: 13px;
     margin: 3px 0;
   }
@@ -73,28 +77,25 @@
 <script>
 const moment = require('moment')
 export default {
-  name: 'ArticlesIndex',
+  name: 'commentsIndex',
   layout: 'backend',
   data () {
     return {
-      status: 0,
+      type: 1,
       refetch: false,
       page: 1,
       nextAvailable: true,
       selected: [],
-      articles: []
+      comments: []
     }
   },
   methods: {
-    refresh () {
-      this.refetch = !this.refetch
-    },
-    changeStatus (s) {
-      this.status = s
+    changeType (s) {
+      this.type = s
       this.page = 1
     },
     isActive (s) {
-      return s === this.status
+      return s === this.type
     },
     getFormattedDate (date) {
       return moment(date).format('YYYY-MM-DD')
@@ -104,29 +105,28 @@ export default {
     },
     async next () {
       this.page++
-      const nextArticles = await this.$axios.$get(`/articles/?status=${this.status}&page=${this.page + 1}`)
-      if (nextArticles.length === 0) {
+      const nextComments = await this.$axios.$get(`/comments/?type=${this.type}&page=${this.page + 1}`)
+      if (nextComments.length === 0) {
         this.nextAvailable = false
       }
     },
     async destroy () {
-      this.$confirm('此操作将永久删除所选中的所有文章, 是否继续？', '警告', {
+      this.$confirm('此操作将永久删除所选中的所有评论, 是否继续？', '警告', {
         type: 'warning'
       })
       .then(() => {
-        // 待完善
         Promise.all(
           this.selected.map(async selection => {
-            await this.$axios.$delete(`/articles/${selection}`)
+            await this.$axios.$delete(`/comments/${selection}`)
             .catch(error => {
               this.$message.warning(error.message)
             })
           })
         )
         .then(() => {
+          this.refetch = !this.refetch
           this.$message.success('操作成功')
         })
-        this.refetch = !this.refetch
       })
       .catch(() => {
         this.$message.info('已取消操作')
@@ -136,15 +136,15 @@ export default {
   computed: {
     selectAll: {
       get () {
-        return (this.articles && this.articles.length !== 0) ? this.selected.length === this.articles.length : false
+        return (this.comments && this.comments.length !== 0) ? this.selected.length === this.comments.length : false
       },
       set (value) {
         let selected = []
         // 全选时
         if (value) {
-          this.articles.map(article => {
-            selected.push(article.id)
-            return article
+          this.comments.map(comment => {
+            selected.push(comment.id)
+            return comment
           })
         }
         this.selected = selected
@@ -152,9 +152,9 @@ export default {
     }
   },
   asyncComputed: {
-    articles: {
+    comments: {
       get () {
-        return this.$axios.$get(`/articles/?status=${this.status}&page=${this.page}`)
+        return this.$axios.$get(`/comments/?type=${this.type}&page=${this.page}`)
       },
       watch () {
         return this.refetch
@@ -162,6 +162,10 @@ export default {
     }
   },
   async mounted () {
+    const nextComments = await this.$axios.$get(`/comments/?type=${this.type}&page=${this.page + 1}`)
+    if (nextComments.length === 0) {
+      this.nextAvailable = false
+    }
     this.$store.commit('changeHero', {
       title: '评论',
       description: '屈平词赋悬日月，楚王台谢空山丘。',
