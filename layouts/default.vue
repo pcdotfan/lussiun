@@ -15,12 +15,6 @@
                               <li>
                                   <router-link to="/" class="selected active current nav__item">首页</router-link>
                               </li>
-                              <li>
-                                  <a id="db8d7d8006ed911e885290242ac110004" href="/archive" class=" nav__item">归档</a>
-                              </li>
-                              <li>
-                                  <a id="db8d7e5de6ed911e885290242ac110004" href="/feed" class=" nav__item">订阅</a>
-                              </li>
                           </ul>
                           <div class="clear clear_nav_inline_end"></div>
                       </div>

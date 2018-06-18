@@ -9,11 +9,11 @@
           </span>
           <span class="item">
               <i class="fa fa-code"></i>
-              <a href="/category/writing" v-text="article.__category__.name"></a>
+              <router-link :to="'/categories/' + article.categoryId" v-text="article.__category__.name"></router-link>
           </span>
           <span class="item">
               <i class="fa fa-comment-o"></i>
-              <a href="/post/writing/2018-04-19-23-50-51#comments">{{ article.commentCount }} 评</a>
+              <a href="#comments">{{ article.commentCount }} ?</a>
           </span>
       </div>
       <div class="post" v-html="getRendered(article.content)">
