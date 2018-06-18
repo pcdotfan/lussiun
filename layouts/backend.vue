@@ -93,12 +93,10 @@
 
 <script>
 import Gravatar from 'gravatar'
-import BusyOverlay from '@/components/BusyOverLay'
 export default {
   name: 'Backend',
   middleware: ['auth'],
   components: {
-    BusyOverlay
   },
   data () {
     return {
