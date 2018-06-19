@@ -141,6 +141,13 @@ export class ArticlesController {
         const bucket: string = this.config.get('QINIU_BUCKET');
         const baseUrl: string = this.config.get('QINIU_URL');
 
+        // 重置文件名
+        const re = /(?:\.([^.]+))?$/;
+        const ext = re.exec(image.originalname)[1];
+        const dateTime = Date.now();
+        const timestamp = Math.floor(dateTime / 1000);
+        image.originalname = `${timestamp}.${ext}`;
+
         const fileService = qiniuService.file(`${bucket}:${image.originalname}`).tabZone(this.config.get('QINIU_ZONE'));
         let fileUploaded =  await fileService.upload({ stream: image.buffer });
 
