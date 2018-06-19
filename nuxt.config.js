@@ -32,7 +32,7 @@ module.exports = {
   loading: { color: '#2889ED' },
 
   css: [
-    { src: '~assets/style.scss', lang: 'scss' },
+    { src: '~assets/scss/buefy-build.scss', lang: 'scss' },
     { src: 'font-awesome/css/font-awesome.min.css', lang: 'css' }
   ],
 
@@ -40,6 +40,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~plugins/buefy'
   ],
 
   /*
@@ -62,6 +63,11 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    postcss: {
+      plugins: {
+        'postcss-custom-properties': false
+      }
+    },
     /*
     ** You can extend webpack config here
     */

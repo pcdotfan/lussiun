@@ -1,25 +1,29 @@
 <template>
-    <section class="article-list">
-        <article v-for="article in articles" :key="article.id">
-            <h2>
-                <router-link :to="'/arts/' + article.id" v-text="article.title"></router-link>
-            </h2>
-            <div class="excerpt"><p v-html="getExcerpt(article.content)"></p></div>
-            <div class="meta">
-              <span class="item">
-                  <i class="fa fa-calendar-o"></i>
-                  <time :datetime="getDate(article.updatedAt)" v-text="getDate(article.updatedAt)"></time>
-              </span>
-              <span class="item">
-                  <i class="fa fa-code"></i>
-                  <router-link :to="'/category/' + article.categoryId" v-text="article.__category__.name"></router-link>
-              </span>
-              <span class="item">
-                  <i class="fa fa-comment-o"></i>
-                  <a href="/post/writing/2018-04-19-23-50-51#comments">{{ article.commentCount }} 评</a>
-              </span>
+    <section class="articles">
+        <div class="article" v-for="article in articles" :key="article.id">
+            <div class="media">
+                <div class="media-content">
+                    <h2 class="title article-title"><router-link :to="'/arts/' + article.id" v-text="article.title"></router-link></h2>
+                </div>
             </div>
-        </article>
+            <div class="content article-body">
+                <p v-html="getExcerpt(article.content)"></p>
+            </div>
+            <div class="meta">
+            <span class="item">
+                <i class="fa fa-calendar-o"></i>
+                <time :datetime="getDate(article.updatedAt)" v-text="getDate(article.updatedAt)"></time>
+            </span>
+            <span class="item">
+                <i class="fa fa-code"></i>
+                <router-link :to="'/category/' + article.categoryId" v-text="article.__category__.name"></router-link>
+            </span>
+            <span class="item">
+                <i class="fa fa-comment-o"></i>
+                <a href="/post/writing/2018-04-19-23-50-51#comments">{{ article.commentCount }} 评</a>
+            </span>
+            </div>
+        </div>
     </section>
 </template>
 
@@ -37,7 +41,9 @@ export default {
   },
   methods: {
     getExcerpt (str) {
-      return excerptHtml(md.render(str))
+      return excerptHtml(md.render(str), {
+        pruneLength: 240 // Amount of characters that the excerpt should contain
+      })
     },
     getDate (date) {
       return moment(date).format('YYYY.MM.DD')
