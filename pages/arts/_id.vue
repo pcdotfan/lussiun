@@ -13,7 +13,7 @@
           </span>
           <span class="item">
               <i class="fa fa-comment-o"></i>
-              <a href="#comments">{{ article.commentCount }} ?</a>
+              <a href="#comments">{{ article.commentCount }} 评</a>
           </span>
       </div>
       <div class="post" v-html="getRendered(article.content)">
