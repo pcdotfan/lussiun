@@ -23,11 +23,12 @@ export default {
   data () {
     return {
       page: 0,
-      nextAvailable: false,
-      articles: []
+      nextAvailable: false
     }
   },
-  methods: {
+  async asyncData ({ app, params }) {
+    let data = (await app.$axios.get(`/articles/?page=${params.paged}`)).data
+    return { articles: data }
   },
   async mounted () {
     this.page = Number(this.$route.params.paged)

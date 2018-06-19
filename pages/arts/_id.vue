@@ -33,19 +33,14 @@ export default {
   components: {
     CommentSection
   },
-  data () {
-    return {
-      article: {
-        title: '',
-        __category__: {}
-      },
-      id: Number(this.$route.params.id)
-    }
-  },
   head () {
     return {
       title: this.article.title + ' | ' + this.$nuxt.$options.head.site.title
     }
+  },
+  async asyncData ({ app, params }) {
+    let data = (await app.$axios.get(`/articles/${params.id}`)).data
+    return { article: data }
   },
   methods: {
     getRendered (mdContent) {
@@ -54,9 +49,6 @@ export default {
     getDate (date) {
       return moment(date).format('YYYY.MM.DD')
     }
-  },
-  async mounted () {
-    this.article = (await this.$axios.get(`/articles/${this.id}`)).data
   }
 }
 </script>

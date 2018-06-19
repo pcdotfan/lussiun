@@ -23,9 +23,8 @@ export default {
   },
   data () {
     return {
-      nextAvailable: false,
-      articles: [],
-      category: {}
+      id: Number(this.$route.params.id),
+      nextAvailable: false
     }
   },
   head () {
@@ -33,12 +32,13 @@ export default {
       title: this.category.name + ' | ' + this.$nuxt.$options.head.site.title
     }
   },
+  async asyncData ({ app, params }) {
+    const category = (await app.$axios.get(`/categories/${params.id}`)).data
+    const articles = (await app.$axios.get(`/articles/?cat=${params.id}`)).data
+    return { category, articles }
+  },
   async mounted () {
-    this.id = Number(this.$route.params.id)
-    this.category = (await this.$axios.get(`/categories/${this.id}`)).data
-    this.articles = (await this.$axios.get(`/articles/?cat=${this.id}`)).data
     const nextArticles = (await this.$axios.$get(`/articles/?cat=${this.id}&page=2`))
-    console.log(nextArticles)
     if (nextArticles.length !== 0) {
       this.nextAvailable = true
     }

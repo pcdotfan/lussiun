@@ -15,6 +15,12 @@
                               <li>
                                   <router-link to="/" class="selected active current nav__item">首页</router-link>
                               </li>
+                              <li>
+                                  <router-link to="/category/1" class="selected active current nav__item">JavaScript</router-link>
+                              </li>
+                              <li>
+                                  <router-link to="/category/2" class="selected active current nav__item">Laravel</router-link>
+                              </li>
                           </ul>
                           <div class="clear clear_nav_inline_end"></div>
                       </div>
