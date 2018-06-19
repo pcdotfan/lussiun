@@ -5,7 +5,11 @@
             <div class="card">
               <div class="card-content">
                 <header>
+<<<<<<< HEAD
                   <div class="left media">
+=======
+                  <div class="left media is-pulled-left">
+>>>>>>> blog
                     <router-link to="/" class="logo">
                         <img :src="logo" class="media-left">
                     </router-link>
@@ -14,7 +18,11 @@
                         <h2 v-text="description"></h2>
                     </div>
                   </div>
+<<<<<<< HEAD
                   <nav>
+=======
+                  <nav class="is-pulled-right">
+>>>>>>> blog
                     <ul>
                         <li>
                             <router-link to="/" class="selected active current nav__item">首页</router-link>
@@ -27,6 +35,10 @@
                         </li>
                     </ul>
                   </nav>
+<<<<<<< HEAD
+=======
+                  <div class="is-clearfix"></div>
+>>>>>>> blog
                 </header>
                 <nuxt />
               </div>
