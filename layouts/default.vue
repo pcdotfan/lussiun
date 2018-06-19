@@ -1,74 +1,74 @@
 <template>
-<div>
-    <header>
-      <router-link to="/" class="logo">
-          <img :src="logo">
-      </router-link>
-      <div class="description">
-          <h1 v-text="title"></h1>
-          <h2 v-text="description"></h2>
-          <nav>
-              <div class="bitcron_nav_container">
-                  <div class="bitcron_nav">
-                      <div class="mixed_site_nav_wrap site_nav_wrap">
-                          <ul class="mixed_site_nav site_nav sm sm-base">
-                              <li>
-                                  <router-link to="/" class="selected active current nav__item">首页</router-link>
-                              </li>
-                              <li>
-                                  <router-link to="/category/1" class="selected active current nav__item">JavaScript</router-link>
-                              </li>
-                              <li>
-                                  <router-link to="/category/2" class="selected active current nav__item">Laravel</router-link>
-                              </li>
-                          </ul>
-                          <div class="clear clear_nav_inline_end"></div>
-                      </div>
-                  </div>
-                  <div class="clear clear_nav_end"></div>
-              </div>
-          </nav>
-      </div>
-  </header>
-  <div class="wrapper">
+<div class="container">
     <main>
-        <nuxt />
+        <div class="column is-9 is-center">
+            <div class="card">
+              <div class="card-content">
+                <header>
+                  <div class="left media is-pulled-left">
+                    <router-link to="/" class="logo">
+                        <img :src="logo" class="media-left">
+                    </router-link>
+                    <div class="description media-content">
+                        <h1 v-text="title"></h1>
+                        <h2 v-text="description"></h2>
+                    </div>
+                  </div>
+                  <nav class="is-pulled-right">
+                    <ul>
+                        <li>
+                            <router-link to="/" class="selected active current nav__item">首页</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/category/1" class="selected active current nav__item">JavaScript</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/category/2" class="selected active current nav__item">Laravel</router-link>
+                        </li>
+                    </ul>
+                  </nav>
+                  <div class="is-clearfix"></div>
+                </header>
+                <nuxt />
+              </div>
+            </div>
+            <aside class="is-center">
+              <div class="columns is-gapless">
+                <div class="aside-left column is-8">
+                    <h3>最新文章</h3>
+                    <ul class="columns is-multiline is-gapless">
+                        <li class="column is-half" :key="article.id" v-for="article in recentArticles">
+                            <router-link :to="'/arts/' + article.id" v-text="article.title"></router-link>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="aside-right column is-4">
+                    <h3>分门别类</h3>
+                    <ul class="columns is-multiline is-gapless">
+                        <li class="column is-half" v-for="category in categories" :key="category.id">
+                            <router-link :to="'/category/' + category.id" v-text="category.name"></router-link>
+                            <span v-text="category.count + '篇'"></span>
+                        </li>
+                    </ul>
+                </div>
+              </div>
+            </aside>
+            <footer class="is-center">
+              <span>© 2018 {{ title }} -</span>
+              <span> ♥
+                  <a href="https://blog.shuiba.co/bitcron-theme-hello">Hello Redesigned</a>
+              </span>
+              <div class="powered-by">
+                  <span>Proudly published with </span>
+                  <a href="https://github.com/pcdotfan/lussiun" target="_blank">Lussiun</a>
+              </div>
+              <div class="footer-slogan">
+                  <img src="~assets/images/slogan.svg">
+              </div>
+          </footer>
+        </div>
     </main>
-  </div>
-  <aside>
-    <div class="aside-left sidebar">
-        <h3>最新文章</h3>
-        <ul>
-            <li :key="article.id" v-for="article in recentArticles">
-                <router-link :to="'/arts/' + article.id" v-text="article.title"></router-link>
-            </li>
-        </ul>
-        <div class="clear"></div>
-    </div>
-    <div class="aside-right sidebar">
-        <h3>分门别类</h3>
-        <ul>
-            <li v-for="category in categories" :key="category.id">
-                <router-link :to="'/category/' + category.id" v-text="category.name"></router-link>
-                <span v-text="category.count + '篇'"></span>
-            </li>
-        </ul>
-    </div>
-  </aside>
-  <footer>
-    <span>© 2018 {{ title }} -
-    </span>
-    <span> ♥
-        <a href="https://blog.shuiba.co/bitcron-theme-hello">Hello Redesigned</a>
-    </span>
-    <div class="powered_by">
-        <span>Proudly published with </span>
-        <a href="https://github.com/pcdotfan/lussiun" target="_blank">Lussiun</a>
-    </div>
-    <div class="footer_slogan">
-        <img src="~assets/images/slogan.svg">
-    </div>
-</footer>
 </div>
 </template>
 
