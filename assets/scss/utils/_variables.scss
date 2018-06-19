@@ -36,28 +36,31 @@ a {
 }
 
 header {
-  margin: 0 auto;
-  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding-top: 100px;
   padding-bottom: 60px;
+
   .left {
     max-width: 280px;
   }
+
   h1 {
     display: block;
     color: #333;
     font-size: 1.8rem;
     font-weight: 600;
-    margin-bottom: 8px;
-    text-align: left;
+    margin-bottom: 5px;
   }
+
   h2 {
     display: block;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #bbb;
     font-weight: normal;
-    text-align: right;
   }
+
   a.logo {
     line-height: 0;
     & > img {
@@ -70,17 +73,21 @@ header {
 nav {
   ul {
     display: inline-block;
-    padding-left: 0.3em;
-    margin-left: 0;
-    
-    li a {
-      font-size: 0.8em;
-      width: 2em;
-      display: block;
-      padding: 0.5em 0.8em;
-      color: #999;
-      line-height: 2em;
-      border-top: 2px solid #555;
+    li {
+      display: inline-block;
+      padding-left: 8px;
+      a {
+        font-size: 0.8rem;
+        display: block;
+        padding: 10px;
+        color: #999;
+        border-top: 2px solid #555;                
+        &:hover {
+          font-weight: bold;
+          color: #fff;
+          background: #555; 
+        }
+      }
     }
   }
 }
