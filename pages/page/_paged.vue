@@ -8,7 +8,7 @@
           <router-link :to="{ path: `/page/${page + 1}` }" v-if="nextAvailable" class="next">
               下一页 <i class="fa fa-angle-right"></i>
           </router-link>
-          <div class="clear"></div>
+          <div class="is-clearfix"></div>
       </div>
     </div>
 </template>

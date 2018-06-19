@@ -9,7 +9,7 @@
             <router-link :to="{ path: `/category/${id}/page/2` }" v-if="nextAvailable" class="next">
                 下一页 <i class="fa fa-angle-right"></i>
             </router-link>
-            <div class="clear"></div>
+            <div class="is-clearfix"></div>
         </div>
     </section>
 </template>

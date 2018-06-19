@@ -19,19 +19,18 @@
       <div class="post" v-html="getRendered(article.content)">
       </div>
     </article>
-    <comment-section :article="id"></comment-section>
+    <!--<comment-section :article="id"></comment-section>-->
   </div>
 </template>
 
 <script>
-import CommentSection from '@/components/CommentSection'
+// import CommentSection from '@/components/CommentSection'
 const MarkdownIt = require('markdown-it')
 const moment = require('moment')
 const md = new MarkdownIt()
 export default {
   name: 'Article',
   components: {
-    CommentSection
   },
   head () {
     return {
