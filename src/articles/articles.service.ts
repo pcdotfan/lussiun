@@ -25,11 +25,23 @@ export class ArticlesService {
 
     async where(where: object, skip: number = 0, take: number = 59999): Promise<Article[]> {
         where = _.omitBy(where, _.isUndefined);
-        return await this.articleRepository.find({ where, take, skip });
+        return await this.articleRepository.find(
+            {
+                where,
+                take,
+                skip,
+                order: {
+                    id: 'DESC',
+                },
+            });
     }
 
     async findAll(): Promise<Article[]> {
-        return await this.articleRepository.find();
+        return await this.articleRepository.find({
+            order: {
+                id: 'DESC',
+            },
+        });
     }
 
     async create(articleDto: ArticleDto): Promise<Article> {

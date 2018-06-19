@@ -22,7 +22,15 @@ export class CommentsService {
 
     async where(where: object, skip: number = 0, take: number = 59999): Promise<Comment[]> {
         where = _.omitBy(where, _.isUndefined);
-        return await this.commentRepository.find({ where, take, skip });
+        return await this.commentRepository.find(
+            {
+                where,
+                take,
+                skip,
+                order: {
+                    id: 'DESC',
+                },
+            });
     }
     async findAll(): Promise<Comment[]> {
         return await this.commentRepository.find();
