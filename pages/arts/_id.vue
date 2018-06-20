@@ -1,7 +1,7 @@
 <template>
   <div>
+    <h1 v-text="article.title" class="title"></h1>
     <article class="content">
-      <h1 v-text="article.title"></h1>
       <div class="meta">
           <span class="item">
               <i class="fa fa-calendar-o"></i>
@@ -16,7 +16,7 @@
               <a href="#comments">{{ article.commentCount }} 评</a>
           </span>
       </div>
-      <div class="post" v-html="getRendered(article.content)">
+      <div class="article-content" v-html="getRendered(article.content)">
       </div>
     </article>
     <!--<comment-section :article="id"></comment-section>-->
