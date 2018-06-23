@@ -33,7 +33,8 @@ module.exports = {
 
   css: [
     { src: '~assets/scss/buefy-build.scss', lang: 'scss' },
-    { src: 'font-awesome/css/font-awesome.min.css', lang: 'css' }
+    { src: 'font-awesome/css/font-awesome.min.css', lang: 'css' },
+    '~assets/css/github.css'
   ],
 
   /*

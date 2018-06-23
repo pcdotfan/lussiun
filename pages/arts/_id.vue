@@ -25,9 +25,19 @@
 
 <script>
 // import CommentSection from '@/components/CommentSection'
-const MarkdownIt = require('markdown-it')
+const hljs = require('highlight.js')
+const md = require('markdown-it')({
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return hljs.highlight(lang, str).value
+      } catch (__) {}
+    }
+
+    return '' // use external default escaping
+  }
+})
 const moment = require('moment')
-const md = new MarkdownIt()
 export default {
   name: 'Article',
   components: {

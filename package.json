@@ -28,14 +28,17 @@
     "excerpt-html": "^1.2.0",
     "font-awesome": "^4.7.0",
     "gravatar": "^1.6.0",
+    "highlight.js": "^9.12.0",
     "markdown-it": "^8.4.1",
     "material-design-icons": "^3.0.1",
     "moment": "^2.22.2",
+    "node-prismjs": "^0.1.1",
     "node-sass": "^4.9.0",
     "nuxt": "^1.0.0",
     "prismjs": "^1.15.0",
     "sass-loader": "^7.0.3",
-    "style-loader": "^0.21.0"
+    "style-loader": "^0.21.0",
+    "valine": "^1.1.9-rc2"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
