@@ -8,5 +8,8 @@
     "entities": [
         "src/**/**.entity{.ts,.js}"
     ],
+    "extra": {
+        "charset": "utf8mb4_unicode_ci"
+    },
     "synchronize": true
 }
