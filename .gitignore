@@ -11,3 +11,5 @@ npm-debug.log
 dist
 
 *.lock
+
+yarn-error\.log

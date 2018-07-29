@@ -13,38 +13,38 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.0.0",
+    "@nuxtjs/axios": "^5.3.1",
     "@nuxtjs/moment": "^1.0.0",
     "@vuikit/icons": "^0.8.1",
     "@vuikit/theme": "^0.8.0",
     "buefy": "^0.6.6",
     "bulma": "^0.7.1",
-    "css-loader": "^0.28.11",
+    "css-loader": "^1.0.0",
     "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "excerpt-html": "^1.2.0",
     "font-awesome": "^4.7.0",
     "gravatar": "^1.6.0",
     "highlight.js": "^9.12.0",
-    "markdown-it": "^8.4.1",
+    "markdown-it": "^8.4.2",
     "material-design-icons": "^3.0.1",
     "moment": "^2.22.2",
-    "node-prismjs": "^0.1.1",
-    "node-sass": "^4.9.0",
-    "nuxt": "^1.0.0",
+    "node-prismjs": "^0.1.2",
+    "node-sass": "^4.9.2",
+    "nuxt": "^1.4.1",
     "prismjs": "^1.15.0",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
-    "valine": "^1.1.9-rc2"
+    "valine": "^1.2.9"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.1",
-    "cross-env": "^5.0.1",
-    "eslint": "^4.15.0",
-    "eslint-loader": "^2.0.0",
-    "eslint-plugin-vue": "^4.0.0"
+    "babel-eslint": "^8.2.6",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.2.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-vue": "^4.7.1"
   }
 }
