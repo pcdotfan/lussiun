@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Patch, Post, Body, UsePipes, Req, HttpException, HttpStatus, Injectable, UseGuards, Delete } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../jwt.guard';
 import { CommentDto } from './dto/comment.dto';
 import { CommentsService } from './comments.service';
 import { Comment } from './comment.entity';
@@ -22,12 +22,7 @@ export class CommentsController {
     ) { }
 
     @Get()
-    @UseGuards(AuthGuard('jwt', {
-        callback: (err, user, info) => {
-            // 即使用户不存在也同样不抛出错误
-            return user;
-        },
-    }))
+    @UseGuards(new JwtAuthGuard())
     async findAll(@Req() request): Promise<Comment[]> {
         const page: number = request.query.page || 1;
         const articleId: number | undefined = request.query.article || undefined;
@@ -62,7 +57,7 @@ export class CommentsController {
     }
 
     // 暂时不允许更改 @Patch(':id')
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(new JwtAuthGuard())
     async update(@Param() id: number, @Body() commentDto: CommentDto): Promise<Comment> {
         return await this.commentsService.update(id, commentDto);
     }
@@ -73,7 +68,7 @@ export class CommentsController {
     }
 
     @Delete(':id')
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(new JwtAuthGuard())
     async destory(@Param('id') id) {
         return await this.commentsService.destroy(id);
     }

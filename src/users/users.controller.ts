@@ -4,7 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ValidationPipe } from '../validation.pipe';
 import { User } from './user.entity';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../jwt.guard';
 
 @Injectable()
 @Controller('users')
@@ -14,7 +14,7 @@ export class UsersController {
     ) { }
 
     @Post()
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(new JwtAuthGuard())
     @UsePipes(ValidationPipe)
     async create(@Body() createUserDto: CreateUserDto): Promise<User> {
         const userExisted =
@@ -29,7 +29,7 @@ export class UsersController {
     }
 
     @Patch(':id')
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(new JwtAuthGuard())
     async update(@Param() id: number, @Body() updateUserDto: UpdateUserDto): Promise<any> {
         await this.usersService.update(id, updateUserDto);
         return;

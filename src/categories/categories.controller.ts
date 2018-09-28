@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Patch, Post, Body, UsePipes, HttpException, HttpStatus, Injectable, UseGuards, Delete } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../jwt.guard';
 import { CategoryDto } from './dto/category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -23,7 +23,7 @@ export class CategoriesController {
     }
 
     @Post()
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(new JwtAuthGuard())
     @UsePipes(ValidationPipe)
     async create(@Body() categoryDto: CategoryDto) {
         const categoryExisted = await this.categoriesService.where({ slug: categoryDto.slug });
@@ -35,7 +35,7 @@ export class CategoriesController {
     }
 
     @Patch(':id')
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(new JwtAuthGuard())
     async update(@Param() id: number, @Body() categoryDto: CategoryDto): Promise<Category> {
         return await this.categoriesService.update(id, categoryDto);
     }

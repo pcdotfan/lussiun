@@ -5,7 +5,7 @@ import { Controller,
     Post,
     Req,
     Body, UsePipes, HttpException, HttpStatus, Injectable, UseGuards, Delete, UseInterceptors, FileInterceptor, UploadedFile } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../jwt.guard';
 import { ArticleDto } from './dto/article.dto';
 import { ArticlesService } from './articles.service';
 import { CategoriesService } from '../categories/categories.service';
@@ -26,12 +26,7 @@ export class ArticlesController {
     ) { }
 
     @Get()
-    @UseGuards(AuthGuard('jwt', {
-        callback: (err, user, info) => {
-            // 即使用户不存在也同样不抛出错误
-            return user;
-        },
-    }))
+    @UseGuards(new JwtAuthGuard())
     async findAll(@Req() request): Promise<Article[]> {
         /*
             登录用户：开放 status 作为参数
@@ -69,7 +64,7 @@ export class ArticlesController {
     }
 
     @Post()
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(new JwtAuthGuard())
     @UsePipes(ValidationPipe)
     async create(@Body() articleDto: ArticleDto, @Req() request): Promise<Article> {
         const articleExisted =
@@ -84,7 +79,7 @@ export class ArticlesController {
     }
 
     @Patch(':id')
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(new JwtAuthGuard())
     @UsePipes(ValidationPipe)
     async update(@Param('id') id, @Body() articleDto: ArticleDto): Promise<object> {
         const article = await this.articlesService.findOneById(id);
@@ -120,7 +115,7 @@ export class ArticlesController {
         return await this.articlesService.destroy(id);
     }
 
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(new JwtAuthGuard())
     @Post('upload')
     // 暂时只允许图片上传
     @UseInterceptors(FileInterceptor('file', {

@@ -1,5 +1,5 @@
 import { Injectable, Get, Body, Controller, UseGuards, Post, Req, HttpException, HttpStatus } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../jwt.guard';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import * as _ from 'lodash';
@@ -14,13 +14,13 @@ export class AuthController {
     ) { }
 
     @Get('user')
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(new JwtAuthGuard())
     async user(@Req() request): Promise<object> {
         return { user: { id: request.user.id } };
     }
 
     @Get('profile')
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(new JwtAuthGuard())
     async profile(@Req() request): Promise<object> {
         return _.pick(request.user, ['username', 'nickname', 'email', 'introduction']);
     }
@@ -54,7 +54,7 @@ export class AuthController {
     }
 
     @Post('changepassword')
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(new JwtAuthGuard())
     async changePassword(@Req() request, @Body() body): Promise<object> {
         const user = await this.usersService.changePassword(request.user.id, body.password);
         if (user) {
@@ -64,7 +64,7 @@ export class AuthController {
     }
 
     @Post('logout')
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(new JwtAuthGuard())
     async logout(): Promise<object> {
         return {
             message: 'OK',
