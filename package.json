@@ -7,7 +7,7 @@
   "scripts": {
     "nuxt": "PORT=3333 nuxt",
     "build": "PORT=3333 nuxt build",
-    "start": "PORT=3333 nuxt start",
+    "start": "PORT=3333 nuxt build && nuxt generate && nuxt start",
     "generate": "PORT=3333 nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
