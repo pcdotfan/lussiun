@@ -75,19 +75,19 @@ export default {
       this.$confirm('此操作不可逆, 是否继续？', '警告', {
         type: 'warning'
       })
-      .then(() => {
-        this.$axios.$delete(`/categories/${id}`)
-        .then(response => {
-          this.$message.success('操作成功')
-          this.refetch = !this.refetch
+        .then(() => {
+          this.$axios.$delete(`/categories/${id}`)
+            .then(response => {
+              this.$message.success('操作成功')
+              this.refetch = !this.refetch
+            })
+            .catch(e => {
+              this.$message.warning(e.data.message)
+            })
         })
-        .catch(e => {
-          this.$message.warning(e.data.message)
+        .catch(() => {
+          this.$message.info('已取消删除')
         })
-      })
-      .catch(() => {
-        this.$message.info('已取消删除')
-      })
     }
   }
 }

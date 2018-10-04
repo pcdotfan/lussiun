@@ -1,48 +1,45 @@
 <template>
-  <section class="container">
-    <div>
-      <logo/>
-    </div>
-  </section>
+  <div id="backend">
+    <main class="uk-container">
+        <div class="overview uk-margin-top">
+            <vk-grid class="uk-child-width-1-3@m uk-child-width-1-2">
+              <div>
+                <vk-card class="recent-posts" padding="small">
+                  <h4>最近发布的文章</h4>
+                  <ul class="uk-list">
+                    <li v-for="article in recentArticles" :key="article.id">
+                      <span v-text="dateFormatted(article.updatedAt)"></span>
+                       <router-link :to="{ name: 'articles-id', params: { id: article.id } }">{{ article.title }}</router-link>
+                    </li>
+                  </ul>
+                </vk-card>
+              </div>
+            </vk-grid>
+        </div>
+    </main>
+  </div>
 </template>
-
 <script>
-import Logo from '~/components/AppLogo.vue'
+const moment = require('moment')
 export default {
-  components: {
-    Logo
+  name: 'Dashboard',
+  layout: 'backend',
+  data () {
+    return {
+      recentArticles: []
+    }
+  },
+  async mounted () {
+    this.$store.commit('changeHero', {
+      title: '控制面板',
+      description: 'Some insights and statistics'
+    })
+    this.recentArticles = await this.$axios.$get('/articles?status=2')
+  },
+  methods: {
+    dateFormatted (date) {
+      return moment(date).format('MM.DD')
+    }
   }
 }
 </script>
-
-<style>
-.container
-{
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-.title
-{
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-.subtitle
-{
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-.links
-{
-  padding-top: 15px;
-}
-</style>

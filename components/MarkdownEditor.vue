@@ -122,9 +122,9 @@ export default {
       return this.$axios.post('/articles/upload', param)
         .then(response => {
           // todo: error
-          let url = `![](${response.data.url})`  // 拼接成markdown语法
+          let url = `![](${response.data.url})` // 拼接成markdown语法
           let content = simplemde.getValue()
-          simplemde.setValue(content + '\n' + url)  // 和编辑框之前的内容进行拼接
+          simplemde.setValue(content + '\n' + url) // 和编辑框之前的内容进行拼接
         })
         .catch(e => {
           this.$message({

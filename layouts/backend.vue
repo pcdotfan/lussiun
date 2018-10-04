@@ -8,7 +8,7 @@
                         <img src="~assets/images/uikit-logo.svg" class="uk-margin-small-right">Lussiun
                     </vk-navbar-logo>
                     <vk-navbar-nav>
-                        <router-link tag="li" to="/admin" exact>
+                        <router-link tag="li" to="/" exact>
                             <a>
                             <div class="">
                                 控制面板
@@ -16,7 +16,7 @@
                             </div>
                             </a>
                         </router-link>
-                        <router-link tag="li" to="/admin/articles">
+                        <router-link tag="li" to="/articles">
                             <a>
                             <div class="">
                                 文章
@@ -24,7 +24,7 @@
                             </div>
                             </a>
                         </router-link>
-                        <router-link tag="li" to="/admin/categories">
+                        <router-link tag="li" to="/categories">
                             <a>
                             <div class="">
                                 分类目录
@@ -32,7 +32,7 @@
                             </div>
                             </a>
                         </router-link>
-                        <router-link tag="li" to="/admin/comments">
+                        <router-link tag="li" to="/comments">
                             <a>
                             <div class="">
                                 评论
@@ -48,7 +48,7 @@
                         <vk-iconnav-item icon="file-edit" ratio="0.875"></vk-iconnav-item>
                         <vk-iconnav-item @click="$auth.logout()" icon="sign-out" ratio="0.875"></vk-iconnav-item>
                     </vk-iconnav>
-                    <router-link to="/admin/profile" tag="li" exact>
+                    <router-link to="/profile" tag="li" exact>
                         <a class="user-drop">
                             <img class="uk-border-circle uk-margin-small-right" height="32" width="32" :src="avatar">
                             <span v-text="user.nickname"></span>
@@ -95,7 +95,6 @@
 import Gravatar from 'gravatar'
 export default {
   name: 'Backend',
-  middleware: ['auth'],
   components: {
   },
   data () {

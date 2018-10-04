@@ -41,7 +41,7 @@
                         </vk-grid>
                       </td>
                       <td>
-                        <router-link :to="{ name: 'admin-articles-id', params: { id: comment.articleId } }">{{ comment.content }}</router-link>
+                        <router-link :to="{ name: 'articles-id', params: { id: comment.articleId } }">{{ comment.content }}</router-link>
                       </td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small" v-text="getFormattedDate(comment.updateAt)"></td>
                     </tr>
@@ -114,23 +114,23 @@ export default {
       this.$confirm('此操作将永久删除所选中的所有评论, 是否继续？', '警告', {
         type: 'warning'
       })
-      .then(() => {
-        Promise.all(
-          this.selected.map(async selection => {
-            await this.$axios.$delete(`/comments/${selection}`)
-            .catch(error => {
-              this.$message.warning(error.message)
-            })
-          })
-        )
         .then(() => {
-          this.refetch = !this.refetch
-          this.$message.success('操作成功')
+          Promise.all(
+            this.selected.map(async selection => {
+              await this.$axios.$delete(`/comments/${selection}`)
+                .catch(error => {
+                  this.$message.warning(error.message)
+                })
+            })
+          )
+            .then(() => {
+              this.refetch = !this.refetch
+              this.$message.success('操作成功')
+            })
         })
-      })
-      .catch(() => {
-        this.$message.info('已取消操作')
-      })
+        .catch(() => {
+          this.$message.info('已取消操作')
+        })
     }
   },
   computed: {

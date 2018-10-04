@@ -3,11 +3,11 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        fullscreenLoading: true
-      }
+export default {
+  data () {
+    return {
+      fullscreenLoading: true
     }
   }
+}
 </script>

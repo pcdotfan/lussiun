@@ -12,7 +12,7 @@
                         <input class="uk-input uk-width-1-1" type="password" name="password" v-model="user.password" placeholder="密码">
                     </div>
                 </div>
-                <button class="uk-button uk-button-primary uk-button-large uk-width-1-1" @keyup.enter="login"  @click="login">登录</button>
+                <button class="uk-button uk-button-primary uk-button-large uk-width-1-1" type="submit" @keyup.enter="login"  @click="login">登录</button>
               </div>
               <ul class="uk-list uk-light uk-text-small">
                 <li>
@@ -30,7 +30,7 @@
 import AuthTip from '@/components/AuthTip'
 export default {
   name: 'Login',
-  middleware: ['auth'],
+  auth: false,
   components: {
     AuthTip
   },
@@ -49,21 +49,22 @@ export default {
   },
   methods: {
     async login () {
-      this.error = null
-      if (!this.user.username || !this.user.password) {
-        return this.$refs.alert.openAlert('请输入用户名和密码', 'warning')
+      try {
+        this.error = null
+        if (!this.user.username || !this.user.password) {
+          return this.$refs.alert.openAlert('请输入用户名和密码', 'warning')
+        }
+        await this.$auth
+          .loginWith('local', {
+            data: {
+              username: this.user.username,
+              password: this.user.password,
+              remember: this.remember
+            }
+          })
+      } catch (e) {
+        this.$refs.alert.openAlert(e.data.message, 'danger')
       }
-      return this.$auth
-        .loginWith('local', {
-          data: {
-            username: this.user.username,
-            password: this.user.password,
-            remember: this.remember
-          }
-        })
-        .catch(e => {
-          this.$refs.alert.openAlert(e.data.message, 'danger')
-        })
     }
   }
 }

@@ -69,20 +69,20 @@ export default {
         return
       }
       return this.$axios.$post('/categories', this.category)
-      .then(response => {
-        this.$emit('refresh-event')
-        this.$notify({
-          title: '成功',
-          message: '操作成功',
-          type: 'success'
+        .then(response => {
+          this.$emit('refresh-event')
+          this.$notify({
+            title: '成功',
+            message: '操作成功',
+            type: 'success'
+          })
+        }).catch(e => {
+          this.$notify({
+            title: '失败',
+            message: e.data.message,
+            type: 'warning'
+          })
         })
-      }).catch(e => {
-        this.$notify({
-          title: '失败',
-          message: e.data.message,
-          type: 'warning'
-        })
-      })
     },
     async updateCategory () {
       if (this.errors.items.length !== 0) {
@@ -93,20 +93,20 @@ export default {
         return
       }
       return this.$axios.$patch(`/categories/${this.id}`, this.category)
-      .then(response => {
-        this.$emit('refresh-event')
-        this.$notify({
-          title: '成功',
-          message: '操作成功',
-          type: 'success'
+        .then(response => {
+          this.$emit('refresh-event')
+          this.$notify({
+            title: '成功',
+            message: '操作成功',
+            type: 'success'
+          })
+        }).catch(e => {
+          this.$notify({
+            title: '失败',
+            message: e.data.message,
+            type: 'warning'
+          })
         })
-      }).catch(e => {
-        this.$notify({
-          title: '失败',
-          message: e.data.message,
-          type: 'warning'
-        })
-      })
     }
   },
   watch: {

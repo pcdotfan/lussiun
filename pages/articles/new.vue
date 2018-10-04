@@ -3,14 +3,14 @@
     <div class="article-new-edit">
         <vk-card>
           <div slot="header">
-            <input class="title uk-input uk-width-1-1 uk-form-large" v-validate="'required'" data-vv-as="标题" v-model="article.title">
+            <input class="title uk-input uk-width-1-1 uk-form-large" v-validate="'required'" data-vv-as="标题" placeholder="输入标题..." v-model="article.title">
           </div>
           <div>
-            <markdown-editor v-model="article.content" v-validate="'required'" data-vv-as="内容"></markdown-editor>
+            <markdown-editor :name="getDraftCode" v-validate="'required'" data-vv-as="内容" v-model="article.content"></markdown-editor>
           </div>
           <div slot="footer">
             <p class="uk-text-right">
-              <vk-button type="primary" @click="updateArticle">更新文章</vk-button>
+              <vk-button @click="createArticle" type="primary">发布文章</vk-button>
             </p>
           </div>
         </vk-card>
@@ -23,7 +23,7 @@
               </div>
               <div>
                 <label class="uk-form-label" for="status">状态</label>
-                <el-select v-model="article.status"  v-validate="'required|min:-1|max:2'" data-vv-as="状态" name="status" placeholder="选择文章状态">
+                <el-select v-model="article.status" v-validate="'required|min:-1|max:2'" data-vv-as="状态" name="status" placeholder="选择文章状态">
                   <el-option
                     v-for="status in statuses"
                     :key="status.id"
@@ -34,7 +34,7 @@
               </div>
               <div>
                 <label class="uk-form-label" for="categories">分类目录</label>
-                <el-select v-model="article.categoryId" v-validate="'required|numeric'" placeholder="选择一个分类目录">
+                <el-select v-model="article.categoryId" v-validate="'required|numeric'" data-vv-as="分类目录" name="categories" placeholder="选择一个分类目录">
                   <el-option
                     v-for="category in categories"
                     :key="category.id"
@@ -43,18 +43,6 @@
                   </el-option>
                 </el-select>
               </div>
-              <div>
-                <label class="uk-form-label" for="updatedAt">更新时间</label>
-                <el-date-picker
-                  v-model="updatedAt"
-                  type="datetime"
-                  placeholder="选择日期时间">
-                </el-date-picker>
-              </div>
-              <div>
-                <label class="uk-form-label" for="categories">杂项</label>
-                <label><input class="uk-checkbox uk-margin-small-right" type="checkbox" checked>开启评论</label>
-              </div>
             </vk-grid>
           </vk-card>
         </section>
@@ -62,7 +50,8 @@
   </main>
 </template>
 <script>
-// const moment = require('moment')
+const _ = require('lodash')
+const moment = require('moment')
 export default {
   name: 'New',
   layout: 'backend',
@@ -70,12 +59,13 @@ export default {
     return {
       article: {
         title: '',
-        slug: '',
-        content: '',
         categoryId: '请选择',
-        status: 2
+        status: 1,
+        content: '',
+        slug: '',
+        createdAt: moment(),
+        userId: this.$auth.user.id
       },
-      updatedAt: new Date(),
       statuses: [
         {
           id: -1,
@@ -101,36 +91,37 @@ export default {
       return this.$axios.$get('/categories')
     }
   },
+  computed: {
+    getDraftCode () {
+      return 'article-' + localStorage.getItem('draftCode')
+    }
+  },
   methods: {
-    async updateArticle () {
+    async createArticle () {
       if (this.errors.items.length !== 0) {
         return this.$message.warning(this.errors.items[0].msg)
       }
-      return this.$axios.$patch(`/articles/${this.article.id}`, this.article)
+      return this.$axios.$post('/articles', _.assign(this.article))
         .then(response => {
+          this.$store.commit('cleanDraft')
           this.$notify.success({
             title: '成功',
             message: '操作成功'
           })
         }).catch(e => {
-          this.$notify.warning({
-            title: '失败',
-            message: e.data.message || '内部服务器错误'
-          })
+          this.$notify.warning(e.data.message)
         })
     }
   },
   async mounted () {
     this.$store.commit('changeHero', {
-      title: '编辑文章',
+      title: '撰写文章',
       description: '词源倒流三江水，笔阵独扫千人军。',
       navbarItems: [
-        { title: '文章列表', path: '/admin/articles' },
-        { title: '撰写文章', path: '/admin/articles/new' },
-        { title: '编辑文章', path: this.$route.path }
+        { title: '文章列表', path: '/articles' },
+        { title: '撰写文章', path: '/articles/new' }
       ]
     })
-    this.article = await this.$axios.$get(`/articles/${this.$route.params.id}`)
   }
 }
 </script>

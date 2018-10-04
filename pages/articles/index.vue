@@ -29,7 +29,7 @@
                         <input class="uk-checkbox" v-model="selected" :value="article.id" type="checkbox">
                       </td>
                       <td>
-                        <router-link :to="{ name: 'admin-articles-id', params: { id: article.id } }">{{ article.title }}</router-link>
+                        <router-link :to="{ name: 'articles-id', params: { id: article.id } }">{{ article.title }}</router-link>
                       </td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small"><img class="uk-margin-small-right uk-preserve-width uk-border-circle" :src="article.__user__.avatar" width="46">{{ article.__user__.nickname }}</td>
                       <td class="uk-table-shrink uk-text-nowrap uk-text-small"><router-link :to="{ name:'admin-articles-cat-id', params:{ id: article.categoryId } }" v-text="article.__category__.name"></router-link></td>
@@ -94,24 +94,24 @@ export default {
       this.$confirm('此操作将永久删除所选中的所有文章, 是否继续？', '警告', {
         type: 'warning'
       })
-      .then(() => {
-        // 待完善
-        Promise.all(
-          this.selected.map(async selection => {
-            await this.$axios.$delete(`/articles/${selection}`)
-            .catch(error => {
-              this.$message.warning(error.message)
-            })
-          })
-        )
         .then(() => {
-          this.$message.success('操作成功')
+        // 待完善
+          Promise.all(
+            this.selected.map(async selection => {
+              await this.$axios.$delete(`/articles/${selection}`)
+                .catch(error => {
+                  this.$message.warning(error.message)
+                })
+            })
+          )
+            .then(() => {
+              this.$message.success('操作成功')
+            })
+          this.refetch = !this.refetch
         })
-        this.refetch = !this.refetch
-      })
-      .catch(() => {
-        this.$message.info('已取消操作')
-      })
+        .catch(() => {
+          this.$message.info('已取消操作')
+        })
     }
   },
   computed: {
@@ -147,8 +147,8 @@ export default {
       title: '文章',
       description: '屈平词赋悬日月，楚王台谢空山丘。',
       navbarItems: [
-        { title: '文章列表', path: '/admin/articles' },
-        { title: '撰写文章', path: '/admin/articles/new' }
+        { title: '文章列表', path: '/articles' },
+        { title: '撰写文章', path: '/articles/new' }
       ]
     })
   }
