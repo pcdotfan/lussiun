@@ -26,7 +26,6 @@ export class ArticlesController {
     ) { }
 
     @Get()
-    @UseGuards(new JwtAuthGuard())
     async findAll(@Req() request): Promise<Article[]> {
         /*
             登录用户：开放 status 作为参数
@@ -40,7 +39,6 @@ export class ArticlesController {
         const page: number = request.query.page || 1;
         const categoryId: number | undefined = request.query.cat || undefined;
         const limit: number = request.query.limit || 10;
-        const status: number = request.user ? (request.query.status || 2) : 2;
         let articles = [];
         const conditions: object = {
            categoryId,
@@ -123,7 +121,7 @@ export class ArticlesController {
             files: 1,
             fileSize: 2 * 10 * 10 * 10 * 10 * 10 * 10 * 10, // 限制图片大小 2MB
         },
-        fileFilter (req, file, callback) {
+        fileFilter(req, file, callback) {
             // 只允许上传jpg|png|jpeg|gif格式的文件
             if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
                 return callback(new Error('仅允许上传图片文件！'), false);
