@@ -28,9 +28,6 @@ export class ArticlesController {
     @Get()
     async findAll(@Req() request): Promise<Article[]> {
         /*
-            登录用户：开放 status 作为参数
-            未登录用户：status === 2
-
             query:
                 page Number 页数
                 cat Number 分类（id）
@@ -42,7 +39,6 @@ export class ArticlesController {
         let articles = [];
         const conditions: object = {
            categoryId,
-           status,
         };
 
         articles = await this.articlesService.where(conditions, (page - 1) * limit, limit);
