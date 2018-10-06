@@ -6,16 +6,14 @@
               <table class="uk-table uk-table-divider">
                 <thead>
                   <tr>
-                    <th class="uk-width-expand">分类名称</th>
-                    <th class="uk-table-shrink uk-text-nowrap">别名</th>
-                    <th class="uk-table-shrink uk-text-nowrap">总数</th>
-                    <th class="uk-width-small">操作</th>
+                    <th class="uk-width-1-2">分类名称</th>
+                    <th class="uk-width-1-6 uk-text-nowrap">总数</th>
+                    <th class="uk-width-1-6 uk-text-nowrap">操作</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="category in categories" :key="category.id">
                     <td v-text="category.name"></td>
-                    <td v-text="category.slug"></td>
                     <td v-text="category.count"></td>
                     <td>
                       <vk-iconnav>

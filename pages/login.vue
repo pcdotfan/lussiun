@@ -62,6 +62,7 @@ export default {
               remember: this.remember
             }
           })
+        this.$router.push('/')
       } catch (e) {
         this.$refs.alert.openAlert(e.data.message, 'danger')
       }
