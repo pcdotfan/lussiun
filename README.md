@@ -12,6 +12,8 @@ Demo: [https://oqo.moe](https://oqo.moe) (WIP)
 
 ### Frontend Admin (SPA)
 
+Branch: [https://github.com/pcdotfan/lussiun/tree/blog](https://github.com/pcdotfan/lussiun/tree/blog)
+
 Modify `nuxt.config.js` to set your website's info:
 
 ```javascript
@@ -52,6 +54,8 @@ $ npm start
 ```
 
 ### Frontend Blog (SSR)
+
+Branch: [https://github.com/pcdotfan/lussiun/tree/nuxt](https://github.com/pcdotfan/lussiun/tree/nuxt)
 
 Modify `nuxt.config.js` to set your website's info:
 
