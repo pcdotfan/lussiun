@@ -29,7 +29,10 @@ export default {
   },
   head () {
     return {
-      title: this.category.name + ' | ' + this.$nuxt.$options.head.site.title
+      title: this.category.name + ' | ' + this.$nuxt.$options.head.site.title,
+      meta: [
+        { hid: 'description', name: 'description', content: this.category.description }
+      ]
     }
   },
   async asyncData ({ app, params }) {

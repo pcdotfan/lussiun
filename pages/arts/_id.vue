@@ -9,7 +9,7 @@
           </span>
           <span class="item">
               <i class="fa fa-code"></i>
-              <router-link :to="'/categories/' + article.categoryId" v-text="article.__category__.name"></router-link>
+              <router-link :to="'/category/' + article.categoryId" v-text="article.__category__.name"></router-link>
           </span>
           <span class="item">
               <i class="fa fa-comment-o"></i>
@@ -25,6 +25,7 @@
 
 <script>
 // import CommentSection from '@/components/CommentSection'
+const excerptHtml = require('excerpt-html')
 const hljs = require('highlight.js')
 const md = require('markdown-it')({
   highlight: function (str, lang) {
@@ -44,7 +45,10 @@ export default {
   },
   head () {
     return {
-      title: this.article.title + ' | ' + this.$nuxt.$options.head.site.title
+      title: this.article.title + ' | ' + this.$nuxt.$options.head.site.title,
+      meta: [
+        { hid: 'description', name: 'description', content: this.getExcerpt(this.article.content) }
+      ]
     }
   },
   async asyncData ({ app, params }) {
@@ -52,6 +56,11 @@ export default {
     return { article: data }
   },
   methods: {
+    getExcerpt (str) {
+      return excerptHtml(md.render(str), {
+        pruneLength: 240 // Amount of characters that the excerpt should contain
+      })
+    },
     getRendered (mdContent) {
       return md.render(String(mdContent))
     },

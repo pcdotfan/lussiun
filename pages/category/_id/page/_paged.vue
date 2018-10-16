@@ -33,7 +33,10 @@ export default {
   },
   head () {
     return {
-      title: this.category.name + ' | ' + this.$nuxt.$options.head.site.title
+      title: this.category.name + ' | ' + this.$nuxt.$options.head.site.title,
+      meta: [
+        { hid: 'description', name: 'description', content: this.category.description }
+      ]
     }
   },
   async asyncData ({ app, params }) {
@@ -43,7 +46,6 @@ export default {
   },
   async mounted () {
     const nextArticles = await this.$axios.$get(`/articles/?cat=${this.id}&page=${this.page + 1}`)
-    console.log(nextArticles)
     if (nextArticles.length !== 0) {
       this.nextAvailable = true
     }
