@@ -54,6 +54,11 @@ const moment = require('moment')
 export default {
   name: 'ArticlesIndex',
   layout: 'backend',
+  head () {
+    return {
+      title: this.category.name + ' | ' + this.$nuxt.$options.head.title
+    }
+  },
   data () {
     return {
       category: {},

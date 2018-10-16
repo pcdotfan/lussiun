@@ -24,6 +24,11 @@ const moment = require('moment')
 export default {
   name: 'Dashboard',
   layout: 'backend',
+  head () {
+    return {
+      title: '控制面板' + ' | ' + this.$nuxt.$options.head.title
+    }
+  },
   data () {
     return {
       recentArticles: []

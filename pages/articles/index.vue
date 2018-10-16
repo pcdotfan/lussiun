@@ -56,6 +56,11 @@ const moment = require('moment')
 export default {
   name: 'ArticlesIndex',
   layout: 'backend',
+  head () {
+    return {
+      title: '文章列表' + ' | ' + this.$nuxt.$options.head.title
+    }
+  },
   data () {
     return {
       status: 0,

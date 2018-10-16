@@ -62,10 +62,14 @@
   </main>
 </template>
 <script>
-// const moment = require('moment')
 export default {
   name: 'New',
   layout: 'backend',
+  head () {
+    return {
+      title: this.article.title + ' | ' + this.$nuxt.$options.head.title
+    }
+  },
   data () {
     return {
       article: {

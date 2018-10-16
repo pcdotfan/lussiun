@@ -84,6 +84,11 @@ import Gravatar from 'gravatar'
 export default {
   name: 'ProfileIndex',
   layout: 'backend',
+  head () {
+    return {
+      title: '个人资料' + ' | ' + this.$nuxt.$options.head.title
+    }
+  },
   data () {
     return {
       user: {

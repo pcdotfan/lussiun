@@ -40,6 +40,11 @@ export default {
   components: {
     CategoryForm
   },
+  head () {
+    return {
+      title: '分类目录' + ' | ' + this.$nuxt.$options.head.title
+    }
+  },
   data () {
     return {
       refetch: false,

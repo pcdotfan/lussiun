@@ -55,6 +55,11 @@ const moment = require('moment')
 export default {
   name: 'New',
   layout: 'backend',
+  head () {
+    return {
+      title: '撰写文章' + ' | ' + this.$nuxt.$options.head.title
+    }
+  },
   data () {
     return {
       article: {

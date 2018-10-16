@@ -19,7 +19,6 @@
                     <label class="uk-form">
                     <input class="uk-checkbox" type="checkbox" name="remember" v-model="remember"> 记住我</label>
                 </li>
-                <li class="uk-margin-small-top"> 忘记密码 <a class="uk-link" data-uk-toggle="{ target: '.js-toggle' }">请求密码</a></li>
               </ul>
             </form>
         </div>
@@ -33,6 +32,11 @@ export default {
   auth: false,
   components: {
     AuthTip
+  },
+  head () {
+    return {
+      title: '登录' + ' | ' + this.$nuxt.$options.head.title
+    }
   },
   data () {
     return {
