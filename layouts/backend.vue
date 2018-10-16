@@ -46,7 +46,7 @@
                     <vk-iconnav class="navbar-right-controls">
                         <vk-iconnav-item icon="home" ratio="0.875"></vk-iconnav-item>
                         <vk-iconnav-item icon="file-edit" ratio="0.875"></vk-iconnav-item>
-                        <vk-iconnav-item @click="$auth.logout()" icon="sign-out" ratio="0.875"></vk-iconnav-item>
+                        <vk-iconnav-item @click="this.logout()" icon="sign-out" ratio="0.875"></vk-iconnav-item>
                     </vk-iconnav>
                     <router-link to="/profile" tag="li" exact>
                         <a class="user-drop">
@@ -56,7 +56,7 @@
                         <vk-dropdown target=".user-drop">
                             <vk-nav-dropdown>
                                 <vk-nav-item title="个人资料"></vk-nav-item>
-                                <vk-nav-item @click="$auth.logout()" title="登出"></vk-nav-item>
+                                <vk-nav-item @click="this.logout()" title="登出"></vk-nav-item>
                             </vk-nav-dropdown>
                         </vk-dropdown>
                     </router-link>
@@ -121,6 +121,12 @@ export default {
     },
     async avatar () {
       return Gravatar.url(this.user.email, { s: '32' })
+    }
+  },
+  methods: {
+    logout () {
+      this.$auth.logout()
+      this.$router.push('/login')
     }
   }
 }
