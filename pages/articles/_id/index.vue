@@ -101,8 +101,13 @@ export default {
     }
   },
   asyncComputed: {
-    async categories () {
-      return this.$axios.$get('/categories')
+    categories: {
+      get () {
+        return this.$axios.$get('/categories')
+      },
+      default () {
+        return []
+      }
     }
   },
   methods: {
