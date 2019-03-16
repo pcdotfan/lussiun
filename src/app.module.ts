@@ -1,23 +1,12 @@
 import { Module } from '@nestjs/common';
+import { RenderModule } from 'nest-next';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { CategoriesModule } from './categories/categories.module';
-import { UsersModule } from './users/users.module';
-import { ArticlesModule } from './articles/articles.module';
-import { CommentsModule } from './comments/comments.module';
+import { CacheModule } from './cache/cache.module';
 import { ConfigModule } from './config/config.module';
-import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(),
-    CategoriesModule,
-    CommentsModule,
-    UsersModule,
-    ConfigModule,
-    ArticlesModule,
-    AuthModule,
-  ],
+  imports: [RenderModule, CacheModule, ConfigModule],
   controllers: [AppController],
   providers: [AppService],
 })

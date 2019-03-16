@@ -1,23 +1,47 @@
 {
   "compilerOptions": {
+    "target": "esnext",
     "module": "commonjs",
-    "declaration": true,
-    "noImplicitAny": false,
-    "removeComments": true,
-    "noLib": false,
+    "jsx": "react",
+    "strict": true,
+    "pretty": true,
+    
+    "noImplicitAny": true,
+    "alwaysStrict": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    
+    "outDir": ".next",
+    "moduleResolution": "node",
+
     "allowSyntheticDefaultImports": true,
-    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+
     "experimentalDecorators": true,
-    "target": "es6",
+    "emitDecoratorMetadata": true,
+
     "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./src"
+    "skipLibCheck": true,
+
+    "lib": [
+      "es2017"
+    ],
+
+    "baseUrl": ".",
+    "paths": {
+      "@server/*": [
+        "src/*"
+      ],
+      "@src/*": [
+        "pages/*"
+      ]
+    },
+
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
-  "include": [
-    "src/**/*"
-  ],
   "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
+    "node_modules"
   ]
 }

@@ -1,14 +1,33 @@
-import * as dotenv from 'dotenv';
+import { parse } from 'dotenv';
 import * as fs from 'fs';
+import * as Joi from 'joi';
+
+export interface EnvConfig {
+  [key: string]: string;
+}
 
 export class ConfigService {
-    private readonly envConfig: { [prop: string]: string };
+  private readonly envConfig: EnvConfig;
 
-    constructor(filePath: string) {
-        this.envConfig = dotenv.parse(fs.readFileSync(filePath));
+  constructor(path: string = 'development') {
+    this.envConfig = this.validateConfig(parse(fs.readFileSync('.env')));
+  }
+
+  public get(key: string): string {
+    return this.envConfig[key];
+  }
+
+  private validateConfig(envConfig: EnvConfig) {
+    const envSchema = Joi.object({
+      CACHE_TTL: Joi.number().default(50),
+    });
+
+    const { error, value } = Joi.validate(envConfig, envSchema);
+
+    if (error) {
+      throw new Error(`Config validation error: ${error.message}`);
     }
 
-    get(key: string): string {
-        return this.envConfig[key];
-    }
+    return value;
+  }
 }
