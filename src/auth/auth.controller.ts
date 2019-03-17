@@ -1,32 +1,32 @@
-import { Injectable, Get, Body, Controller, UseGuards, Post, Req, HttpException, HttpStatus } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Injectable, Post, Req, UseGuards } from '@nestjs/common';
+import * as _ from 'lodash';
 import { JwtAuthGuard } from '../jwt.guard';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
-import * as _ from 'lodash';
-import { CreateUserDto } from 'users/dto/create-user.dto';
 
 @Injectable()
 @Controller('auth')
 export class AuthController {
     constructor(
         private readonly usersService: UsersService,
-        private readonly authService: AuthService,
+        private readonly authService: AuthService
     ) { }
 
     @Get('user')
     @UseGuards(new JwtAuthGuard())
-    async user(@Req() request): Promise<object> {
+    public async user(@Req() request: any): Promise<object> {
         return { user: { id: request.user.id } };
     }
 
     @Get('profile')
     @UseGuards(new JwtAuthGuard())
-    async profile(@Req() request): Promise<object> {
+    public async profile(@Req() request: any): Promise<object> {
         return _.pick(request.user, ['username', 'nickname', 'email', 'introduction']);
     }
 
     @Post('register') // 测试用
-    async register(@Body() createUserDto: CreateUserDto): Promise<object> {
+    public async register(@Body() createUserDto: CreateUserDto): Promise<object> {
         const userMatched = await this.usersService.match(createUserDto);
 
         if (!userMatched) {
@@ -37,7 +37,7 @@ export class AuthController {
     }
 
     @Post('login')
-    async login(@Body() body): Promise<object> {
+    public async login(@Body() body: any): Promise<object> {
         const credentials = {
             username: body.username,
             password: body.password,
@@ -55,7 +55,7 @@ export class AuthController {
 
     @Post('changepassword')
     @UseGuards(new JwtAuthGuard())
-    async changePassword(@Req() request, @Body() body): Promise<object> {
+    public async changePassword(@Req() request: any, @Body() body: any): Promise<object> {
         const user = await this.usersService.changePassword(request.user.id, body.password);
         if (user) {
             return user;
@@ -65,7 +65,7 @@ export class AuthController {
 
     @Post('logout')
     @UseGuards(new JwtAuthGuard())
-    async logout(): Promise<object> {
+    public async logout(): Promise<object> {
         return {
             message: 'OK',
         };

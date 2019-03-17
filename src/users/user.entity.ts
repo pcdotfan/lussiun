@@ -1,43 +1,43 @@
 import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    OneToMany,
-    CreateDateColumn,
-    UpdateDateColumn,
     BaseEntity,
+    Column,
+    CreateDateColumn,
+    Entity,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
 } from 'typeorm';
 import { Article } from '../articles/article.entity';
 
 @Entity()
 export class User extends BaseEntity {
-    @PrimaryGeneratedColumn() id: number;
+    @PrimaryGeneratedColumn() public id: number;
 
     @Column({
         nullable: true,
     })
-    nickname: string;
+    public nickname: string;
 
     @Column()
-    username: string;
+    public username: string;
 
     @Column()
-    email: string;
+    public email: string;
 
     @Column()
-    password: string;
+    public password: string;
 
     @Column('text', {
         nullable: true,
     })
-    introduction: string;
+    public introduction: string;
 
     @CreateDateColumn({ type: 'timestamp' })
-    createdAt: Date;
+    public createdAt: Date;
 
     @UpdateDateColumn({ type: 'timestamp' })
-    updatedAt: Date;
+    public updatedAt: Date;
 
-    @OneToMany(type => Article, article => article.user)
-    articles: Promise<Article[]>;
+    @OneToMany((type) => Article, (article) => article.user)
+    public articles: Promise<Article[]>;
 }

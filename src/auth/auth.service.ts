@@ -1,17 +1,17 @@
-import * as jwt from 'jsonwebtoken';
 import { Injectable } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
+import * as jwt from 'jsonwebtoken';
 import { ConfigService } from '../config/config.service';
+import { UsersService } from '../users/users.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
     constructor(
         private readonly usersService: UsersService,
-        private config: ConfigService,
+        private config: ConfigService
     ) { }
 
-    async createToken(id: number, remember: boolean = false): Promise<string> {
+    public async createToken(id: number, remember: boolean = false): Promise<string> {
         const jwtUser: JwtPayload = { id };
         const expiresIn = remember ? '1d' : '1h';
 
@@ -21,7 +21,7 @@ export class AuthService {
             { expiresIn });
     }
 
-    async validateUser(payload: JwtPayload): Promise<any> {
+    public async validateUser(payload: JwtPayload): Promise<any> {
         return await this.usersService.findOneById(payload.id);
     }
 

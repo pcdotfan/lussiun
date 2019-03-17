@@ -1,22 +1,26 @@
-import { Injectable, Inject, Post, Body, Controller, UsePipes, HttpException, UseGuards, HttpStatus, Patch, Param } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { Body,
+    Controller,
+    HttpException,
+    HttpStatus,
+    Inject, Injectable, Param, Patch, Post, UseGuards, UsePipes } from '@nestjs/common';
+import { JwtAuthGuard } from '../jwt.guard';
+import { ValidationPipe } from '../validation.pipe';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ValidationPipe } from '../validation.pipe';
 import { User } from './user.entity';
-import { JwtAuthGuard } from '../jwt.guard';
+import { UsersService } from './users.service';
 
 @Injectable()
 @Controller('users')
 export class UsersController {
     constructor(
-        private readonly usersService: UsersService,
+        private readonly usersService: UsersService
     ) { }
 
     @Post()
     @UseGuards(new JwtAuthGuard())
     @UsePipes(ValidationPipe)
-    async create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    public async create(@Body() createUserDto: CreateUserDto): Promise<User> {
         const userExisted =
                 await this.usersService.where({ username: createUserDto.username }) ||
                 await this.usersService.where({ email: createUserDto.email });
@@ -30,7 +34,7 @@ export class UsersController {
 
     @Patch(':id')
     @UseGuards(new JwtAuthGuard())
-    async update(@Param() id: number, @Body() updateUserDto: UpdateUserDto): Promise<any> {
+    public async update(@Param() id: number, @Body() updateUserDto: UpdateUserDto): Promise<any> {
         await this.usersService.update(id, updateUserDto);
         return;
     }
