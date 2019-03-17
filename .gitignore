@@ -3,5 +3,5 @@ node_modules
 .vscode
 .yalc
 ormconfig.json
-yarn\.lock
+yarn.lock
 .env

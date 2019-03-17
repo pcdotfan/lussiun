@@ -1,20 +1,20 @@
-import { Controller,
+import { Body,
+    Controller,
+    Delete,
+    FileInterceptor,
     Get,
-    Param,
-    Patch,
-    Post,
-    Req,
-    Body, UsePipes, HttpException, HttpStatus, Injectable, UseGuards, Delete, UseInterceptors, FileInterceptor, UploadedFile } from '@nestjs/common';
-import { JwtAuthGuard } from '../jwt.guard';
-import { ArticleDto } from './dto/article.dto';
-import { ArticlesService } from './articles.service';
+    HttpException,
+    HttpStatus, Injectable, Param, Patch, Post, Req, UploadedFile, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
+import * as gravatar from 'gravatar';
+import * as _ from 'lodash';
+import * as Qiniu from 'node-qiniu-sdk';
 import { CategoriesService } from '../categories/categories.service';
 import { ConfigService } from '../config/config.service';
-import { Article } from './article.entity';
+import { JwtAuthGuard } from '../jwt.guard';
 import { ValidationPipe } from '../validation.pipe';
-import * as _ from 'lodash';
-import * as gravatar from 'gravatar';
-import * as Qiniu from 'node-qiniu-sdk';
+import { ArticleSchema } from './article.schema';
+import { ArticlesService } from './articles.service';
+import { ArticleDto } from './dto/article.dto';
 
 @Injectable()
 @Controller('articles')
@@ -22,11 +22,11 @@ export class ArticlesController {
     constructor(
         private readonly articlesService: ArticlesService,
         private readonly categoriesService: CategoriesService,
-        private config: ConfigService,
+        private config: ConfigService
     ) { }
 
     @Get()
-    async findAll(@Req() request): Promise<Article[]> {
+    public async findAll(@Req() request: any): Promise<Article[]> {
         /*
             query:
                 page Number 页数
@@ -44,14 +44,14 @@ export class ArticlesController {
         articles = await this.articlesService.where(conditions, (page - 1) * limit, limit);
         await Promise.all(
             // 参考 egg-cnode 的写法，用 Promise.all 的方法让 Array.map 内部可异步
-            articles.map(async article => {
+            articles.map(async (article) => {
                 let user = await article.user;
                 const category = await article.category;
                 const avatar = gravatar.url(user.email);
                 user = _.assign(user, { avatar });
                 user = _.omit(user, ['password', 'createdAt', 'updatedAt']);
                 article = _.assign(article, { user }, { category });
-            }),
+            })
         );
 
         return articles;
@@ -60,7 +60,7 @@ export class ArticlesController {
     @Post()
     @UseGuards(new JwtAuthGuard())
     @UsePipes(ValidationPipe)
-    async create(@Body() articleDto: ArticleDto, @Req() request): Promise<Article> {
+    public async create(@Body() articleDto: ArticleDto, @Req() request): Promise<Article> {
         const articleExisted =
             await this.articlesService.where({ slug: articleDto.slug });
 
@@ -75,7 +75,7 @@ export class ArticlesController {
     @Patch(':id')
     @UseGuards(new JwtAuthGuard())
     @UsePipes(ValidationPipe)
-    async update(@Param('id') id, @Body() articleDto: ArticleDto): Promise<object> {
+    public async update(@Param('id') id: number, @Body() articleDto: ArticleDto): Promise<object> {
         const article = await this.articlesService.findOneById(id);
         if (article.categoryId !== articleDto.categoryId) {
             await this.categoriesService.countControl(article.categoryId, false);
@@ -85,13 +85,13 @@ export class ArticlesController {
     }
 
     @Get('mock')
-    async mock(): Promise<string> {
+    public async mock(): Promise<string> {
         await this.articlesService.mock(20, 1);
         return 'done';
     }
 
     @Get(':id')
-    async findOne(@Param('id') id): Promise<Article> {
+    public async findOne(@Param('id') id): Promise<Article> {
         let article = await this.articlesService.findOneById(id);
         let user = await article.user;
         const category = await article.category;
@@ -104,7 +104,7 @@ export class ArticlesController {
     }
 
     @Delete(':id')
-    async destory(@Param('id') id): Promise<object> {
+    public async destory(@Param('id') id): Promise<object> {
         const article = await this.articlesService.findOneById(id);
         return await this.articlesService.destroy(id);
     }
@@ -125,7 +125,7 @@ export class ArticlesController {
             callback(null, true);
         },
     }))
-    async upload(@UploadedFile() image): Promise<object> {
+    public async upload(@UploadedFile() image): Promise<object> {
         const qiniuService = new Qiniu(this.config.get('QINIU_AK'), this.config.get('QINIU_SK'));
         const bucket: string = this.config.get('QINIU_BUCKET');
         const baseUrl: string = this.config.get('QINIU_URL');

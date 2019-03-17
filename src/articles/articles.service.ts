@@ -4,27 +4,27 @@ import * as faker from 'faker';
 import * as _ from 'lodash';
 import { Model } from 'mongoose';
 import { CategoriesService } from '../categories/categories.service';
-import { Article } from './article.entity';
+import { ArticleSchema } from './article.schema';
 import { ArticleDto } from './dto/article.dto';
 
 @Injectable()
 export class ArticlesService {
     constructor(
-        @InjectModel('Article')
+        @InjectModel('Article') private readonly articleModel: Model<Article>,
         private readonly categoriesService: CategoriesService
     ) { }
 
     public async findOneById(id: number): Promise<Article> {
-        return await this.articleRepository.findOne({ id });
+        return await this.articleModel.findOne({ id });
     }
 
     public async findOneBySlug(slug: string): Promise<Article> {
-        return await this.articleRepository.findOne({ slug });
+        return await this.articleModel.findOne({ slug });
     }
 
     public async where(where: object, skip: number = 0, take: number = 59999): Promise<Article[]> {
         where = _.omitBy(where, _.isUndefined);
-        return await this.articleRepository.find(
+        return await this.articleModel.find(
             {
                 where,
                 take,
@@ -36,7 +36,7 @@ export class ArticlesService {
     }
 
     public async findAll(): Promise<Article[]> {
-        return await this.articleRepository.find({
+        return await this.articleModel.find({
             order: {
                 id: 'DESC',
             },
@@ -44,13 +44,13 @@ export class ArticlesService {
     }
 
     public async create(articleDto: ArticleDto): Promise<Article> {
-        const newArticle = await this.articleRepository.create(articleDto);
+        const newArticle = await this.articleModel.create(articleDto);
         await this.categoriesService.countControl(articleDto.categoryId, true);
-        return this.articleRepository.save(newArticle);
+        return this.articleModel.save(newArticle);
     }
 
     public async update(id: number, articleDto: ArticleDto): Promise < any> {
-        await this.articleRepository.update(id, articleDto);
+        await this.articleModel.update(id, articleDto);
     }
 
     public async countControl(id: number, increment: boolean): Promise<any> {
@@ -67,7 +67,7 @@ export class ArticlesService {
     public async destroy(id: number): Promise<any> {
         const articleDeleted = await this.findOneById(id);
         await this.categoriesService.countControl(articleDeleted.categoryId, false);
-        await this.articleRepository.delete(id);
+        await this.articleModel.delete(id);
     }
 
     public async mock(count: number, userId: number): Promise<any> {

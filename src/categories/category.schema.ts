@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import { Article } from '../articles/article.entity';
 
 export const CategorySchema = new mongoose.Schema({
     name: {
@@ -16,6 +15,4 @@ export const CategorySchema = new mongoose.Schema({
         default: 0,
     },
     description: String,
-    // @OneToMany((type) => Article, (article) => article.category)
-    // public articles: Promise<Article[]>;
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at'  } });

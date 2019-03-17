@@ -2,7 +2,7 @@ import { Body, Controller,
     Delete, Get, HttpException, HttpStatus, Injectable, Param, Patch, Post, UseGuards, UsePipes } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Article } from '../articles/article.entity';
+import { Article } from '../articles/article.schema';
 import { JwtAuthGuard } from '../jwt.guard';
 import { ValidationPipe } from '../validation.pipe';
 import { CategoriesService } from './categories.service';
