@@ -12,6 +12,7 @@ async function bootstrap() {
   const server = await NestFactory.create(AppModule);
 
   const renderer = server.get(RenderModule);
+
   renderer.register(server, app);
 
   await server.listen(process.env.PORT || 3000);
