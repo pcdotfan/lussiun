@@ -1,51 +1,47 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import * as argon2 from 'argon2';
-import { Repository } from 'typeorm';
+import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './user.entity';
+import { User } from './interfaces/user.interface';
 
 @Injectable()
 export class UsersService {
     constructor(
-        @InjectRepository(User)
-        private readonly userRepository: Repository<User>
+        @InjectModel('User') private readonly userModel: Model<User>
     ) { }
 
     public async create(user: CreateUserDto): Promise<User> {
         user.password = await argon2.hash(user.password);
-        const newUser = await this.userRepository.create(user);
-        return this.userRepository.save(newUser);
+        const newUser = new this.userModel(user);
+        return await newUser.save();
     }
 
-    public async findOneById(id: number): Promise<User> {
-        return await this.userRepository.findOne({ id });
+    public async findOneById(id: number): Promise<User | null> {
+        return await this.userModel.findOne({ id });
     }
 
-    public async match(condition: { username: string, password: string }): Promise<User> {
-        const user = await this.userRepository.findOne({ username: condition.username });
+    public async match(condition: { username: string, password: string }): Promise<User | false> {
+        const user = await this.userModel.findOne({ username: condition.username });
         if (user && await argon2.verify(user.password, condition.password)) {
             return user;
         }
+        return false;
     }
 
     public async where(condition: object): Promise<User[]> {
-        return await this.userRepository.find(condition);
+        return await this.userModel.find(condition);
     }
 
     public async findAll(): Promise<User[]> {
-        return await this.userRepository.find();
+        return await this.userModel.find();
     }
 
     public async update(id: number, object: object): Promise<any> {
-        return await this.userRepository.update(id, object);
+        return await this.userModel.update({id}, object);
     }
 
     public async changePassword(id: number, password: string): Promise<any> {
-        const userExisted = await this.findOneById(id);
-        if (userExisted) {
-            userExisted.password = await argon2.hash(userExisted.password);
-            return await this.userRepository.save(userExisted);
-        }
+        return await this.userModel.findOneAndUpdate({id}, {password: await argon2.hash(password)});
     }
 }

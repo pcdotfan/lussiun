@@ -1,17 +1,17 @@
-import { IsString, IsInt, MinLength, IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsString, MinLength } from 'class-validator';
 export class CreateUserDto {
     @IsString()
-    readonly username: string;
+    public readonly username!: string;
 
-    readonly nickname: string;
+    public readonly nickname!: string;
 
     @IsEmail()
-    readonly email: string;
+    public readonly email!: string;
 
     @MinLength(6, {
         message: '密码过短，请重新输入',
     })
-    password: string;
+    public password!: string;
 
-    readonly introduction: string;
+    public readonly introduction!: string;
 }

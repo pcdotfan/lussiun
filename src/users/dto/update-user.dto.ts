@@ -1,7 +1,7 @@
-import { IsString, IsInt, MinLength, IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail } from 'class-validator';
 export class UpdateUserDto {
-    readonly nickname: string;
+    public readonly nickname: string;
     @IsEmail()
-    readonly email: string;
-    readonly introduction: string;
+    public readonly email: string;
+    public readonly introduction: string;
 }
