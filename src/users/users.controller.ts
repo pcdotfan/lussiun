@@ -7,7 +7,7 @@ import { JwtAuthGuard } from '../jwt.guard';
 import { ValidationPipe } from '../validation.pipe';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './user.entity';
+import { User } from './interfaces/user.interface'
 import { UsersService } from './users.service';
 
 @Injectable()

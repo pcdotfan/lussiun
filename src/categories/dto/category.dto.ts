@@ -1,10 +1,10 @@
 import { IsString } from 'class-validator';
 export class CategoryDto {
     @IsString()
-    readonly name: string;
+    public readonly name!: string;
 
     @IsString()
-    readonly slug: string;
+    public readonly slug!: string;
 
-    readonly description: string;
+    public readonly description!: string;
 }
