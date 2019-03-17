@@ -1,0 +1,25 @@
+type Mutation {
+    createUser(createUserInput: CreateUserInput): User
+    updateUser(updateUserInput: UpdateUserInput): User
+}
+
+type Subscription {
+    userCreated: User
+}
+
+type User {
+    id: ID!
+    nickname: String
+    username: String
+    password: String
+    email: String
+    introduction: String
+}
+
+input CreateCatInput {
+    nickname: String
+    username: String
+    password: String
+    email: String
+    introduction: String
+}

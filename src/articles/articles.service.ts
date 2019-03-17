@@ -6,6 +6,7 @@ import { Model } from 'mongoose';
 import { CategoriesService } from '../categories/categories.service';
 import { ArticleSchema } from './article.schema';
 import { ArticleDto } from './dto/article.dto';
+import { ArticleSchema } from './interfa';
 
 @Injectable()
 export class ArticlesService {
