@@ -20,6 +20,12 @@ export class ConfigService {
   private validateConfig(envConfig: EnvConfig) {
     const envSchema = Joi.object({
       CACHE_TTL: Joi.number().default(50),
+      JWT_SECRET_KEY: Joi.string(),
+      QINIU_AK: Joi.string(),
+      QINIU_SK: Joi.string(),
+      QINIU_URL: Joi.string(),
+      QINIU_BUCKET: Joi.string(),
+      QINIU_ZONE: Joi.string(),
     });
 
     const { error, value } = Joi.validate(envConfig, envSchema);

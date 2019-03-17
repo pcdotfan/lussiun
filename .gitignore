@@ -4,3 +4,4 @@ node_modules
 .yalc
 ormconfig.json
 yarn\.lock
+.env
