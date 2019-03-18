@@ -5,6 +5,7 @@ type Mutation {
 
 type Subscription {
     userCreated: User
+    userUpdated: Object
 }
 
 type User {
@@ -16,10 +17,17 @@ type User {
     introduction: String
 }
 
-input CreateCatInput {
+input CreateUserInput {
     nickname: String
-    username: String
-    password: String
+    username: String!
+    password: String!
+    email: String!
+    introduction: String
+}
+
+input UpdateUserInput {
+    id: ID!
+    nickname: String
     email: String
     introduction: String
 }

@@ -1,7 +1,4 @@
-import { Body,
-    HttpException,
-    HttpStatus,
-    Param, Patch, UseGuards, UsePipes } from '@nestjs/common';
+import { UseGuards, UsePipes } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 import { JwtAuthGuard } from '../jwt.guard';
@@ -14,7 +11,7 @@ import { UsersService } from './users.service';
 const pubSub = new PubSub();
 
 @Resolver('User')
-export class UsersController {
+export class UserResolvers {
     constructor(
         private readonly usersService: UsersService
     ) { }
@@ -23,15 +20,9 @@ export class UsersController {
     @UseGuards(new JwtAuthGuard())
     @UsePipes(ValidationPipe)
     public async create(@Args('createUserInput') createUserDto: CreateUserDto): Promise<User> {
-        const userExisted =
-                await this.usersService.where({ username: createUserDto.username }) ||
-                await this.usersService.where({ email: createUserDto.email });
-
-        if (userExisted !== []) {
-            return await this.usersService.create(createUserDto);
-        }
-
-        throw new HttpException('存在相同用户', HttpStatus.FORBIDDEN);
+        const userCreated = await this.usersService.create(createUserDto);
+        pubSub.publish('userCreated', { userCreated });
+        return userCreated;
     }
 
     @Subscription('userCreated')
