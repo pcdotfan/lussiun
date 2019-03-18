@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CategoryDto } from './dto/category.dto';
-import { Category } from './interfaces/category.interface'
+import { Category } from './interfaces/category.interface';
+import { ObjectId } from 'bson';
 
 @Injectable()
 export class CategoriesService {
@@ -10,12 +11,12 @@ export class CategoriesService {
         @InjectModel('Category') private readonly categoryModel: Model<Category>
     ) { }
 
-    public async findOneById(id: number): Promise<Category> {
-        return await this.categoryModel.findOne({ id });
+    public async findOneById(id: ObjectId): Promise<Category> {
+        return await this.categoryModel.findOne({ id }).exec();
     }
 
     public async findOneBySlug(slug: string): Promise<Category> {
-        return await this.categoryModel.findOne({ slug });
+        return await this.categoryModel.findOne({ slug }).exec();
     }
 
     public async where(condition: object): Promise<Category[]> {
@@ -27,15 +28,15 @@ export class CategoriesService {
     }
 
     public async create(categoryDto: CategoryDto): Promise<Category> {
-        const newCategory = await this.categoryModel.create(categoryDto);
-        return this.categoryModel.save(newCategory);
+        const newCategory = new this.categoryModel(categoryDto);
+        return await newCategory.save();
     }
 
-    public async update(id: number, categoryDto: CategoryDto): Promise<any> {
-        await this.categoryModel.update(id, categoryDto);
+    public async update(id: ObjectId, categoryDto: CategoryDto): Promise<any> {
+        return await this.categoryModel.update(id, categoryDto);
     }
 
-    public async countControl(id: number, increment: boolean): Promise<any> {
+    public async countControl(id: ObjectId, increment: boolean): Promise<any> {
         // 统计文章总量
         const currentCategory = await this.findOneById(id);
         if (increment) {
@@ -46,7 +47,7 @@ export class CategoriesService {
         return await currentCategory.save();
     }
 
-    public async destroy(id: number): Promise<any> {
+    public async destroy(id: ObjectId): Promise<any> {
         await this.categoryModel.delete(id);
     }
 }

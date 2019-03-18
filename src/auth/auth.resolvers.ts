@@ -13,7 +13,7 @@ const pubSub = new PubSub();
 export class AuthResolvers {
     constructor(
         private readonly usersService: UsersService,
-        private readonly authService: AuthService,
+        private readonly authService: AuthService
     ) { }
 
     @Query('user')

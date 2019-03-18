@@ -7,4 +7,5 @@ export class CategoryDto {
     public readonly slug!: string;
 
     public readonly description!: string;
+    public readonly count: number;
 }

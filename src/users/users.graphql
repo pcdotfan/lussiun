@@ -5,7 +5,7 @@ type Mutation {
 
 type Subscription {
     userCreated: User
-    userUpdated: Object
+    userUpdated: String
 }
 
 type User {

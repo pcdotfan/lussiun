@@ -1,22 +1,20 @@
 import { Body, Controller,
     Delete, Get, HttpException, HttpStatus, Injectable, Param, Patch, Post, UseGuards, UsePipes } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Article } from '../articles/article.schema';
+import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
+import { PubSub } from 'graphql-subscriptions';
 import { JwtAuthGuard } from '../jwt.guard';
 import { ValidationPipe } from '../validation.pipe';
 import { CategoriesService } from './categories.service';
 import { CategorySchema } from './category.schema';
 import { CategoryDto } from './dto/category.dto';
+import { Category } from './interfaces/category.interface';
 
-@Injectable()
-@Controller('categories')
-export class CategoriesController {
+const pubSub = new PubSub();
+
+@Resolver('Category')
+export class CategoryResolvers {
     constructor(
-        private readonly categoriesService: CategoriesService,
-        @InjectRepository(Article)
-        private readonly articleRepository: Repository<Article>
-    ) { }
+        private readonly categoriesService: CategoriesService    ) { }
 
     @Get()
     public async findAll(): Promise<Category[]> {
