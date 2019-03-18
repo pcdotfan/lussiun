@@ -5,3 +5,4 @@ node_modules
 ormconfig.json
 yarn.lock
 .env
+.DS_Store
