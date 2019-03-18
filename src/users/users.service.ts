@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as argon2 from 'argon2';
+import { ObjectId } from 'bson';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './interfaces/user.interface';
@@ -37,7 +38,7 @@ export class UsersService {
         return await this.userModel.find();
     }
 
-    public async update(id: number, object: object): Promise<any> {
+    public async update(id: ObjectId, object: object): Promise<any> {
         return await this.userModel.update({id}, object);
     }
 
