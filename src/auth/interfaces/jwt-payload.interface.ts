@@ -1,3 +1,5 @@
+import { ObjectId } from 'bson';
+
 export interface JwtPayload {
-  id: number;
+  id: ObjectId;
 }

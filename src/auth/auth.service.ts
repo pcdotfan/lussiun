@@ -3,15 +3,16 @@ import * as jwt from 'jsonwebtoken';
 import { ConfigService } from '../config/config.service';
 import { UsersService } from '../users/users.service';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
+import { ObjectId } from 'bson';
 
 @Injectable()
 export class AuthService {
     constructor(
         private readonly usersService: UsersService,
-        private config: ConfigService
+        private config: ConfigService,
     ) { }
 
-    public async createToken(id: number, remember: boolean = false): Promise<string> {
+    public async createToken(id: ObjectId, remember: boolean = false): Promise<string> {
         const jwtUser: JwtPayload = { id };
         const expiresIn = remember ? '1d' : '1h';
 

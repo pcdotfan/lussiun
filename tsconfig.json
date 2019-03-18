@@ -3,11 +3,9 @@
     "target": "esnext",
     "module": "commonjs",
     "jsx": "react",
-    "strict": true,
     "pretty": true,
     
     "noImplicitAny": true,
-    "alwaysStrict": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     

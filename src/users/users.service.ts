@@ -9,7 +9,7 @@ import { User } from './interfaces/user.interface';
 @Injectable()
 export class UsersService {
     constructor(
-        @InjectModel('User') private readonly userModel: Model<User>
+        @InjectModel('User') private readonly userModel: Model<User>,
     ) { }
 
     public async create(user: CreateUserDto): Promise<User> {
@@ -18,31 +18,35 @@ export class UsersService {
         return await newUser.save();
     }
 
-    public async findOneById(id: number): Promise<User | null> {
-        return await this.userModel.findOne({ id });
+    public async findOneById(id: ObjectId): Promise<User> {
+        return await this.userModel.findOne({ id }).exec();
     }
 
-    public async match(condition: { username: string, password: string }): Promise<User | false> {
-        const user = await this.userModel.findOne({ username: condition.username });
-        if (user && await argon2.verify(user.password, condition.password)) {
+    public async match(condition: { username: string, password: string }): Promise<User | null> {
+        const user = await this.userModel.findOne({ username: condition.username }).exec();
+        if (await argon2.verify(user.password, condition.password)) {
             return user;
         }
-        return false;
+        return null;
     }
 
     public async where(condition: object): Promise<User[]> {
-        return await this.userModel.find(condition);
+        return await this.userModel.find(condition).exec();
     }
 
     public async findAll(): Promise<User[]> {
-        return await this.userModel.find();
+        return await this.userModel.find().exec();
     }
 
     public async update(id: ObjectId, object: object): Promise<any> {
-        return await this.userModel.update({id}, object);
+        return await this.userModel.update({id}, object).exec();
     }
 
-    public async changePassword(id: number, password: string): Promise<any> {
-        return await this.userModel.findOneAndUpdate({id}, {password: await argon2.hash(password)});
+    public async changePassword(id: ObjectId, password: string): Promise<User> {
+        return await this.userModel.findOneAndUpdate({id}, {password: await argon2.hash(password)}).exec();
+    }
+
+    public async delete(username: string): Promise<User> {
+        return await this.userModel.findOneAndRemove(username).exec();
     }
 }
