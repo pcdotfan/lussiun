@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
-import { MongooseModule } from '@nestjs/mongoose';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { RenderModule } from 'nest-next';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -17,11 +16,7 @@ import { UsersModule } from './users/users.module';
     RenderModule,
     UsersModule,
     AuthModule,
-    GraphQLModule.forRoot({
-      typePaths: ['./**/*.graphql'],
-      installSubscriptionHandlers: true,
-    }),
-    MongooseModule.forRoot('mongodb://localhost/lussiun'),
+    TypeOrmModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],

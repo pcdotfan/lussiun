@@ -1,5 +1,5 @@
-import { ObjectId } from 'bson';
+import { ObjectID } from 'typeorm';
 
 export interface JwtPayload {
-  id: ObjectId;
+  id: ObjectID;
 }

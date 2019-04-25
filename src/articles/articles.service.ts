@@ -1,31 +1,31 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { Inject, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import * as faker from 'faker';
 import * as _ from 'lodash';
-import { Model } from 'mongoose';
+import { Repository } from 'typeorm';
 import { CategoriesService } from '../categories/categories.service';
-import { ArticleSchema } from './article.schema';
+import { Article } from './article.entity';
 import { ArticleDto } from './dto/article.dto';
-import { ArticleSchema } from './interfa';
 
 @Injectable()
 export class ArticlesService {
     constructor(
-        @InjectModel('Article') private readonly articleModel: Model<Article>,
+        @InjectRepository(Article)
+        private readonly articleRepository: Repository<Article>,
         private readonly categoriesService: CategoriesService
     ) { }
 
-    public async findOneById(id: number): Promise<Article> {
-        return await this.articleModel.findOne({ id });
+    async findOneById(id: string): Promise<Article> {
+        return await this.articleRepository.findOne({ id });
     }
 
-    public async findOneBySlug(slug: string): Promise<Article> {
-        return await this.articleModel.findOne({ slug });
+    async findOneBySlug(slug: string): Promise<Article> {
+        return await this.articleRepository.findOne({ slug });
     }
 
-    public async where(where: object, skip: number = 0, take: number = 59999): Promise<Article[]> {
+    async where(where: object, skip: number = 0, take: number = 59999): Promise<Article[]> {
         where = _.omitBy(where, _.isUndefined);
-        return await this.articleModel.find(
+        return await this.articleRepository.find(
             {
                 where,
                 take,
@@ -36,25 +36,25 @@ export class ArticlesService {
             });
     }
 
-    public async findAll(): Promise<Article[]> {
-        return await this.articleModel.find({
+    async findAll(): Promise<Article[]> {
+        return await this.articleRepository.find({
             order: {
                 id: 'DESC',
             },
         });
     }
 
-    public async create(articleDto: ArticleDto): Promise<Article> {
-        const newArticle = await this.articleModel.create(articleDto);
+    async create(articleDto: ArticleDto): Promise<Article> {
+        const newArticle = await this.articleRepository.create(articleDto);
         await this.categoriesService.countControl(articleDto.categoryId, true);
-        return this.articleModel.save(newArticle);
+        return this.articleRepository.save(newArticle);
     }
 
-    public async update(id: number, articleDto: ArticleDto): Promise < any> {
-        await this.articleModel.update(id, articleDto);
+    async update(id: string, articleDto: ArticleDto): Promise < any> {
+        await this.articleRepository.update(id, articleDto);
     }
 
-    public async countControl(id: number, increment: boolean): Promise<any> {
+    async countControl(id: string, increment: boolean): Promise<any> {
         // 统计文章总量
         const currentArticle = await this.findOneById(id);
         if (increment) {
@@ -65,13 +65,13 @@ export class ArticlesService {
         return await currentArticle.save();
     }
 
-    public async destroy(id: number): Promise<any> {
+    async destroy(id: string): Promise<any> {
         const articleDeleted = await this.findOneById(id);
         await this.categoriesService.countControl(articleDeleted.categoryId, false);
-        await this.articleModel.delete(id);
+        await this.articleRepository.delete(id);
     }
 
-    public async mock(count: number, userId: number): Promise<any> {
+    async mock(count: number, userId: number): Promise<any> {
         for (let i = 0; i <= count; i++) {
             const structure = {
                 title: faker.lorem.sentence(),
@@ -85,7 +85,7 @@ export class ArticlesService {
         }
     }
 
-    public getRandomInt(min, max): number {
+    getRandomInt(min, max): number {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min;

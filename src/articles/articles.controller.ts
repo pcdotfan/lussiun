@@ -1,18 +1,18 @@
 import { Body,
     Controller,
     Delete,
-    FileInterceptor,
     Get,
     HttpException,
     HttpStatus, Injectable, Param, Patch, Post, Req, UploadedFile, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
 import * as gravatar from 'gravatar';
 import * as _ from 'lodash';
 import * as Qiniu from 'node-qiniu-sdk';
+import { ObjectID } from 'typeorm';
 import { CategoriesService } from '../categories/categories.service';
 import { ConfigService } from '../config/config.service';
 import { JwtAuthGuard } from '../jwt.guard';
 import { ValidationPipe } from '../validation.pipe';
-import { ArticleSchema } from './article.schema';
+import { Article } from './article.entity';
 import { ArticlesService } from './articles.service';
 import { ArticleDto } from './dto/article.dto';
 
@@ -26,7 +26,7 @@ export class ArticlesController {
     ) { }
 
     @Get()
-    public async findAll(@Req() request: any): Promise<Article[]> {
+    async findAll(@Req() request: any): Promise<Article[]> {
         /*
             query:
                 page Number 页数
@@ -44,7 +44,7 @@ export class ArticlesController {
         articles = await this.articlesService.where(conditions, (page - 1) * limit, limit);
         await Promise.all(
             // 参考 egg-cnode 的写法，用 Promise.all 的方法让 Array.map 内部可异步
-            articles.map(async (article) => {
+            articles.map(async article => {
                 let user = await article.user;
                 const category = await article.category;
                 const avatar = gravatar.url(user.email);
@@ -60,7 +60,7 @@ export class ArticlesController {
     @Post()
     @UseGuards(new JwtAuthGuard())
     @UsePipes(ValidationPipe)
-    public async create(@Body() articleDto: ArticleDto, @Req() request): Promise<Article> {
+    async create(@Body() articleDto: ArticleDto, @Req() request: any): Promise<Article> {
         const articleExisted =
             await this.articlesService.where({ slug: articleDto.slug });
 
@@ -75,7 +75,7 @@ export class ArticlesController {
     @Patch(':id')
     @UseGuards(new JwtAuthGuard())
     @UsePipes(ValidationPipe)
-    public async update(@Param('id') id: number, @Body() articleDto: ArticleDto): Promise<object> {
+    async update(@Param('id') id: ObjectID, @Body() articleDto: ArticleDto): Promise<object> {
         const article = await this.articlesService.findOneById(id);
         if (article.categoryId !== articleDto.categoryId) {
             await this.categoriesService.countControl(article.categoryId, false);
@@ -85,13 +85,13 @@ export class ArticlesController {
     }
 
     @Get('mock')
-    public async mock(): Promise<string> {
+    async mock(): Promise<string> {
         await this.articlesService.mock(20, 1);
         return 'done';
     }
 
     @Get(':id')
-    public async findOne(@Param('id') id): Promise<Article> {
+    async findOne(@Param('id') id: ObjectID): Promise<Article> {
         let article = await this.articlesService.findOneById(id);
         let user = await article.user;
         const category = await article.category;
@@ -104,7 +104,7 @@ export class ArticlesController {
     }
 
     @Delete(':id')
-    public async destory(@Param('id') id): Promise<object> {
+    async destory(@Param('id') id: ObjectID): Promise<object> {
         const article = await this.articlesService.findOneById(id);
         return await this.articlesService.destroy(id);
     }
@@ -112,20 +112,20 @@ export class ArticlesController {
     @UseGuards(new JwtAuthGuard())
     @Post('upload')
     // 暂时只允许图片上传
-    @UseInterceptors(FileInterceptor('file', {
-        limits: {
-            files: 1,
-            fileSize: 2 * 10 * 10 * 10 * 10 * 10 * 10 * 10, // 限制图片大小 2MB
-        },
-        fileFilter(req, file, callback) {
-            // 只允许上传jpg|png|jpeg|gif格式的文件
-            if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-                return callback(new Error('仅允许上传图片文件！'), false);
-            }
-            callback(null, true);
-        },
-    }))
-    public async upload(@UploadedFile() image): Promise<object> {
+    // @UseInterceptors(FileInterceptor('file', {
+    //     limits: {
+    //         files: 1,
+    //         fileSize: 2 * 10 * 10 * 10 * 10 * 10 * 10 * 10, // 限制图片大小 2MB
+    //     },
+    //     fileFilter(req, file, callback) {
+    //         // 只允许上传jpg|png|jpeg|gif格式的文件
+    //         if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+    //             return callback(new Error('仅允许上传图片文件！'), false);
+    //         }
+    //         callback(null, true);
+    //     },
+    // }))
+    async upload(@UploadedFile() image: any): Promise<object> {
         const qiniuService = new Qiniu(this.config.get('QINIU_AK'), this.config.get('QINIU_SK'));
         const bucket: string = this.config.get('QINIU_BUCKET');
         const baseUrl: string = this.config.get('QINIU_URL');

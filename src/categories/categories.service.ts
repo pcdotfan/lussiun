@@ -1,42 +1,42 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ObjectID, Repository } from 'typeorm';
+import { Category } from './category.entity';
 import { CategoryDto } from './dto/category.dto';
-import { Category } from './interfaces/category.interface';
-import { ObjectId } from 'bson';
 
 @Injectable()
 export class CategoriesService {
     constructor(
-        @InjectModel('Category') private readonly categoryModel: Model<Category>
+        @InjectRepository(Category)
+        private readonly categoryRepository: Repository<Category>
     ) { }
 
-    public async findOneById(id: ObjectId): Promise<Category> {
-        return await this.categoryModel.findOne({ id }).exec();
+    async findOneById(id: ObjectID): Promise<Category> {
+        return await this.categoryRepository.findOne({ id });
     }
 
-    public async findOneBySlug(slug: string): Promise<Category> {
-        return await this.categoryModel.findOne({ slug }).exec();
+    async findOneBySlug(slug: string): Promise<Category> {
+        return await this.categoryRepository.findOne({ slug });
     }
 
-    public async where(condition: object): Promise<Category[]> {
-        return await this.categoryModel.find(condition);
+    async where(condition: object): Promise<Category[]> {
+        return await this.categoryRepository.find(condition);
     }
 
-    public async findAll(): Promise<Category[]> {
-        return await this.categoryModel.find();
+    async findAll(): Promise<Category[]> {
+        return await this.categoryRepository.find();
     }
 
-    public async create(categoryDto: CategoryDto): Promise<Category> {
-        const newCategory = new this.categoryModel(categoryDto);
-        return await newCategory.save();
+    async create(categoryDto: CategoryDto): Promise<Category> {
+        const newCategory = await this.categoryRepository.create(categoryDto);
+        return this.categoryRepository.save(newCategory);
     }
 
-    public async update(id: ObjectId, categoryDto: CategoryDto): Promise<any> {
-        return await this.categoryModel.update(id, categoryDto);
+    async update(id: ObjectID, categoryDto: CategoryDto): Promise<any> {
+        await this.categoryRepository.update(id, categoryDto);
     }
 
-    public async countControl(id: ObjectId, increment: boolean): Promise<any> {
+    async countControl(id: ObjectID, increment: boolean): Promise<any> {
         // 统计文章总量
         const currentCategory = await this.findOneById(id);
         if (increment) {
@@ -47,7 +47,7 @@ export class CategoriesService {
         return await currentCategory.save();
     }
 
-    public async destroy(id: ObjectId): Promise<any> {
-        await this.categoryModel.delete(id);
+    async destroy(id: ObjectID): Promise<any> {
+        await this.categoryRepository.delete(id);
     }
 }
