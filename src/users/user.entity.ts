@@ -39,6 +39,4 @@ export class User extends BaseEntity {
     @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: Date;
 
-    @OneToMany(type => Article, article => article.user)
-    articles: Promise<Article[]>;
 }

@@ -7,7 +7,6 @@ import {
     ManyToOne,
     ObjectID,
     ObjectIdColumn,
-    OneToMany,
     UpdateDateColumn,
 } from 'typeorm';
 import { Category } from '../categories/category.entity';
@@ -38,20 +37,9 @@ export class Article extends BaseEntity {
     @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: Date;
 
-    @Column()
-    categoryId: ObjectID;
+    @Column(type => Category)
+    category: Category;
 
-    @ManyToOne(type => Category)
-    @JoinColumn({ name: 'categoryId' })
-    category: Promise<Category>;
-
-    // @OneToMany(type => Comment, comment => comment.article)
-    // comments: Promise<Comment[]>;
-
-    @Column()
-    userId: ObjectID;
-
-    @ManyToOne(type => User)
-    @JoinColumn({ name: 'userId' })
-    user: Promise<User>;
+    @Column(type => User)
+    user: User;
 }

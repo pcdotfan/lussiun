@@ -5,7 +5,7 @@
   "author": "Kyle McCarthy",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/main.ts",
+    "dev": "NODE_ENV=development nodemon src/main.ts",
     "build:clean": "rm -rf .next",
     "build:server": "npx tsc --project tsconfig.server.json && npx babel .next/production-server -d .next/production-server --config-file ./.babelrc-server --extensions \".js\"",
     "build:ui": "npx next build",
@@ -37,6 +37,7 @@
     "less": "^3.9.0",
     "less-vars-to-js": "^1.3.0",
     "lodash": "^4.17.11",
+    "mongodb": "^3.2.3",
     "nest-next": "^0.7.0",
     "next": "8",
     "node-qiniu-sdk": "^1.6.6",

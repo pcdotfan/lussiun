@@ -32,7 +32,7 @@ export class Category extends BaseEntity {
     })
     description: string;
 
-    @OneToMany(type => Article, article => article.category)
+    @Column(type => Article)
     articles: Promise<Article[]>;
 
     @CreateDateColumn({ type: 'timestamp' })
